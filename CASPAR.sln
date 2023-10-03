@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CASPAR", "CASPAR.csproj", "{8A3C0DE4-32FA-4C9B-B83B-F5601D3A7CB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{42700B07-FA52-41CC-872A-E27F3B575350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{0CCFAA37-8BF0-46DE-8376-696A13D4BFDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8A3C0DE4-32FA-4C9B-B83B-F5601D3A7CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A3C0DE4-32FA-4C9B-B83B-F5601D3A7CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A3C0DE4-32FA-4C9B-B83B-F5601D3A7CB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42700B07-FA52-41CC-872A-E27F3B575350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42700B07-FA52-41CC-872A-E27F3B575350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42700B07-FA52-41CC-872A-E27F3B575350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42700B07-FA52-41CC-872A-E27F3B575350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CCFAA37-8BF0-46DE-8376-696A13D4BFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CCFAA37-8BF0-46DE-8376-696A13D4BFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CCFAA37-8BF0-46DE-8376-696A13D4BFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CCFAA37-8BF0-46DE-8376-696A13D4BFDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
