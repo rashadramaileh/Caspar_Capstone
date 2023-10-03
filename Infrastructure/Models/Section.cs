@@ -6,13 +6,13 @@ namespace CASPAR.Infrastructure.Models
     public class Section
     {
         [Key, Display(Name = "Section")]
-        public int sectionId { get; set; }
+        public int SectionId { get; set; }
 
         [Range(0, 65535)]
         public int? CRN;
 
         [Range(0, 65535), Display(Name = "Max Enrollment")]
-        public int? maxEnrollment { get; set; }
+        public int? MaxEnrollment { get; set; }
 
         [Range(0, 65535), Display(Name = "First Week Enrollment")]
         public int? FirstWeekEnroll { get; set; }
@@ -21,7 +21,7 @@ namespace CASPAR.Infrastructure.Models
         public int? ThirdWeekEnroll { get; set; }
 
         [StringLength(200), Display(Name = "Notes")]
-        public string? notes { get; set; }
+        public string? Notes { get; set; }
 
         [Range(0, 65535), Display(Name = "Classroom")]
         public int? ClassroomId { get; set; }
@@ -55,7 +55,7 @@ namespace CASPAR.Infrastructure.Models
 
         [Required, Range(0, 65535), Display(Name = "Semester")]
         public int SemesterId { get; set; }
-
+        
         [ForeignKey("ClassroomId")]
         public Classroom? Classroom { get; set; }
 
@@ -74,8 +74,8 @@ namespace CASPAR.Infrastructure.Models
         [ForeignKey("PayModelId")]
         public PayModel? PayModel { get; set; }
 
-        [ForeignKey("PartOfTermId")]
-        public PartOfTerm? PartOfTerm { get; set; }
+        //[ForeignKey("PartOfTermId")]
+       //public PartOfTerm? PartOfTerm { get; set; }
 
         [ForeignKey("ModalityId")]
         public Modality? Modality { get; set; }
@@ -88,6 +88,6 @@ namespace CASPAR.Infrastructure.Models
 
         [ForeignKey("SemesterId")]
         public Semester? Semester { get; set; }
-
+        
     }
 }

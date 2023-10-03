@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CASPAR.Infrastructure.Models
@@ -30,7 +31,7 @@ namespace CASPAR.Infrastructure.Models
         [Range(0, 65535)]
         public int SemesterId { get; set; }
 
-        [ForeignKey("InstructorWishlistId")]
+        [ForeignKey("InstructorWishlistId"), DeleteBehavior(DeleteBehavior.NoAction)]
         public InstructorWishlist? InstructorWishlist { get; set; }
 
         [ForeignKey("CampusId")]

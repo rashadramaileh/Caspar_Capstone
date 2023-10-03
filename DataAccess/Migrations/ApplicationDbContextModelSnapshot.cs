@@ -298,16 +298,10 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstructorWishlistId"));
 
-                    b.Property<int>("CampusID")
+                    b.Property<int>("CampusId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CampusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CourseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<int?>("DayBlockId")
@@ -495,11 +489,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.PreReq", b =>
                 {
-                    b.Property<int>("PreReqID")
+                    b.Property<int>("PreReqId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PreReqID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PreReqId"));
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -507,7 +501,7 @@ namespace DataAccess.Migrations
                     b.Property<bool>("IsCoRequisite")
                         .HasColumnType("bit");
 
-                    b.HasKey("PreReqID");
+                    b.HasKey("PreReqId");
 
                     b.HasIndex("CourseId");
 
@@ -556,11 +550,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Section", b =>
                 {
-                    b.Property<int>("sectionId")
+                    b.Property<int>("SectionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("sectionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionId"));
 
                     b.Property<int?>("ClassroomId")
                         .HasColumnType("int");
@@ -577,14 +571,18 @@ namespace DataAccess.Migrations
                     b.Property<int?>("InstructorId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MaxEnrollment")
+                        .HasColumnType("int");
+
                     b.Property<int?>("MeetingTimeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ModalityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PartOfTermId")
-                        .HasColumnType("int");
+                    b.Property<string>("Notes")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("PartofTermId")
                         .HasColumnType("int");
@@ -604,14 +602,7 @@ namespace DataAccess.Migrations
                     b.Property<int?>("WhoPaysId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("maxEnrollment")
-                        .HasColumnType("int");
-
-                    b.Property<string>("notes")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("sectionId");
+                    b.HasKey("SectionId");
 
                     b.HasIndex("ClassroomId");
 
@@ -624,8 +615,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("MeetingTimeId");
 
                     b.HasIndex("ModalityId");
-
-                    b.HasIndex("PartOfTermId");
 
                     b.HasIndex("PayModelId");
 
@@ -782,10 +771,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TimeBlockId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TimeblockId")
+                    b.Property<int>("TimeBlockId")
                         .HasColumnType("int");
 
                     b.HasKey("StudentWishListId");
@@ -797,8 +783,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("SemesterId");
 
                     b.HasIndex("StudentId");
-
-                    b.HasIndex("TimeBlockId");
 
                     b.ToTable("StudentWishlist");
                 });
@@ -1049,17 +1033,21 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("CASPAR.Infrastructure.Models.Campus", "Campus")
                         .WithMany()
-                        .HasForeignKey("CampusId");
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("CASPAR.Infrastructure.Models.Course", "course")
+                    b.HasOne("CASPAR.Infrastructure.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CASPAR.Infrastructure.Models.DayBlock", "DayBlock")
                         .WithMany()
                         .HasForeignKey("DayBlockId");
 
-                    b.HasOne("CASPAR.Infrastructure.Models.Instructor", "instructor")
+                    b.HasOne("CASPAR.Infrastructure.Models.Instructor", "Instructor")
                         .WithMany()
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1079,15 +1067,15 @@ namespace DataAccess.Migrations
 
                     b.Navigation("Campus");
 
+                    b.Navigation("Course");
+
                     b.Navigation("DayBlock");
+
+                    b.Navigation("Instructor");
 
                     b.Navigation("MeetingTime");
 
                     b.Navigation("Semester");
-
-                    b.Navigation("course");
-
-                    b.Navigation("instructor");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorWishlistDetails", b =>
@@ -1105,7 +1093,7 @@ namespace DataAccess.Migrations
                     b.HasOne("CASPAR.Infrastructure.Models.InstructorWishlist", "InstructorWishlist")
                         .WithMany()
                         .HasForeignKey("InstructorWishlistId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("CASPAR.Infrastructure.Models.Semester", "Semester")
@@ -1168,10 +1156,6 @@ namespace DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("ModalityId");
 
-                    b.HasOne("CASPAR.Infrastructure.Models.PartOfTerm", "PartOfTerm")
-                        .WithMany()
-                        .HasForeignKey("PartOfTermId");
-
                     b.HasOne("CASPAR.Infrastructure.Models.PayModel", "PayModel")
                         .WithMany()
                         .HasForeignKey("PayModelId");
@@ -1201,8 +1185,6 @@ namespace DataAccess.Migrations
                     b.Navigation("MeetingTime");
 
                     b.Navigation("Modality");
-
-                    b.Navigation("PartOfTerm");
 
                     b.Navigation("PayModel");
 
@@ -1275,10 +1257,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CASPAR.Infrastructure.Models.TimeBlock", "TimeBlock")
-                        .WithMany()
-                        .HasForeignKey("TimeBlockId");
-
                     b.Navigation("Course");
 
                     b.Navigation("DayBlock");
@@ -1286,8 +1264,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Semester");
 
                     b.Navigation("Student");
-
-                    b.Navigation("TimeBlock");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.UserRole", b =>

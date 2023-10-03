@@ -13,26 +13,26 @@ namespace CASPAR.Infrastructure.Models
 
         [Required]
         [Display(Name = "Student")]
-        [Range(1, 65535)]
+        [Range(0, 65535)]
         public int StudentId { get; set; }
 
         [Required]
         [Display(Name = "Course")]
-        [Range(1, 65535)]
+        [Range(0, 65535)]
         public int CourseId { get; set; }
 
       
         [Display(Name = "Time Block")]
-        [Range(1, 255)]
-        public int TimeblockId { get; set; }
+        [Range(0, 255)]
+        public int TimeBlockId { get; set; }
 
         [Display(Name = "Day Block")]
-        [Range(1, 255)]
+        [Range(0, 255)]
         public int DayBlockId { get; set; }
 
         [Required]
         [Display(Name = "Semester")]
-        [Range(1, 65535)]
+        [Range(0, 65535)]
         public int SemesterId { get; set; }
 
 
@@ -45,9 +45,9 @@ namespace CASPAR.Infrastructure.Models
         
         public Course? Course { get; set; }
 
-        [ForeignKey("TimeBlockId")]
+        //[ForeignKey("TimeBlockId")]
        
-        public TimeBlock? TimeBlock { get; set; }
+        //public TimeBlock? TimeBlock { get; set; }
 
         [ForeignKey("DayBlockId")]
         public DayBlock? DayBlock { get; set; }

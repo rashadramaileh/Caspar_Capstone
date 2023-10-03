@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initmigration : Migration
+    public partial class InitMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -476,14 +476,14 @@ namespace DataAccess.Migrations
                 name: "PreReq",
                 columns: table => new
                 {
-                    PreReqID = table.Column<int>(type: "int", nullable: false)
+                    PreReqId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsCoRequisite = table.Column<bool>(type: "bit", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PreReq", x => x.PreReqID);
+                    table.PrimaryKey("PK_PreReq", x => x.PreReqId);
                     table.ForeignKey(
                         name: "FK_PreReq_Course_CourseId",
                         column: x => x.CourseId,
@@ -551,7 +551,7 @@ namespace DataAccess.Migrations
                 {
                     InstructorWishlistId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CampusID = table.Column<int>(type: "int", nullable: false),
+                    CampusId = table.Column<int>(type: "int", nullable: false),
                     InstructorRanking = table.Column<int>(type: "int", nullable: false),
                     InstructorFormat = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     InstructorNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -559,10 +559,8 @@ namespace DataAccess.Migrations
                     DaysBlockId = table.Column<int>(type: "int", nullable: true),
                     SemesterId = table.Column<int>(type: "int", nullable: false),
                     InstructorId = table.Column<int>(type: "int", nullable: false),
-                    CourseID = table.Column<int>(type: "int", nullable: false),
-                    CampusId = table.Column<int>(type: "int", nullable: true),
-                    DayBlockId = table.Column<int>(type: "int", nullable: true),
-                    CourseId = table.Column<int>(type: "int", nullable: true)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    DayBlockId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -571,12 +569,14 @@ namespace DataAccess.Migrations
                         name: "FK_InstructorWishlist_Campus_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campus",
-                        principalColumn: "CampusId");
+                        principalColumn: "CampusId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_InstructorWishlist_Course_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Course",
-                        principalColumn: "CourseId");
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_InstructorWishlist_DayBlock_DayBlockId",
                         column: x => x.DayBlockId,
@@ -611,10 +611,9 @@ namespace DataAccess.Migrations
                     StudentFormat = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    TimeblockId = table.Column<int>(type: "int", nullable: false),
+                    TimeBlockId = table.Column<int>(type: "int", nullable: false),
                     DayBlockId = table.Column<int>(type: "int", nullable: false),
-                    SemesterId = table.Column<int>(type: "int", nullable: false),
-                    TimeBlockId = table.Column<int>(type: "int", nullable: true)
+                    SemesterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -643,23 +642,18 @@ namespace DataAccess.Migrations
                         principalTable: "Student",
                         principalColumn: "StudentId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StudentWishlist_TimeBlock_TimeBlockId",
-                        column: x => x.TimeBlockId,
-                        principalTable: "TimeBlock",
-                        principalColumn: "TimeBlockId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Section",
                 columns: table => new
                 {
-                    sectionId = table.Column<int>(type: "int", nullable: false)
+                    SectionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    maxEnrollment = table.Column<int>(type: "int", nullable: true),
+                    MaxEnrollment = table.Column<int>(type: "int", nullable: true),
                     FirstWeekEnroll = table.Column<int>(type: "int", nullable: true),
                     ThirdWeekEnroll = table.Column<int>(type: "int", nullable: true),
-                    notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ClassroomId = table.Column<int>(type: "int", nullable: true),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     InstructorId = table.Column<int>(type: "int", nullable: true),
@@ -670,12 +664,11 @@ namespace DataAccess.Migrations
                     ModalityId = table.Column<int>(type: "int", nullable: true),
                     MeetingTimeId = table.Column<int>(type: "int", nullable: true),
                     DayBlockId = table.Column<int>(type: "int", nullable: true),
-                    SemesterId = table.Column<int>(type: "int", nullable: false),
-                    PartOfTermId = table.Column<int>(type: "int", nullable: true)
+                    SemesterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Section", x => x.sectionId);
+                    table.PrimaryKey("PK_Section", x => x.SectionId);
                     table.ForeignKey(
                         name: "FK_Section_Classroom_ClassroomId",
                         column: x => x.ClassroomId,
@@ -707,11 +700,6 @@ namespace DataAccess.Migrations
                         column: x => x.ModalityId,
                         principalTable: "Modality",
                         principalColumn: "ModalityId");
-                    table.ForeignKey(
-                        name: "FK_Section_PartOfTerm_PartOfTermId",
-                        column: x => x.PartOfTermId,
-                        principalTable: "PartOfTerm",
-                        principalColumn: "PartOfTermID");
                     table.ForeignKey(
                         name: "FK_Section_PayModel_PayModelId",
                         column: x => x.PayModelId,
@@ -768,8 +756,7 @@ namespace DataAccess.Migrations
                         name: "FK_InstructorWishlistDetails_InstructorWishlist_InstructorWishlistId",
                         column: x => x.InstructorWishlistId,
                         principalTable: "InstructorWishlist",
-                        principalColumn: "InstructorWishlistId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "InstructorWishlistId");
                     table.ForeignKey(
                         name: "FK_InstructorWishlistDetails_Semester_SemesterId",
                         column: x => x.SemesterId,
@@ -939,11 +926,6 @@ namespace DataAccess.Migrations
                 column: "ModalityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Section_PartOfTermId",
-                table: "Section",
-                column: "PartOfTermId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Section_PayModelId",
                 table: "Section",
                 column: "PayModelId");
@@ -1004,11 +986,6 @@ namespace DataAccess.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentWishlist_TimeBlockId",
-                table: "StudentWishlist",
-                column: "TimeBlockId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",
                 table: "UserRole",
                 column: "RoleId");
@@ -1038,6 +1015,9 @@ namespace DataAccess.Migrations
                 name: "InstructorWishlistDetails");
 
             migrationBuilder.DropTable(
+                name: "PartOfTerm");
+
+            migrationBuilder.DropTable(
                 name: "PreReq");
 
             migrationBuilder.DropTable(
@@ -1053,13 +1033,13 @@ namespace DataAccess.Migrations
                 name: "InstructorWishlist");
 
             migrationBuilder.DropTable(
+                name: "TimeBlock");
+
+            migrationBuilder.DropTable(
                 name: "Classroom");
 
             migrationBuilder.DropTable(
                 name: "Modality");
-
-            migrationBuilder.DropTable(
-                name: "PartOfTerm");
 
             migrationBuilder.DropTable(
                 name: "PayModel");
@@ -1072,9 +1052,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Student");
-
-            migrationBuilder.DropTable(
-                name: "TimeBlock");
 
             migrationBuilder.DropTable(
                 name: "Role");
