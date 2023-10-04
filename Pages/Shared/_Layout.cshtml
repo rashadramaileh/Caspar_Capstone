@@ -22,42 +22,52 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                    <li class="nav-item dropdown show">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Dropdown</a>
-                        <div class="dropdown-menu show">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </li>
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                       
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Manage Classrooms</a>
+                                <a class="dropdown-item" href="#">Manage Courses</a>
+                                <a class="dropdown-item" href="#">Manage Days of the Week</a>
+                                <a class="dropdown-item" href="#">Manage Sections</a>
+                                <a class="dropdown-item" href="#">Manage Semesters</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Manage My Release Time</a>
+                                <a class="dropdown-item" href="#">View My Courses</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Manage My Profile</a>
+                                <a class="dropdown-item" href="#">View My Courses</a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
-                        </li><li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
-               
-                
             </div>
         </nav>
-
-        
-    </header>
+        </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
 
     <footer class="border-top footer text-muted">
         <div class="container">
