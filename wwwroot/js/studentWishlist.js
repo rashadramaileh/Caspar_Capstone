@@ -7,21 +7,23 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#Student_Wishlist').DataTable({
         "ajax": {
-            "url": "/api/product",
+            "url": "/api/studentwishlist",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
             // Should not be capital
-            { "data": "name", "width": "25%" },
-            { "data": "listPrice", render: $.fn.dataTable.render.number(',', '.', 2, '$'), "width": "15%" },
-            { "data": "category.name", "width": "15%" },
-            { "data": "manufacturer.name", "width": "15%" },
+            //This needs to be changed VVVV
+            { "data": "course.name", "width": "25%" },
+            { "data": "coursetype.name",  "width": "15%" },
+            { "data": "dayblock.name", "width": "15%" },
+            { "data": "timeblock.name", "width": "15%" },
+            { "data": "semester.name", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center"> 
-                                <a href="/Students/Edit?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Students/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-edit"></i> Edit </a>
                                     
                                 <a href="/Students/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
