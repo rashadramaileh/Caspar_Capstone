@@ -3,7 +3,7 @@
 
 @{
 }
-<form method="post" asp-page="Create" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
     <input asp-for="objStudentWishlist.StudentWishListId" hidden />
     <div class="row">
         <div class="col-10">
@@ -21,20 +21,38 @@
                 <div class="mb-3 col-6">
                     <label asp-for="objStudentWishlist.StudentFormat"></label>
                     <select id="ddlFormat" asp-for="objStudentWishlist.StudentFormat" asp-items="@Model.FormatList" class="form-select">
-                        <option disabled selected>--Select Format--</option>
+                        <option disabled selected>--Select Modality--</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentWishlist.DayBlock"></label>
+                    <select id="ddlDayBlock" asp-for="objStudentWishlist.DayBlock" asp-items="@Model.DayList" class="form-select">
+                        <option disabled selected>--Select A Day--</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentWishlist.TimeBlockId"></label>
+                    <select id="ddlTimeBlock" asp-for="objStudentWishlist.TimeBlockId" asp-items="@Model.TimeList" class="form-select">
+                        <option disabled selected>--Select Time--</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentWishlist.Semester"></label>
+                    <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
+                        <option disabled selected>--Select Semester--</option>
                     </select>
                 </div>
                 <div class="col-12">
                     @if (Model.objStudentWishlist.StudentWishListId != 0)
                     {
-                        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
                     else
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
                     }
                     <!--END ELSE -->
-                    <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                    <a asp-page="/Upsert" class="btn btn-secondary" style="width:150px">
                         Back to List
                     </a>
                 </div>
@@ -44,7 +62,7 @@
 </form>
 
 @section Scripts
-    {
+{
     <script>
 
         tinymce.init({
@@ -53,14 +71,29 @@
             menubar: "file edit format"
         });
 
-        function ValidateInput() {
+        function ValidateInput() 
+        {
             if ($('#ddlCourse option:selected').val() == 0) {
                 swal.fire('Error', 'Please Select a Course', 'error')
                 return false
             }
 
             if ($('#ddlFormat option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Manufacturer', 'error')
+                swal.fire('Error', 'Please Select a Modality', 'error')
+                return false
+            }
+
+            if ($('#ddlDayBlock option:selected').val() == 0) {
+                swal.fire('Error', 'Please Select a Modality', 'error')
+                return false
+            }
+
+            if ($('#ddlTimeBlock option:selected').val() == 0) {
+                swal.fire('Error', 'Please Select a Modality', 'error')
+                return false
+            }
+            if ($('#ddlSemester option:selected').val() == 0) {
+                swal.fire('Error', 'Please Select a Modality', 'error')
                 return false
             }
 

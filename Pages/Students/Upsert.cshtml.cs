@@ -48,11 +48,11 @@ namespace CASPAR.Pages.Students
                     Value = x.CourseId.ToString(),
                 });
 
-            FormatList = _unitOfWork.CourseType.GetAll()
+            FormatList = _unitOfWork.Modality.GetAll()
                .Select(x => new SelectListItem
                {
-                   Text = x.CourseTypeName,
-                   Value = x.CourseTypeId.ToString(),
+                   Text = x.ModalityName,
+                   Value = x.ModalityName.ToString(),
                });
             DayList = _unitOfWork.DayBlock.GetAll()
                .Select(x => new SelectListItem
@@ -105,7 +105,7 @@ namespace CASPAR.Pages.Students
             _unitOfWork.Commit();
 
             //redirect to the products page
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Students/Index");
         }
     }
 }
