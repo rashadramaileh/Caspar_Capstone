@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CASPAR.Controllers
 {
-    public class InsturctorWishlistController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class InstructorWishlistController : Controller
     {
-        public IActionResult Index()
+        private readonly UnitOfWork _unitOfWork;
+        public InstructorWishlistController(UnitOfWork unitOfWork)
         {
-            return View();
+            _unitOfWork = unitOfWork;
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Json(new { data = _unitOfWork.InstructorWishlist.GetAll(null, null, null) });
         }
     }
 }

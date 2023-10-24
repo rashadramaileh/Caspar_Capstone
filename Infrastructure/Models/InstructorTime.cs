@@ -1,9 +1,8 @@
-﻿using CASPAR.Infrastructure.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Infrastructure.Models
+namespace CASPAR.Infrastructure.Models
 {
     public class InstructorTime
     {
@@ -12,7 +11,7 @@ namespace Infrastructure.Models
         public int? InstructorTimeId { get; set; }
         [Range(0, 255)]
         public int? DaysBlockId { get; set; }
-        [Range(0, 255), Display(Name = "Meeting Time")]
+        [Range(0, 255), Display(Name = "Time")]
         public int MeetingTimeId { get; set; }
         [Range(0, 255)]
         public int CampusId { get; set; }

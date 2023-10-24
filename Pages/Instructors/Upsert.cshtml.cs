@@ -1,6 +1,5 @@
 using CASPAR.Infrastructure.Models;
 using DataAccess;
-using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,8 +12,11 @@ namespace CASPAR.Pages.Instructors
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public InstructorWishlist objInstructorWishlist { get; set; }
+        [BindProperty]
         public InstructorWishlistDetails objInstructorWishlistDetails { get; set; }
+        [BindProperty]
         public InstructorWishlistModality objInstructorWishlistModality { get; set; }
+        [BindProperty]
         public InstructorTime objInstructorTime { get; set; }
 
 

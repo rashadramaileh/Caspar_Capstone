@@ -1,6 +1,5 @@
 ﻿using CASPAR.Infrastructure.Models;
 using Infrastructure.Interfaces;
-using Infrastructure.Models;
 
 namespace DataAccess
 {

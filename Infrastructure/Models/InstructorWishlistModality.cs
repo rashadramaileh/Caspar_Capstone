@@ -1,18 +1,15 @@
-﻿using System;
-using CASPAR.Infrastructure.Models;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
-
-namespace Infrastructure.Models
+namespace CASPAR.Infrastructure.Models
 {
     public class InstructorWishlistModality
     {
         [Key]
         [Range(0, 255)]
         public int? InstructorWishlistModalityId { get; set; }
-        [Range(0, 255)]
+        [Range(0, 255), DisplayName("Format")]
         public int? ModalityId { get; set; }
         [Range(0, 255)]
         public int? InstructorWishListDetailsId { get; set; }
