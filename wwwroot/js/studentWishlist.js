@@ -16,7 +16,7 @@ function loadList() {
             //This needs to be changed VVVV
             { "data": "course.name", "width": "25%" },
             { "data": "coursetype.name",  "width": "15%" },
-            { "data": "dayblock.name", "width": "15%" },
+            { "data": "timeblock.name", "width": "15%" },
             { "data": "campus.name", "width": "15%" },
             { "data": "semester.name", "width": "15%" },
             {
