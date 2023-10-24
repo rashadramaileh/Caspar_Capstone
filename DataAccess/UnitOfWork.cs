@@ -1,5 +1,6 @@
 ﻿using CASPAR.Infrastructure.Models;
 using Infrastructure.Interfaces;
+using Infrastructure.Models;
 
 namespace DataAccess
 {
@@ -25,12 +26,15 @@ namespace DataAccess
         public IGenericRepository<InstructorUniProgram> _InstructorUniProgram;
         public IGenericRepository<InstructorWishlist> _InstructorWishlist;
         public IGenericRepository<InstructorWishlistDetails> _InstructorWishlistDetails;
+        public IGenericRepository<InstructorWishlistModality> _InstructorWishlistModality;
+        public IGenericRepository<InstructorTime> _InstructorTime;
         public IGenericRepository<Major> _Major;
         public IGenericRepository<MeetingTime> _MeetingTime;
         public IGenericRepository<Modality> _Modality;
         public IGenericRepository<PartOfTerm> _PartOfTerm;
         public IGenericRepository<PayModel> _PayModel;
         public IGenericRepository<PreReq> _PreReq;
+        public IGenericRepository<Ranking> _Ranking;
         public IGenericRepository<Role> _Role;
         public IGenericRepository<RoomConfig> _RoomConfig;
         public IGenericRepository<Section> _Section;
@@ -40,6 +44,9 @@ namespace DataAccess
         public IGenericRepository<SemesterType> _SemesterType;
         public IGenericRepository<Student> _Student;
         public IGenericRepository<StudentWishlist> _StudentWishlist;
+        public IGenericRepository<StudentWishlistDetails> _StudentWishlistDetails;
+        public IGenericRepository<StudentWishlistModality> _StudentWishlistModality;
+        public IGenericRepository<StudentTime> _StudentTime;
         public IGenericRepository<TimeBlock> _TimeBlock;
         public IGenericRepository<UniProgram> _UniProgram;
         public IGenericRepository<User> _User;
@@ -198,6 +205,30 @@ namespace DataAccess
             }
         }
 
+        public IGenericRepository<InstructorWishlistModality> InstructorWishlistModality
+        {
+            get
+            {
+                if (_InstructorWishlistModality == null)
+                {
+                    _InstructorWishlistModality = new GenericRepository<InstructorWishlistModality>(_dbcontext);
+                }
+                return _InstructorWishlistModality;
+            }
+        }
+
+
+        public IGenericRepository<InstructorTime> InstructorTime
+        {
+            get
+            {
+                if (_InstructorTime == null)
+                {
+                    _InstructorTime = new GenericRepository<InstructorTime>(_dbcontext);
+                }
+                return _InstructorTime;
+            }
+        }
         public IGenericRepository<Major> Major
         {
             get
@@ -267,6 +298,18 @@ namespace DataAccess
                     _PreReq = new GenericRepository<PreReq>(_dbcontext);
                 }
                 return _PreReq;
+            }
+        }
+
+        public IGenericRepository<Ranking> Ranking
+        {
+            get
+            {
+                if (_Ranking == null)
+                {
+                    _Ranking = new GenericRepository<Ranking>(_dbcontext);
+                }
+                return _Ranking;
             }
         }
 
@@ -377,6 +420,45 @@ namespace DataAccess
                 return _StudentWishlist;
             }
         }
+
+
+        public IGenericRepository<StudentWishlistDetails> StudentWishlistDetails
+        {
+            get
+            {
+                if (_StudentWishlistDetails == null)
+                {
+                    _StudentWishlistDetails = new GenericRepository<StudentWishlistDetails>(_dbcontext);
+                }
+                return _StudentWishlistDetails;
+            }
+        }
+
+        public IGenericRepository<StudentWishlistModality> StudentWishlistModality
+        {
+            get
+            {
+                if (_StudentWishlistModality == null)
+                {
+                    _StudentWishlistModality = new GenericRepository<StudentWishlistModality>(_dbcontext);
+                }
+                return _StudentWishlistModality;
+            }
+        }
+
+
+        public IGenericRepository<StudentTime> StudentTime
+        {
+            get
+            {
+                if (_StudentTime == null)
+                {
+                    _StudentTime = new GenericRepository<StudentTime>(_dbcontext);
+                }
+                return _StudentTime;
+            }
+        }
+
 
         public IGenericRepository<TimeBlock> TimeBlock
         {

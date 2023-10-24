@@ -5,23 +5,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CASPAR.Pages.Students
+namespace CASPAR.Pages.Instructors
 {
     public class UpsertModel : PageModel
     {
-
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
-        public StudentWishlist objStudentWishlist { get; set; }
-        public StudentWishlistDetails objStudentWishlistDetails { get; set; }
-        public StudentWishlistModality objStudentWishlistModality { get; set; }
-        public StudentTime objStudentTime { get; set; }
+        public InstructorWishlist objInstructorWishlist { get; set; }
+        public InstructorWishlistDetails objInstructorWishlistDetails { get; set; }
+        public InstructorWishlistModality objInstructorWishlistModality { get; set; }
+        public InstructorTime objInstructorTime { get; set; }
 
 
-        public IEnumerable<SelectListItem> StudentList { get; set; }
+        public IEnumerable<SelectListItem> InstructorList { get; set; }
+        public IEnumerable<SelectListItem> RankingList { get; set; }
         public IEnumerable<SelectListItem> CourseList { get; set; }
         public IEnumerable<SelectListItem> FormatList { get; set; }
+        public IEnumerable<SelectListItem> DayList { get; set; }
         public IEnumerable<SelectListItem> TimeList { get; set; }
         public IEnumerable<SelectListItem> SemesterList { get; set; }
         public IEnumerable<SelectListItem> CampusList { get; set; }
@@ -29,11 +30,12 @@ namespace CASPAR.Pages.Students
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
-            objStudentWishlist = new StudentWishlist();
-            StudentList = new List<SelectListItem>();
+            objInstructorWishlist = new InstructorWishlist();
+            InstructorList = new List<SelectListItem>();
+            RankingList = new List<SelectListItem>();
             CourseList = new List<SelectListItem>();
             FormatList = new List<SelectListItem>();
-            
+            DayList = new List<SelectListItem>();
             TimeList = new List<SelectListItem>();
             SemesterList = new List<SelectListItem>();
             CampusList = new List<SelectListItem>();
@@ -41,11 +43,17 @@ namespace CASPAR.Pages.Students
         }
         public IActionResult OnGet(int? id)
         {
-            StudentList = _unitOfWork.Student.GetAll()
+            InstructorList = _unitOfWork.Instructor.GetAll()
                 .Select(x => new SelectListItem
                 {
                     Text = x.User.ToString(),
-                    Value = x.StudentId.ToString(),
+                    Value = x.InstructorId.ToString(),
+                });
+            RankingList = _unitOfWork.Ranking.GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Rank.ToString(),
+                    Value = x.RankingId.ToString(),
                 });
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem
@@ -60,12 +68,17 @@ namespace CASPAR.Pages.Students
                    Text = x.ModalityName,
                    Value = x.ModalityName.ToString(),
                });
-           
-            TimeList = _unitOfWork.TimeBlock.GetAll()
+            DayList = _unitOfWork.DayBlock.GetAll()
                .Select(x => new SelectListItem
                {
-                   Text = x.TimeName,
-                   Value = x.TimeBlockId.ToString(),
+                   Text = x.DayName,
+                   Value = x.DaysBlockId.ToString(),
+               });
+            TimeList = _unitOfWork.MeetingTime.GetAll()
+               .Select(x => new SelectListItem
+               {
+                   Text = x.meetingTimeName,
+                   Value = x.meetingTimeId.ToString(),
                });
             SemesterList = _unitOfWork.Semester.GetAll()
                .Select(x => new SelectListItem
@@ -89,10 +102,10 @@ namespace CASPAR.Pages.Students
             // Edit mode
             if (id != 0)
             {
-                objStudentWishlist = _unitOfWork.StudentWishlist.GetById(id);
-                objStudentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetById(id);
-                objStudentWishlistModality = _unitOfWork.StudentWishlistModality.GetById(id);
-                objStudentTime = _unitOfWork.StudentTime.GetById(id);
+                objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(id);
+                objInstructorWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetById(id);
+                objInstructorWishlistModality = _unitOfWork.InstructorWishlistModality.GetById(id);
+                objInstructorTime = _unitOfWork.InstructorTime.GetById(id);
             }
 
             //assuming I'm in create mode
@@ -107,18 +120,18 @@ namespace CASPAR.Pages.Students
             var files = HttpContext.Request.Form.Files;
 
             //if the product is new (create)
-            if (objStudentWishlist.StudentWishlistId == 0)
+            if (objInstructorWishlist.InstructorWishlistId == 0)
             {
-                _unitOfWork.StudentWishlist.Add(objStudentWishlist);
-                _unitOfWork.StudentWishlistDetails.Add(objStudentWishlistDetails);
-                _unitOfWork.StudentWishlistModality.Add(objStudentWishlistModality);
-                _unitOfWork.StudentTime.Add(objStudentTime);
+                _unitOfWork.InstructorWishlist.Add(objInstructorWishlist);
+                _unitOfWork.InstructorWishlistDetails.Add(objInstructorWishlistDetails);
+                _unitOfWork.InstructorWishlistModality.Add(objInstructorWishlistModality);
+                _unitOfWork.InstructorTime.Add(objInstructorTime);
             }
             //Save changes to Database
             _unitOfWork.Commit();
 
             //redirect to the products page
-            return RedirectToPage("/Students/Index");
+            return RedirectToPage("/Instructors/Index");
         }
     }
 }

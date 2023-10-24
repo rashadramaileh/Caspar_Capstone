@@ -4,46 +4,47 @@
 @{
 }
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objStudentWishlist.StudentWishListId" hidden />
+    <input asp-for="objStudentWishlist.StudentWishlistId" hidden />
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objStudentWishlist.StudentWishListId != 0 ? "Update " : "Create ")Wishlist</h2>
+                    <h2 class="text-primary">@(Model.objStudentWishlist.StudentWishlistId != 0 ? "Update " : "Create ")Wishlist</h2>
                     <hr />
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objStudentWishlist.Course"></label>
-                    <select id="ddlCourse" asp-for="objStudentWishlist.CourseId" asp-items="@Model.CourseList" class="form-select">
+                    <label asp-for="objStudentWishlistDetails.Course"></label>
+                    <select id="ddlCourse" asp-for="objStudentWishlistDetails.CourseId" asp-items="@Model.CourseList" class="form-select">
                         <option disabled selected>--Select Course--</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objStudentWishlist.StudentFormat"></label>
-                    <select id="ddlFormat" asp-for="objStudentWishlist.StudentFormat" asp-items="@Model.FormatList" class="form-select">
+                    <label asp-for="objStudentWishlistModality.Modality"></label>
+                    <select id="ddlFormat" asp-for="objStudentWishlistModality.Modality" asp-items="@Model.FormatList" class="form-select">
                         <option disabled selected>--Select Modality--</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objStudentWishlist.DayBlock"></label>
-                    <select id="ddlDayBlock" asp-for="objStudentWishlist.DayBlock" asp-items="@Model.DayList" class="form-select">
+                    <label asp-for="objStudentTime.TimeBlock"></label>
+                    <select id="ddlDayBlock" asp-for="objStudentTime.TimeBlock" asp-items="@Model.TimeList" class="form-select">
                         <option disabled selected>--Select A Day--</option>
                     </select>
                 </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objStudentWishlist.TimeBlockId"></label>
-                    <select id="ddlTimeBlock" asp-for="objStudentWishlist.TimeBlockId" asp-items="@Model.TimeList" class="form-select">
-                        <option disabled selected>--Select Time--</option>
-                    </select>
-                </div>
+                
                 <div class="mb-3 col-6">
                     <label asp-for="objStudentWishlist.Semester"></label>
                     <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
                         <option disabled selected>--Select Semester--</option>
                     </select>
                 </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentTime.Campus"></label>
+                    <select id="ddlCampus" asp-for="objStudentTime.Campus" asp-items="@Model.CampusList" class="form-select">
+                        <option disabled selected>--Select A Campus--</option>
+                    </select>
+                </div>
                 <div class="col-12">
-                    @if (Model.objStudentWishlist.StudentWishListId != 0)
+                    @if (Model.objStudentWishlist.StudentWishlistId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
@@ -52,7 +53,7 @@
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
                     }
                     <!--END ELSE -->
-                    <a asp-page="/Upsert" class="btn btn-secondary" style="width:150px">
+                    <a asp-page="/Students/Index" class="btn btn-secondary" style="width:150px">
                         Back to List
                     </a>
                 </div>
@@ -79,21 +80,21 @@
             }
 
             if ($('#ddlFormat option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Modality', 'error')
+                swal.fire('Error', 'Please Select a Format', 'error')
                 return false
             }
 
-            if ($('#ddlDayBlock option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Modality', 'error')
+            if ($('#ddlCampus option:selected').val() == 0) {
+                swal.fire('Error', 'Please Select a Campus', 'error')
                 return false
             }
 
             if ($('#ddlTimeBlock option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Modality', 'error')
+                swal.fire('Error', 'Please Select a Time', 'error')
                 return false
             }
             if ($('#ddlSemester option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Modality', 'error')
+                swal.fire('Error', 'Please Select a Semester', 'error')
                 return false
             }
 

@@ -1,4 +1,5 @@
 ﻿using CASPAR.Infrastructure.Models;
+using Infrastructure.Models;
 
 namespace Infrastructure.Interfaces
 {
@@ -21,6 +22,8 @@ namespace Infrastructure.Interfaces
         public IGenericRepository<Instructor> Instructor { get; }
         public IGenericRepository<InstructorWishlist> InstructorWishlist { get; }
         public IGenericRepository<InstructorWishlistDetails> InstructorWishlistDetails { get;  }
+        public IGenericRepository<InstructorWishlistModality> InstructorWishlistModality { get; }
+        public IGenericRepository<InstructorTime> InstructorTime { get; }
         public IGenericRepository<DayBlock> DayBlock { get; }
         public IGenericRepository<Course> Course { get; }
         public IGenericRepository<PreReq> PreReq { get; }
@@ -31,6 +34,9 @@ namespace Infrastructure.Interfaces
         public IGenericRepository<StudentWishlist> StudentWishlist { get; }
         public IGenericRepository<Major> Major { get; }
         public IGenericRepository<Student> Student { get; }
+        public IGenericRepository<StudentWishlistDetails> StudentWishlistDetails { get; }
+        public IGenericRepository<StudentWishlistModality> StudentWishlistModality { get; }
+        public IGenericRepository<StudentTime> StudentTime { get; }
         public IGenericRepository<InstructorRelease> InstructorRelease{ get; }
         public IGenericRepository<InstructorLoad> InstructorLoad { get; }
         public IGenericRepository<User> User{ get; }
