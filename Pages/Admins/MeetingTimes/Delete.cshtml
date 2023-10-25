@@ -16,11 +16,11 @@
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
                 <div class="form-floating py-2 col-12">
-                    <input readonly asp-for="objMeetingList.MeetingTimeName" class="form-control border-0 shadow" />
-                    <label asp-for="objMeetingList.MeetingTimeName" class="ms-2">Meeting Time Name</label>
-                    <span asp-validation-for="objMeetingList.MeetingTimeName" class="text-danger"></span>
+                    <input readonly asp-for="objMeetingList.meetingTimeName" class="form-control border-0 shadow" />
+                    <label asp-for="objMeetingList.meetingTimeName" class="ms-2">Meeting Time Name</label>
+                    <span asp-validation-for="objMeetingList.meetingTimeName" class="text-danger"></span>
                 </div>
-                <input asp-for="objMeetingList.MeetingTimeId" type="hidden">
+                <input asp-for="objMeetingList.meetingTimeId" type="hidden">
                 <div class="submit pt-2">
                     <div class="col-6 col-md-3">
                         <button type="submit" class="btn btn-danger form-control">Delete</button>
