@@ -3,7 +3,7 @@ using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CASPAR.Pages.Students
+namespace CASPAR.Pages.Instructors
 {
     public class DeleteModel : PageModel
     {
@@ -11,8 +11,8 @@ namespace CASPAR.Pages.Students
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         [BindProperty]
-        public StudentWishlist objStudentWishlist { get; set; }
-        
+        public InstructorWishlist objInstructorWishlist { get; set; }
+
 
         public DeleteModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
@@ -23,10 +23,10 @@ namespace CASPAR.Pages.Students
 
         public IActionResult OnGet(int? id)
         {
-            objStudentWishlist = new StudentWishlist();
-            objStudentWishlist = _unitOfWork.StudentWishlist.GetById(id);
+            objInstructorWishlist = new InstructorWishlist();
+            objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(id);
 
-            if (objStudentWishlist == null)
+            if (objInstructorWishlist == null)
             {
                 return NotFound();
             }
@@ -36,17 +36,18 @@ namespace CASPAR.Pages.Students
         public IActionResult OnPost(int? id)
         {
             string webRootPath = _webHostEnvironment.WebRootPath;
-            var objStudentWishlist = _unitOfWork.StudentWishlist.GetById(id);
-            if (objStudentWishlist == null)
+            var objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(id);
+            if (objInstructorWishlist == null)
             {
                 return NotFound();
             }
 
 
-            _unitOfWork.StudentWishlist.Delete(objStudentWishlist);
+            _unitOfWork.InstructorWishlist.Delete(objInstructorWishlist);
             TempData["success"] = "Product Deleted Successfully";
             _unitOfWork.Commit();
             return RedirectToPage("./Index");
         }
     }
 }
+

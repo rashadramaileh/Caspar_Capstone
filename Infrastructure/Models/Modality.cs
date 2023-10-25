@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CASPAR.Infrastructure.Models
 {
     public class Modality
     {
-        [Key, Range(0, 255)]
+        [Key, Range(0, 255), DisplayName("Format")]
         public int ModalityId{get; set;}
 
-        [Required, StringLength(30), Display(Name = "Modality")]
+        [Required, StringLength(30), DisplayName("Format")]
         public string? ModalityName{get; set;}
 
         [StringLength(200), Display(Name = "Description")]

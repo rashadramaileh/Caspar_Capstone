@@ -29,6 +29,8 @@ namespace DataAccess
         public DbSet<Instructor> Instructor { get; set; }
         public DbSet<InstructorWishlist> InstructorWishlist { get; set; }
         public DbSet<InstructorWishlistDetails> InstructorWishlistDetails { get; set; }
+        public DbSet<InstructorWishlistModality> InstructorWishlistModality { get; set; }
+        public DbSet<InstructorTime> InstructorTime { get; set; }
         public DbSet<DayBlock> DayBlock { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<PreReq> PreReq { get; set; }
@@ -38,7 +40,11 @@ namespace DataAccess
         public DbSet<Semester> Semester { get; set; }
         public DbSet<StudentWishlist> StudentWishlist { get; set; }
         public DbSet<Major> Major { get; set; }
+        public DbSet<Ranking> Rankings { get; set; }
         public DbSet<Student> Student { get; set; }
+        public DbSet<StudentWishlistDetails> StudentWishlistDetails { get; set; }
+        public DbSet<StudentWishlistModality> StudentWishlistModality { get; set; }
+        public DbSet<StudentTime> StudentTime { get; set; }
         public DbSet<InstructorRelease> InstructorRelease { get; set; }
         public DbSet<InstructorLoad> InstructorLoad { get; set; }
         public DbSet<User> User { get; set; }

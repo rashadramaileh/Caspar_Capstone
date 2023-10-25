@@ -5,10 +5,10 @@ namespace CASPAR.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentWishlistController : Controller
+    public class InstructorWishlistController : Controller
     {
         private readonly UnitOfWork _unitOfWork;
-        public StudentWishlistController(UnitOfWork unitOfWork)
+        public InstructorWishlistController(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -16,7 +16,7 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.StudentWishlist.GetAll(null, null, null) });
+            return Json(new { data = _unitOfWork.InstructorWishlist.GetAll(null, null, null) });
         }
     }
 }

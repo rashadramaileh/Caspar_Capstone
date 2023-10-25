@@ -1,5 +1,5 @@
 ﻿@page
-@model CASPAR.Pages.Students.DeleteModel
+@model CASPAR.Pages.Instructors.DeleteModel
 @{
 }
 <div class="card shadow border-0 mt-4">
@@ -14,11 +14,11 @@
         <form method="post" class="row">
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
-                <input readonly asp-for="objStudentWishlist.StudentWishlistId" class="form-control border-0 shadow" />
-                <label asp-for="objStudentWishlist.StudentWishlistId" class="ms-2"></label>
-                <span asp-validation-for="objStudentWishlist.StudentWishlistId" class="text-danger"></span>
+                <input readonly asp-for="objInstructorWishlist.InstructorWishlistId" class="form-control border-0 shadow" />
+                <label asp-for="objInstructorWishlist.InstructorWishlistId" class="ms-2"></label>
+                <span asp-validation-for="objInstructorWishlist.InstructorWishlistId" class="text-danger"></span>
 
-                <input type="hidden" asp-for="objStudentWishlist.StudentWishlistId" />
+                <input type="hidden" asp-for="objInstructorWishlist.InstructorWishlistId" />
 
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">

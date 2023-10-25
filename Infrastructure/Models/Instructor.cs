@@ -8,7 +8,7 @@ namespace CASPAR.Infrastructure.Models
         public bool Adjunct { get; set; }
 
         [Key,Range(0, 65535)]
-        public int UserId { get; set; }
+        public int InstructorId { get; set; }
 
         //[Range(0, 65535)]
         //public int InstructorUniProgramId { get; set; }
