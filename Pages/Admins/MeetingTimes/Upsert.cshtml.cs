@@ -40,7 +40,7 @@ namespace CASPAR.Pages.Admins.MeetingTimes
                 return Page();
             }
 
-            if (objMeetingTime.MeetingTimeId == 0)
+            if (objMeetingTime.meetingTimeId == 0)
             {
                 _unitOfWork.MeetingTime.Add(objMeetingTime);
                 TempData["success"] = "Meeting Time Added Successfully";
