@@ -1,0 +1,39 @@
+﻿@page
+@model CASPAR.Pages.Admins.MeetingTimes.IndexModel
+@{
+    ViewData["Title"] = "Manage Meeting Times";
+}
+
+<div class="container">
+    <div class="row pt=4">
+        <!--Start Row-->
+        <div class="col-6">
+            <!--50% of row-->
+            <h2 class="text-primary">
+                Manage Meeting Times
+            </h2>
+        </div><!-- End 1st Column-->
+        <div class="col-7 text-end">
+            <!--50% row right justified-->
+            <a asp-page="Upsert" asp-route-id="0" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Create New Meeting Time
+            </a>
+        </div> <!--End 2nd Column-->
+    </div> <!--End Row-->
+    <table class="table table-bordered table-striped" id="DT_Meeting_Time" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="/js/meetingTime.js"> </script>
+}
