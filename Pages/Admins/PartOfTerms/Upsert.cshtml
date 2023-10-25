@@ -1,0 +1,37 @@
+﻿@page
+@model CASPAR.Pages.Admins.PartOfTerms.UpsertModel
+@{
+}
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    <input asp-for="objPartTerm.PartOfTermID" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objPartTerm.PartOfTermID != 0 ? "Update " : "Create ")Part Of Term</h2>
+                    <hr />
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objPartTerm.PartOfTermName" class="form-control border-0 shadow" />
+                    <label asp-for="objPartTerm.PartOfTermName" class="ms-2">Part Of Term Name</label>
+                    <span asp-validation-for="objPartTerm.PartOfTermName" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    @if (Model.objPartTerm.PartOfTermID != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }
+                    <!--END ELSE -->
+                    <a asp-page="/Upsert" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

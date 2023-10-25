@@ -1,0 +1,39 @@
+﻿@page
+@model CASPAR.Pages.Admins.PartOfTerms.IndexModel
+@{
+    ViewData["Title"] = "Manage Part Of Terms";
+}
+
+<div class="container">
+    <div class="row pt=4">
+        <!--Start Row-->
+        <div class="col-6">
+            <!--50% of row-->
+            <h2 class="text-primary">
+                Manage Part Of Terms
+            </h2>
+        </div><!-- End 1st Column-->
+        <div class="col-7 text-end">
+            <!--50% row right justified-->
+            <a asp-page="Upsert" asp-route-id="0" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Create New Part Of Term
+            </a>
+        </div> <!--End 2nd Column-->
+    </div> <!--End Row-->
+    <table class="table table-bordered table-striped" id="DT_Part_Of_Term" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="/js/partOfTerm.js"> </script>
+}
