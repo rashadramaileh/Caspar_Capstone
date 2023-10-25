@@ -41,17 +41,17 @@ namespace CASPAR.Pages.Admins.ManageBuilding
             }
 
             //if this is a new category
-            if (objBuilding.CampusId == 0)
+            if (objBuilding.BuildingId == 0)
             {
                 _unitOfWork.Building.Add(objBuilding);    //not saved to database yet.
-                TempData["success"] = "Category added successfully.";
+                TempData["success"] = "Building added successfully.";
             }
 
             //if exists
             else
             {
                 _unitOfWork.Building.Update(objBuilding);
-                TempData["success"] = "Category updated successfully.";
+                TempData["success"] = "Building updated successfully.";
             }
 
             _unitOfWork.Commit();  //saves changes to database.
