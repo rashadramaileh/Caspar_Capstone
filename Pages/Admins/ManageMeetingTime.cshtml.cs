@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CASPAR.Pages.Admins
 {
-    public class ManageCoursesModel : PageModel
+    public class ManageMeetingTimeModel : PageModel
     {
         public void OnGet()
         {

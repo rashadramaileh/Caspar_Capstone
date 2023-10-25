@@ -9,7 +9,7 @@ namespace CASPAR.Infrastructure.Models
         public int PartOfTermID { get; set; }
 
         [Required, StringLength(20), Display(Name = "Term")]
-        public string? partOfTermName { get; set; }
+        public string? PartOfTermName { get; set; }
 
     }
 }
