@@ -1,4 +1,74 @@
 ﻿@page
 @model CASPAR.Pages.Admins.ManageCampus.UpsertModel
-@{
-}
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    <input asp-for="objCampus.Campus" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objCampus.CampusId != 0 ? "Update " : "Create ")Campus</h2>
+                    <hr />
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objCampus.Campus" class="form-control border-0 shadow" />
+                    <label asp-for="objCampus.Campus" class="ms-2">Campus Name</label>
+                    <span asp-validation-for="objCampus.Campus" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    @if (Model.objCampus.CampusId != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }
+                    <!--END ELSE -->
+                    <a asp-page="/Upsert" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary py-2">@(Model.objCampus.CampusId != 0 ? "Update " : "Create ")Building</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objCampus.Campus" class="form-control border-0 shadow" />
+                    <label asp-for="objCampus.Campus" class="ms-2"></label>
+                    <span asp-validation-for="objCampus.Campus" class="text-danger"></span>
+
+                </div>
+                @if (Model.objCampus.CampusId != 0)
+                {
+                    <input asp-for="objCampus.CampusId" type="hidden">
+                }
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary form-control">@(Model.objCampus.CampusId != 0 ? "Update" : "Create")</button>
+                        </div>
+                        <div class="col">
+                            <a asp-page="Index" class="btn btn-outline-primary border  form-control">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+-->
