@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CASPAR.Pages.Majors
+namespace CASPAR.Pages.Admins.Majors
 {
     public class UpsertModel : PageModel
     {

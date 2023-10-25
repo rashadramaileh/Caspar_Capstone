@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CASPAR.Pages.Majors
+namespace CASPAR.Pages.Admins.ClassroomFeatures
 {
     public class IndexModel : PageModel
     {
-        // Blank - DataTables handles this with JavaScript
+        //blank on purpose probably
     }
 }

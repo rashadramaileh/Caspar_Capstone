@@ -1,25 +1,25 @@
 ﻿@page
-@model CASPAR.Pages.Majors.DeleteModel
+@model CASPAR.Pages.Admins.ClassroomFeatures.DeleteModel
 @{
 }
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-8 text-center">
-                <h2 class="text-primary">Delete Major</h2>
+                <h2 class="text-primary">Delete Classroom Feature</h2>
             </div>
         </div>
     </div>
     <div class="card-body p-4">
         <form method="post" class="row">
             <div class="border p-3">
-                
-                <label asp-for="objMajor.MajorName" class="ms-2"></label>
-                <input readonly asp-for="objMajor.MajorName" class="form-control border-0 shadow" />
-                
-                <span asp-validation-for="objMajor.MajorName" class="text-danger"></span>
 
-                <input type="hidden" asp-for="objMajor.MajorID" />
+                <label asp-for="objClassroomFeature.FeatureName" class="ms-2"></label>
+                <input readonly asp-for="objClassroomFeature.FeatureName" class="form-control border-0 shadow" />
+
+                <span asp-validation-for="objClassroomFeature.FeatureName" class="text-danger"></span>
+
+                <input type="hidden" asp-for="objClassroomFeature.FeatureID" />
 
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">

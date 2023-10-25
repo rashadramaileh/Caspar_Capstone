@@ -3,23 +3,23 @@ using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CASPAR.Pages.Majors
+namespace CASPAR.Pages.Admins.ClassroomFeatures
 {
     public class DeleteModel : PageModel
     {
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
-        public Major objMajor { get; set; }
+        public ClassroomFeature objClassroomFeature { get; set; }
         public DeleteModel(UnitOfWork unit, IWebHostEnvironment web)
         {
             _unitOfWork = unit;
-            objMajor = new Major();
+            objClassroomFeature = new Major();
         }
         public IActionResult OnGet(int? id)
         {
 
-            objMajor = _unitOfWork.Major.GetById(id);
-            if (objMajor == null)
+            objClassroomFeature = _unitOfWork.Major.GetById(id);
+            if (objClassroomFeature == null)
             {
                 return NotFound();
             }
@@ -33,7 +33,7 @@ namespace CASPAR.Pages.Majors
                 return NotFound();
             }
             _unitOfWork.Major.Delete(objProduct);
-            TempData["success"] = "Major Deleted Successfully";
+            TempData["success"] = "Classroom Feature Deleted Successfully";
             _unitOfWork.Commit();
 
             return RedirectToPage("./Index");
