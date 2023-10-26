@@ -5,18 +5,19 @@ $(document).ready(function () {
 });
 
 function loadList() {
-    dataTable = $('#DT_Part_Of_Term').DataTable({
+    dataTable = $('#DT_Buildings').DataTable({
         "ajax": {
-            "url": "/api/buildings",
+            "url": "/api/building",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "buildings", "width": "70%" },
+            { "data": "buildingName", "width": "35%" },
+            {"data": "campus", "width": "35%"}
             {
-                "data": "id",
+                "data": "buildingId",
                 "render": function (data) {
                     return `<div class="text-center"> 
                                 <a href="/Admins/Buildings/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
