@@ -14,9 +14,9 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "Name", "width": "70%" },
+            { "data": "campusName", "width": "70%" },
             {
-                "data": "CampusId",
+                "data": "campusId",
                 "render": function (data) {
                     return `<div class="text-center"> 
                                 <a href="/Admins/ManageCampus/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
