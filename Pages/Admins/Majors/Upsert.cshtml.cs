@@ -12,8 +12,6 @@ namespace CASPAR.Pages.Admins.Majors
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public Major objMajor { get; set; }
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
-        public IEnumerable<SelectListItem> ManufacturerList { get; set; }
         public UpsertModel(UnitOfWork unit, IWebHostEnvironment env)
         {
             _webHostEnvironment = env;

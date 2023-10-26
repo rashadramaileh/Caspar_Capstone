@@ -4,26 +4,26 @@ $(document).ready(function () {
 })
 
 function loadList() {
-    dataTable = $('#DT_Majors').DataTable({
+    dataTable = $('#DT_TimeBlock').DataTable({
         "ajax": {
-            "url": "/api/major",
+            "url": "/api/timeblock",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
             //should be lowercase for first letter, camelcase
-            { "data": "majorName", "width": "25%" },
+            { "data": "timeName", "width": "25%" },
             //{ "data": "listPrice", render: $.fn.dataTable.render.number(',', '.', 2, '$'), "width": "15%" }, //see rendered documentation in datatables docs
             //{ "data": "category.name", "width": "15%" },
             //{ "data": "manufacturer.name", "width": "15%" },
             {
-                "data": "majorID",
+                "data": "timeBlockId",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/Admins/Majors/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;"> 
+                                <a href="/Admins/TimeBlocks/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;"> 
                                 <i class="far fa-edit"></i> Edit </a>
 
-                                <a href="/Admins/Majors/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width:100px;"> 
+                                <a href="/Admins/TimeBlocks/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width:100px;"> 
                                 <i class="far fa-trash-alt"></i> Delete </a></div>`;
 
                 },

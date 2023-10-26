@@ -16,7 +16,7 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.ClassroomFeaturePossession.GetAll(null,null,"Classroom,ClassroomFeature,Building") });
+            return Json(new { data = _unitOfWork.ClassroomFeaturePossession.GetAll(null,null,"Classroom,ClassroomFeature") });
         }
     }
 }

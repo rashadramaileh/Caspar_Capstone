@@ -5,8 +5,6 @@ namespace CASPAR.Pages.Admins.TimeBlocks
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
-        {
-        }
+        // Blank - DataTables handles this with JavaScript
     }
 }
