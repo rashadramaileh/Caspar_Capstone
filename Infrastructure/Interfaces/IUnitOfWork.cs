@@ -1,5 +1,5 @@
 ﻿using CASPAR.Infrastructure.Models;
-
+using Infrastructure.Models;
 
 namespace Infrastructure.Interfaces
 {
@@ -8,6 +8,8 @@ namespace Infrastructure.Interfaces
         
         public IGenericRepository<Building> Building { get; } 
         public IGenericRepository<Classroom> Classroom { get;}
+        public IGenericRepository<ClassroomFeature> ClassroomFeature { get; }
+        public IGenericRepository<ClassroomFeaturePossession> ClassroomFeaturePossession { get; }
         public IGenericRepository<Campus> Campus { get;  }
         public IGenericRepository<RoomConfig> RoomConfig { get; }
         public IGenericRepository<Section> Section{ get;}

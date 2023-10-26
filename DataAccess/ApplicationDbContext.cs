@@ -1,4 +1,5 @@
 ﻿using CASPAR.Infrastructure.Models;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
@@ -15,6 +16,8 @@ namespace DataAccess
         
         public DbSet<Building> Building { get; set; } // the physical table "Buildings"
         public DbSet<Classroom> Classroom { get; set; }
+        public DbSet<ClassroomFeature> ClassroomFeature { get; set; }
+        public DbSet<ClassroomFeaturePossession> ClassroomFeaturePossession { get; set; }
         public DbSet<Campus> Campus { get; set; }
         public DbSet<RoomConfig> RoomConfiguration { get; set; }
         public DbSet<Section> Section { get; set; }

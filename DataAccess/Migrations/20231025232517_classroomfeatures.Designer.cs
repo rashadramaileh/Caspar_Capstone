@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025232517_classroomfeatures")]
+    partial class classroomfeatures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -985,47 +988,6 @@ namespace DataAccess.Migrations
                     b.ToTable("WhoPays");
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.ClassroomFeature", b =>
-                {
-                    b.Property<int>("ClassroomFeatureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClassroomFeatureId"));
-
-                    b.Property<string>("ClassroomFeatureName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("ClassroomFeatureId");
-
-                    b.ToTable("ClassroomFeature");
-                });
-
-            modelBuilder.Entity("Infrastructure.Models.ClassroomFeaturePossession", b =>
-                {
-                    b.Property<int>("FeaturePossessionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeaturePossessionId"));
-
-                    b.Property<int>("ClassroomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FeatureId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FeaturePossessionId");
-
-                    b.HasIndex("ClassroomId");
-
-                    b.HasIndex("FeatureId");
-
-                    b.ToTable("ClassroomFeaturePossession");
-                });
-
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Building", b =>
                 {
                     b.HasOne("CASPAR.Infrastructure.Models.Campus", "Campus")
@@ -1455,25 +1417,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Infrastructure.Models.ClassroomFeaturePossession", b =>
-                {
-                    b.HasOne("CASPAR.Infrastructure.Models.Classroom", "Classroom")
-                        .WithMany()
-                        .HasForeignKey("ClassroomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infrastructure.Models.ClassroomFeature", "ClassroomFeature")
-                        .WithMany()
-                        .HasForeignKey("FeatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Classroom");
-
-                    b.Navigation("ClassroomFeature");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 ﻿using CASPAR.Infrastructure.Models;
 using Infrastructure.Interfaces;
+using Infrastructure.Models;
 
 namespace DataAccess
 {
@@ -15,6 +16,8 @@ namespace DataAccess
         public IGenericRepository<Building> _Building;
         public IGenericRepository<Campus> _Campus;
         public IGenericRepository<Classroom> _Classroom;
+        public IGenericRepository<ClassroomFeature> _ClassroomFeature;
+        public IGenericRepository<ClassroomFeaturePossession> _ClassroomFeaturePossession;
         public IGenericRepository<Course> _Course;
         public IGenericRepository<CourseSemester> _CourseSemester;
         public IGenericRepository<CourseType> _CourseType;
@@ -85,6 +88,28 @@ namespace DataAccess
                     _Classroom = new GenericRepository<Classroom>(_dbcontext);
                 }
                 return _Classroom;
+            }
+        }
+        public IGenericRepository<ClassroomFeature> ClassroomFeature
+        {
+            get
+            {
+                if (_ClassroomFeature == null)
+                {
+                    _ClassroomFeature = new GenericRepository<ClassroomFeature>(_dbcontext);
+                }
+                return _ClassroomFeature;
+            }
+        }
+        public IGenericRepository<ClassroomFeaturePossession> ClassroomFeaturePossession
+        {
+            get
+            {
+                if (_ClassroomFeaturePossession == null)
+                {
+                    _ClassroomFeaturePossession = new GenericRepository<ClassroomFeaturePossession>(_dbcontext);
+                }
+                return _ClassroomFeaturePossession;
             }
         }
 
