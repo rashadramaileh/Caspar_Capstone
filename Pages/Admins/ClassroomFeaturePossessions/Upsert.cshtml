@@ -1,0 +1,66 @@
+﻿@page
+@model CASPAR.Pages.Admins.ClassroomFeaturePossessions.UpsertModel
+@{
+}
+<form method="post" asp-page="Upsert" enctype="multipart/form-data">
+    <input asp-for="objClassroomFeaturePossession.FeatureId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objClassroomFeaturePossession.FeatureId != 0 ? "Update " : "Create ")Classroom Feature</h2>
+                    <hr />
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objClassroomFeaturePossession.Classroom"></label>
+                    <select id="classroom" asp-for="objClassroomFeaturePossession.Classroom" asp-items="@Model.ClassroomList" class="form-select">
+                        <option disabled selected>--Select Classroom--</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objClassroomFeaturePossession.ClassroomFeature"></label>
+                    <select id="feature" asp-for="objClassroomFeaturePossession.ClassroomFeature" asp-items="@Model.FeatureList" class="form-select">
+                        <option disabled selected>--Select Feature--</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <!--IF Product being edited -->
+                    @if (Model.objClassroomFeaturePossession.FeatureId != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }<!--END ELSE -->
+
+                    <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() {
+            if (document.getElementById('classroom').value == null) {
+                swal.fire('Error', 'Please select a Classroom', 'error');
+                return false;
+            }
+            if (document.getElementById('feature').value == null) {
+                swal.fire('Error', 'Please select a Classroom', 'error');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
