@@ -41,7 +41,7 @@ namespace CASPAR.Pages.Admins.ManageCampus
             else
             {
                 _unitOfWork.Campus.Delete(objCampus);
-                TempData["success"] = "Day Block Deleted Successfully";
+                TempData["success"] = "Campus Deleted Successfully";
             }
 
             _unitOfWork.Commit();

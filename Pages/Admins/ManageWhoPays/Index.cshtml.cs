@@ -5,8 +5,6 @@ namespace CASPAR.Pages.Admins.ManageWhoPays
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
-        {
-        }
+        
     }
 }
