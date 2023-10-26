@@ -1,0 +1,54 @@
+﻿@page
+@model CASPAR.Pages.Majors.UpsertModel
+@{
+}
+<form method="post" asp-page="Upsert" enctype="multipart/form-data">
+    <input asp-for="objMajor.MajorID" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objMajor.MajorID != 0 ? "Update " : "Create ")Major</h2>
+                    <hr />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="objMajor.MajorName"></label>
+                    <input id="txtName" asp-for="objMajor.MajorName" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <!--IF Product being edited -->
+                    @if (Model.objMajor.MajorID != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }<!--END ELSE -->
+
+                    <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() {
+            if (document.getElementById('txtName').value == "") {
+                swal.fire('Error', 'Please Enter a Major Name', 'error');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
