@@ -10,18 +10,18 @@ namespace CASPAR.Pages.Admins.ManageCampus
         private readonly UnitOfWork _unitOfWork;
 
         [BindProperty]
-        public Building objCampus { get; set; }
+        public Campus objCampus { get; set; }
         public UpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            objCampus = new Building();
+            objCampus = new Campus();
         }
         public IActionResult OnGet(int? id)
         {
             //assuming am i in edit mode:
             if (id != 0)
             {
-                objCampus = _unitOfWork.Building.GetById(id);
+                objCampus = _unitOfWork.Campus.GetById(id);
             }
             if (objCampus == null) //nothing found in database
             {
@@ -41,17 +41,17 @@ namespace CASPAR.Pages.Admins.ManageCampus
             }
 
             //if this is a new category
-            if (objCampus.BuildingId == 0)
+            if (objCampus.CampusId == 0)
             {
-                _unitOfWork.Building.Add(objCampus);    //not saved to database yet.
-                TempData["success"] = "Building added successfully.";
+                _unitOfWork.Campus.Add(objCampus);    //not saved to database yet.
+                TempData["success"] = "Campus added successfully.";
             }
 
             //if exists
             else
             {
-                _unitOfWork.Building.Update(objCampus);
-                TempData["success"] = "Building updated successfully.";
+                _unitOfWork.Campus.Update(objCampus);
+                TempData["success"] = "Campus updated successfully.";
             }
 
             _unitOfWork.Commit();  //saves changes to database.
