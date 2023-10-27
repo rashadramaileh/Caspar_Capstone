@@ -16,7 +16,7 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.InstructorWishlist.GetAll(null, null, "Semester,InstructorWishlistDetails,Course") });
+            return Json(new { data = _unitOfWork.InstructorWishlist.GetAll(null, null, "Semester,InstructorWishlistDetails") });
         }
     }
 }
