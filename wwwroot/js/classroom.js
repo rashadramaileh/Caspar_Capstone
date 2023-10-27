@@ -7,17 +7,17 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#DT_Classroom').DataTable({
         "ajax": {
-            "url": "/api/classrooms",
+            "url": "/api/classroom",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "roomNumber", "width": "17.5%" },
-            { "data": "capacity", "width": "17.5%" },
-            { "data": "roomConfig.roomConfig", "width": "17.5%" },
-            { "data": "building.building", "width": "17.5%" },
+            { "data": "roomNumber", "width": "15%" },
+            { "data": "capacity", "width": "15%" },
+            { "data": "roomConfig.roomConfig", "width": "15%" },
+            { "data": "building.building", "width": "15%" },
             {
                 "data": "classroomId",
                 "render": function (data) {

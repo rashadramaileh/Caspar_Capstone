@@ -10,7 +10,5 @@ namespace CASPAR.Infrastructure.Models
         [Required]
         public string? CampusName { get; set; }
 
-        
-
     }
 }
