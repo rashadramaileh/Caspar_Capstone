@@ -1,4 +1,31 @@
 ﻿@page
 @model CASPAR.Pages.Admins.ManageModality.IndexModel
-@{
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Modality List
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-route-id="0" asp-page="Upsert" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Create New Modality
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover" id="DT_Modality" style="width:100%">
+        <thead>
+            <tr>
+                <th>Modality</th>
+                <th>Modality Description</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="/js/modality.js"> </script>
 }

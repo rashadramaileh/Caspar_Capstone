@@ -7,16 +7,21 @@
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objBuilding.BuildingId != 0 ? "Update " : "Create ")Campus</h2>
+                    <h2 class="text-primary">@(Model.objBuilding.BuildingId != 0 ? "Update " : "Create ")Building</h2>
                     <hr />
                 </div>
                 <div class="form-floating py-2 col-12">
                     <input asp-for="objBuilding.BuildingName" class="form-control border-0 shadow" />
-                    <label asp-for="objBuilding.BuildingName" class="ms-2">Campus Name</label>
+                    <label asp-for="objBuilding.BuildingName" class="ms-2">Building Name</label>
                     <span asp-validation-for="objBuilding.BuildingName" class="text-danger"></span>
                 </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objBuilding.Campus" class="form-control border-0 shadow" />
+                    <label asp-for="objBuilding.Campus" class="ms-2">Campus Name</label>
+                    <span asp-validation-for="objBuilding.Campus" class="text-danger"></span>
+                </div>
                 <div class="col-12">
-                    @if (Model.objBuilding.BuildingId != 0)
+                    @if (Model.objBuilding.CampusId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
