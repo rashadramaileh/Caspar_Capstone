@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 function loadList() {
-    dataTable = $('#Instructor_Wishlist').DataTable({
+    dataTable = $('#DT_InstructorWishlist').DataTable({
         "ajax": {
             "url": "/api/instructorwishlist",
             "type": "GET",
@@ -14,7 +14,7 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "ranking.name", "width": "15%" },
+            { "data": "instructorWishlistDetails.Ranking", "width": "15%" },
             { "data": "course.name", "width": "25%" },
             { "data": "coursetype.name", "width": "15%" },
             { "data": "timeblock.name", "width": "15%" },

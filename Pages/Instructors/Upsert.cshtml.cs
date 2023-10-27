@@ -18,8 +18,7 @@ namespace CASPAR.Pages.Instructors
         public InstructorWishlistModality objInstructorWishlistModality { get; set; }
         [BindProperty]
         public InstructorTime objInstructorTime { get; set; }
-        [BindProperty]
-        public Instructor objInstructor { get; set; }
+       
 
 
         public IEnumerable<SelectListItem> InstructorList { get; set; }
@@ -49,11 +48,16 @@ namespace CASPAR.Pages.Instructors
         public IActionResult OnGet(int? id)
         {
             
-            RankingList = _unitOfWork.Ranking.GetAll()
+            List<int> Rankings = new List<int>();
+            for (int i = 1; i < 10; i++)
+            {
+                Rankings.Add(i);
+            }
+            RankingList = Rankings
                 .Select(x => new SelectListItem
                 {
-                    Text = x.Rank.ToString(),
-                    Value = x.RankingId.ToString(),
+                    Text = x.ToString(),
+                    Value = x.ToString(),
                 });
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem
@@ -66,7 +70,7 @@ namespace CASPAR.Pages.Instructors
                .Select(x => new SelectListItem
                {
                    Text = x.ModalityName,
-                   Value = x.ModalityName.ToString(),
+                   Value = x.ModalityId.ToString(),
                });
             DayList = _unitOfWork.DayBlock.GetAll()
                .Select(x => new SelectListItem
@@ -108,9 +112,10 @@ namespace CASPAR.Pages.Instructors
             if (id != 0)
             {
                 objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(id);
-                objInstructorWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetById(id);
-                objInstructorWishlistModality = _unitOfWork.InstructorWishlistModality.GetById(id);
                 objInstructorTime = _unitOfWork.InstructorTime.GetById(id);
+                objInstructorWishlistModality = _unitOfWork.InstructorWishlistModality.GetById(id);
+                objInstructorWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetById(id);
+                
             }
 
             //assuming I'm in create mode
@@ -128,9 +133,20 @@ namespace CASPAR.Pages.Instructors
             if (objInstructorWishlist.InstructorWishlistId == 0)
             {
                 _unitOfWork.InstructorWishlist.Add(objInstructorWishlist);
+
+                //setting wishlist id from wishlist to InstructorWishlistDetails
+                objInstructorWishlistDetails.InstructorWishlistId = objInstructorWishlist.InstructorWishlistId;
                 _unitOfWork.InstructorWishlistDetails.Add(objInstructorWishlistDetails);
+
+                //setting wishlistdetails id from wishlist details to instructorwishlistModality
+                objInstructorWishlistModality.InstructorWishListDetailsId = objInstructorWishlistDetails.InstructorWishlistDetailsId;
                 _unitOfWork.InstructorWishlistModality.Add(objInstructorWishlistModality);
+
+                objInstructorTime.InstructorWishlistModalityId = (int)objInstructorWishlistModality.InstructorWishlistModalityId;
                 _unitOfWork.InstructorTime.Add(objInstructorTime);
+                
+                
+                
             }
             //Save changes to Database
             _unitOfWork.Commit();

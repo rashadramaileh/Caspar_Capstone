@@ -20,13 +20,13 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objStudentWishlistModality.Modality.ModalityId"></label>
-                    <select id="ddlFormat" asp-for="objStudentWishlistModality.Modality" asp-items="@Model.FormatList" class="form-select">
+                    <select id="ddlFormat" asp-for="objStudentWishlistModality.ModalityId" asp-items="@Model.FormatList" class="form-select">
                         <option disabled selected>--Select Format--</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objStudentTime.TimeBlock.TimeBlockId"></label>
-                    <select id="ddlDayBlock" asp-for="objStudentTime.TimeBlock" asp-items="@Model.TimeList" class="form-select">
+                    <select id="ddlDayBlock" asp-for="objStudentTime.TimeBlock.TimeName" asp-items="@Model.TimeList" class="form-select">
                         <option disabled selected>--Select Time--</option>
                     </select>
                 </div>
@@ -39,9 +39,19 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objStudentTime.Campus"></label>
-                    <select id="ddlCampus" asp-for="objStudentTime.Campus" asp-items="@Model.CampusList" class="form-select">
+                    <select id="ddlCampus" asp-for="objStudentTime.CampusId" asp-items="@Model.CampusList" class="form-select">
                         <option disabled selected>--Select Campus--</option>
                     </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentWishlist.StudentId"></label>
+                    <select id="ddlInstructor" asp-for="objStudentWishlist.StudentId" asp-items="@Model.StudentList" class="form-select">
+                        <option disabled selected>--Select Student--</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="objStudentWishlistDetails.StudentNotes"></label>
+                    <textarea asp-for="objStudentWishlistDetails.StudentNotes" id="txtDesc" rows="3" class="form-control"></textarea>
                 </div>
                 <div class="col-12">
                     @if (Model.objStudentWishlist.StudentWishlistId != 0)

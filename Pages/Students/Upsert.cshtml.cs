@@ -44,11 +44,11 @@ namespace CASPAR.Pages.Students
         public IActionResult OnGet(int? id)
         {
             StudentList = _unitOfWork.Student.GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.User.ToString(),
-                    Value = x.StudentId.ToString(),
-                });
+               .Select(x => new SelectListItem
+               {
+                   Text = x.StudentId.ToString(),
+                   Value = x.StudentId.ToString(),
+               });
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem
                 {
@@ -60,7 +60,7 @@ namespace CASPAR.Pages.Students
                .Select(x => new SelectListItem
                {
                    Text = x.ModalityName,
-                   Value = x.ModalityName.ToString(),
+                   Value = x.ModalityId.ToString(),
                });
            
             TimeList = _unitOfWork.TimeBlock.GetAll()
@@ -112,8 +112,15 @@ namespace CASPAR.Pages.Students
             if (objStudentWishlist.StudentWishlistId == 0)
             {
                 _unitOfWork.StudentWishlist.Add(objStudentWishlist);
+
+                objStudentWishlistDetails.StudentWishlistId = objStudentWishlist.StudentWishlistId;
                 _unitOfWork.StudentWishlistDetails.Add(objStudentWishlistDetails);
+
+                //setting wishlistdetails id from wishlist details to studentwishlistModality
+                objStudentWishlistModality.StudentWishListDetailsId = objStudentWishlistDetails.StudentWishlistDetailsId;
                 _unitOfWork.StudentWishlistModality.Add(objStudentWishlistModality);
+
+                objStudentTime.StudentWishlistModalityId = (int)objStudentWishlistModality.StudentWishlistModalityId;
                 _unitOfWork.StudentTime.Add(objStudentTime);
             }
             //Save changes to Database

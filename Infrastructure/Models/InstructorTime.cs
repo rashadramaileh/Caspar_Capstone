@@ -26,7 +26,7 @@ namespace CASPAR.Infrastructure.Models
         [ForeignKey("MeetingTimeId")]
         public MeetingTime? MeetingTime { get; set; }
 
-        [ForeignKey("DayBlockId")]
+        [ForeignKey("DaysBlockId")]
         public DayBlock? DayBlock { get; set; }
     }
 }
