@@ -21,7 +21,7 @@
                     <span asp-validation-for="objBuilding.Campus" class="text-danger"></span>
                 </div>
                 <div class="col-12">
-                    @if (Model.objBuilding.CampusId != 0)
+                    @if (Model.objBuilding.BuildingId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
