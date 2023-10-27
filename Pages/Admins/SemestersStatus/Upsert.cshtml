@@ -1,0 +1,42 @@
+﻿@page
+@model CASPAR.Pages.Admins.SemestersStatus.UpsertModel
+@{
+}
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    <input asp-for="objSemesterStatus.SemesterStatusID" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objSemesterStatus.SemesterStatusID != 0 ? "Update " : "Create ")Semester Status</h2>
+                    <hr />
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objSemesterStatus.SemesterStatusName" class="form-control border-0 shadow" />
+                    <label asp-for="objSemesterStatus.SemesterStatusName" class="ms-2">Semester Status Name</label>
+                    <span asp-validation-for="objSemesterStatus.SemesterStatusName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objSemesterStatus.SemesterStatusDescription" class="form-control border-0 shadow" />
+                    <label asp-for="objSemesterStatus.SemesterStatusDescription" class="ms-2">Semester Status Description</label>
+                    <span asp-validation-for="objSemesterStatus.SemesterStatusDescription" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    @if (Model.objSemesterStatus.SemesterStatusID != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }
+                    <!--END ELSE -->
+                    <a asp-page="/Admins/SemestersStatus/Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

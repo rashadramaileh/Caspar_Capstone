@@ -33,15 +33,15 @@
                     <span asp-validation-for="objSemester.RegisterDate" class="text-danger"></span>
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objSemester.SemesterType"></label>
-                    <select id="ddlFormat" asp-for="objSemester.SemesterType" asp-items="@Model.SemesterTypeList" class="form-select">
-                        <option disabled selected>--Select Program--</option>
+                    <label asp-for="objSemester.SemesterTypeId"></label>
+                    <select id="ddlSemesterType" asp-for="objSemester.SemesterTypeId" asp-items="@Model.SemesterTypeList" class="form-select">
+                        <option disabled selected>--Select Type--</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objSemester.SemesterStatus"></label>
-                    <select id="ddlDayBlock" asp-for="objSemester.SemesterStatus" asp-items="@Model.SemesterStatusList" class="form-select">
-                        <option disabled selected>--Select Course Type--</option>
+                    <label asp-for="objSemester.SemesterStatusId"></label>
+                    <select id="ddlSemesterStatus" asp-for="objSemester.SemesterStatusId" asp-items="@Model.SemesterStatusList" class="form-select">
+                        <option disabled selected>--Select Status--</option>
                     </select>
                 </div>
                 <div class="col-12">
@@ -62,3 +62,30 @@
         </div>
     </div>
 </form>
+
+@section Scripts
+{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() 
+        {
+            if ($('#ddlSemesterType option:selected').val() == "--Select Type--") {
+                swal.fire('Error', 'Please Select a Type', 'error')
+                return false
+            }
+
+            if ($('#ddlSemesterStatus option:selected').val() == "--Select Status--") {
+                swal.fire('Error', 'Please Select a Status', 'error')
+                return false
+            }
+
+            return true;
+        }
+    </script>
+}

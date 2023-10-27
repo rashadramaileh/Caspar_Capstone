@@ -39,13 +39,13 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objCourse.UniProgramId"></label>
-                    <select id="ddlFormat" asp-for="objCourse.UniProgramId" asp-items="@Model.UniProgramList" class="form-select">
+                    <select id="ddlProgram" asp-for="objCourse.UniProgramId" asp-items="@Model.UniProgramList" class="form-select">
                         <option disabled selected>--Select Program--</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objCourse.CourseTypeId"></label>
-                    <select id="ddlDayBlock" asp-for="objCourse.CourseTypeId" asp-items="@Model.CourseTypeList" class="form-select">
+                    <select id="ddlCourseType" asp-for="objCourse.CourseTypeId" asp-items="@Model.CourseTypeList" class="form-select">
                         <option disabled selected>--Select Course Type--</option>
                     </select>
                 </div>
@@ -67,3 +67,29 @@
         </div>
     </div>
 </form>
+
+@section Scripts
+{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() {
+            if ($('#ddlProgram option:selected').val() == "--Select Program--") {
+                swal.fire('Error', 'Please Select a Program', 'error')
+                return false
+            }
+
+            if ($('#ddlCourseType option:selected').val() == "--Select Course Type--") {
+                swal.fire('Error', 'Please Select a Course Type', 'error')
+                return false
+            }
+
+            return true;
+        }
+    </script>
+}
