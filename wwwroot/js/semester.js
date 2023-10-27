@@ -19,7 +19,7 @@ function loadList() {
             { "data": "endDate", "width": "10%" },
             { "data": "registerDate", "width": "10%" },
             { "data": "semesterStatus.semesterStatusName", "width": "15%" },
-            { "data": "semesterType.semesterTypeName", "width": "10%" },
+            { "data": "semesterType.semesterName", "width": "10%" },
             {
                 "data": "id",
                 "render": function (data) {
