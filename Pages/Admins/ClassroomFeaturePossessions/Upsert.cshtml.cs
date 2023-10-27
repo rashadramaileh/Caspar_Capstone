@@ -26,7 +26,7 @@ namespace CASPAR.Pages.Admins.ClassroomFeaturePossessions
 
         public IActionResult OnGet(int? id)
         {
-            ClassroomList = _unitOfWork.Classroom.GetAll(null,null,"Building")
+            ClassroomList = _unitOfWork.Classroom.GetAll()
                 .Select(c => new SelectListItem
                 {
                     Text =   c.RoomNumber,

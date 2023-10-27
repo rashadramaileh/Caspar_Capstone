@@ -12,7 +12,7 @@ function loadList() {
         },
         "columns": [
             //should be lowercase for first letter, camelcase
-            { "data": "classroom.building.BuildingName", "width": "25%" },
+            //{ "data": "classroom.building.buildingName", "width": "25%" },
             { "data": "classroom.roomNumber", "width": "25%" },
             { "data": "classroomFeature.classroomFeatureName", "width": "25%" },
 
@@ -20,7 +20,7 @@ function loadList() {
             //{ "data": "category.name", "width": "15%" },
             //{ "data": "manufacturer.name", "width": "15%" },
             {
-                "data": "classroomFeaturePossessionId",
+                "data": "featurePossessionId",
                 "render": function (data) {
                     return `<div class="text-center">
                                 <a href="/Admins/ClassroomFeaturePossession/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;"> 
