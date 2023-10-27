@@ -1,5 +1,5 @@
 ﻿@page
-@model CASPAR.Pages.Admins.ManageSectionStatus.IndexModel
+@model CASPAR.Pages.Admins.ManageRoomConfig.IndexModel
 @{
 }
 
@@ -7,20 +7,20 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Section Status
+                Campus List
             </h2>
         </div>
         <div class="col-6 text-end">
             <a asp-route-id="0" asp-page="Upsert" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Create New Section Status
+                <i class="bi bi-plus-circle"></i> Create New Classroom
             </a>
         </div>
     </div>
-    <table class="table table-bordered table-striped" id="DT_SectionStatus" style="width:100%">
+    <table class="table table-bordered table-hover" id="DT_RoomConfig" style="width:100%">
         <thead>
             <tr>
-                <th>Status Name</th>
-                <th>Status Description</th>
+                <th>Room Configuration</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -29,5 +29,5 @@
 
 @section Scripts
     {
-    <script src="~/js/sectionstatus.js"> </script>
-    }
+    <script src="/js/roomconfig.js"> </script>
+}

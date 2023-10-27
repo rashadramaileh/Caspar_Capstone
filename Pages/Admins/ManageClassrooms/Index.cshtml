@@ -5,7 +5,7 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Campus List
+                Classroom List
             </h2>
         </div>
         <div class="col-6 text-end">
@@ -14,11 +14,13 @@
             </a>
         </div>
     </div>
-    <table class="table table-bordered table-hover" id="DT_Classroom" style="width:100%">
+    <table class="table table-bordered table-striped" id="DT_Classroom" style="width:100%">
         <thead>
             <tr>
-                <th>Classroom Name</th>
-                <th></th>
+                <th>Room Number</th>
+                <th>Capacity</th>
+                <th>Room Configuration</th>
+                <th>Building</th>
             </tr>
         </thead>
 
@@ -27,5 +29,5 @@
 
 @section Scripts
     {
-    <script src="/js/classroom.js"> </script>
+    <script src="~/js/classroom.js"> </script>
 }

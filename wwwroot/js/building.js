@@ -15,7 +15,7 @@ function loadList() {
             // Should not be capital
             //This needs to be changed VVVV
             { "data": "buildingName", "width": "35%" },
-            {"data": "campus.campusName", "width": "35%"},
+            {"data": "campus.campus", "width": "35%"},
             {
                 "data": "buildingId",
                 "render": function (data) {

@@ -7,10 +7,10 @@ namespace CASPAR.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ClassroomController : Controller
+    public class RoomConfigController : Controller
     {
         private readonly UnitOfWork _unitOfWork;
-        public ClassroomController(UnitOfWork unitOfWork)
+        public RoomConfigController(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -18,7 +18,7 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.Classroom.GetAll(null, null, "RoomConfig,Building") });
+            return Json(new { data = _unitOfWork.RoomConfig.GetAll() });
         }
     }
 }

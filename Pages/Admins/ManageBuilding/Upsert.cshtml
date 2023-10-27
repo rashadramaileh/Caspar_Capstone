@@ -15,10 +15,11 @@
                     <label asp-for="objBuilding.BuildingName" class="ms-2">Building Name</label>
                     <span asp-validation-for="objBuilding.BuildingName" class="text-danger"></span>
                 </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objBuilding.Campus" class="form-control border-0 shadow" />
-                    <label asp-for="objBuilding.Campus" class="ms-2">Campus Name</label>
-                    <span asp-validation-for="objBuilding.Campus" class="text-danger"></span>
+                <div class="mb-3 col-6">
+                    <label asp-for="objBuilding.CampusId">Campus</label>
+                    <select id="ddlCategory" asp-for="objBuilding.CampusId" asp-items="@Model.CampusList" class="form-select">
+                        <option disabled selected>--Select Campus--</option>
+                    </select>
                 </div>
                 <div class="col-12">
                     @if (Model.objBuilding.BuildingId != 0)

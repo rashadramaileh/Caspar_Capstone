@@ -2,22 +2,34 @@ using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Admins.ManageBuilding
 {
     public class UpsertModel : PageModel
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UnitOfWork _unitOfWork;
 
         [BindProperty]
         public Building objBuilding { get; set; }
-        public UpsertModel(UnitOfWork unitOfWork)
+
+        public IEnumerable <SelectListItem> CampusList { get; set; }
+        public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             objBuilding = new Building();
+            _webHostEnvironment = webHostEnvironment;
+            CampusList = new List<SelectListItem>();
         }
         public IActionResult OnGet(int? id)
         {
+            CampusList = _unitOfWork.Campus.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CampusName,
+                    Value = c.CampusId.ToString()
+                });
             //assuming am i in edit mode:
             if (id != 0)
             {

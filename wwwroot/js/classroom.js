@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#DT_Classroom').DataTable({
         "ajax": {
-            "url": "/api/classroom",
+            "url": "/api/classrooms",
             "type": "GET",
             "datatype": "json"
         },
@@ -16,8 +16,8 @@ function loadList() {
             //This needs to be changed VVVV
             { "data": "roomNumber", "width": "17.5%" },
             { "data": "capacity", "width": "17.5%" },
-            { "data": "roomConfig", "width": "17.5%" },
-            { "data": "building", "width": "17.5%" },
+            { "data": "roomConfig.roomConfig", "width": "17.5%" },
+            { "data": "building.building", "width": "17.5%" },
             {
                 "data": "classroomId",
                 "render": function (data) {
