@@ -23,10 +23,13 @@ namespace CASPAR.Infrastructure.Models
         [Display(Name = "Status")]
         public int SemesterStatusId { get; set; }
 
+        [Display(Name = "Type")]
+        public int SemesterTypeId { get; set; }
+
         [ForeignKey("SemesterStatusId")]
         public SemesterStatus? SemesterStatus { get; set; }
 
-        [ForeignKey("SemesterTypesId")]
+        [ForeignKey("SemesterTypeId")]
         public SemesterType? SemesterType { get; set; }
     }
 }
