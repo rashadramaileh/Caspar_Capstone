@@ -5,29 +5,24 @@ $(document).ready(function () {
 });
 
 function loadList() {
-    dataTable = $('#DT_Semester').DataTable({
+    dataTable = $('#DT_SemesterType').DataTable({
         "ajax": {
-            "url": "/api/semester",
+            "url": "/api/semestertype",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "semesterName", "width": "15%" },
-            { "data": "beginDate", "width": "10%" },
-            { "data": "endDate", "width": "10%" },
-            { "data": "registerDate", "width": "10%" },
-            { "data": "semesterStatus.semesterStatusName", "width": "15%" },
-            { "data": "semesterType.semesterName", "width": "10%" },
+            { "data": "semesterName", "width": "70%" },
             {
-                "data": "semesterId",
+                "data": "semesterTypeId",
                 "render": function (data) {
                     return `<div class="text-center"> 
-                                <a href="/Admins/Semesters/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/SemesterTypes/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-edit"></i> Edit </a>
                                     
-                                <a href="/Admins/Semesters/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/SemesterTypes/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-trash-alt"></i> Delete </a>
                         </div>`;
                 }, "width": "30%"
