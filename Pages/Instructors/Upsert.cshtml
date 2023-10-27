@@ -49,6 +49,12 @@
                         <option disabled selected>--Select Campus--</option>
                     </select>
                 </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objInstructor.InstructorId"></label>
+                    <select id="ddlCampus" asp-for="objInstructor.InstructorId" asp-items="@Model.InstructorList" class="form-select">
+                        <option disabled selected>--Select Instructor--</option>
+                    </select>
+                </div>
                 <div class="col-12">
                     @if (Model.objInstructorWishlist.InstructorWishlistId != 0)
                     {
