@@ -16,7 +16,7 @@ function loadList() {
             //This needs to be changed VVVV
             { "data": "partOfTermName", "width": "70%" },
             {
-                "data": "id",
+                "data": "partOfTermID",
                 "render": function (data) {
                     return `<div class="text-center"> 
                                 <a href="/Admins/PartOfTerms/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
