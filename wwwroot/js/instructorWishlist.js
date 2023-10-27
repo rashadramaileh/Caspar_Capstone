@@ -14,13 +14,8 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "instructorWishlistDetails.Ranking", "width": "15%" },
-            { "data": "course.name", "width": "25%" },
-            { "data": "coursetype.name", "width": "15%" },
-            { "data": "timeblock.name", "width": "15%" },
-            { "data": "dayblock.name", "width": "15%" },
-            { "data": "campus.name", "width": "15%" },
-            { "data": "semester.name", "width": "15%" },
+            { "data": "instructorWishlistDetails.instructorRanking", "width": "15%" },
+            { "data": "semester.semesterName", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
