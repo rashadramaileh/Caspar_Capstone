@@ -20,7 +20,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objInstructorWishlistModality.Modality.ModalityId"></label>
-                    <select id="ddlFormat" asp-for="objInstructorWishlistModality.Modality.ModalityName" asp-items="@Model.FormatList" class="form-select">
+                    <select id="ddlFormat" asp-for="objInstructorWishlistModality.ModalityId" asp-items="@Model.FormatList" class="form-select">
                         <option disabled selected>--Select Format--</option>
                     </select>
                 </div>
@@ -50,8 +50,8 @@
                     </select>
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objInstructor.InstructorId"></label>
-                    <select id="ddlCampus" asp-for="objInstructor.InstructorId" asp-items="@Model.InstructorList" class="form-select">
+                    <label asp-for="objInstructorWishlist.InstructorId"></label>
+                    <select id="ddlInstructor" asp-for="objInstructorWishlist.InstructorId" asp-items="@Model.InstructorList" class="form-select">
                         <option disabled selected>--Select Instructor--</option>
                     </select>
                 </div>

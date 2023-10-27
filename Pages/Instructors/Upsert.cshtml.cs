@@ -48,12 +48,7 @@ namespace CASPAR.Pages.Instructors
         }
         public IActionResult OnGet(int? id)
         {
-            InstructorList = _unitOfWork.Instructor.GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.User.ToString(),
-                    Value = x.InstructorId.ToString(),
-                });
+            
             RankingList = _unitOfWork.Ranking.GetAll()
                 .Select(x => new SelectListItem
                 {
