@@ -18,7 +18,7 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.Campus.GetAll(null,null, "BuildingName,Campus") });
+            return Json(new { data = _unitOfWork.Campus.GetAll(null,null, "Campus") });
         }
     }
 }
