@@ -1,0 +1,48 @@
+﻿@page
+@model CASPAR.Pages.Admins.ManageBuilding.UpsertModel
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary py-2">@(Model.objBuilding.CampusId != 0 ? "Update " : "Create ")Building</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objBuilding.BuildingName" class="form-control border-0 shadow" />
+                    <label asp-for="objBuilding.BuildingName" class="ms-2"></label>
+                    <span asp-validation-for="objBuilding.BuildingName" class="text-danger"></span>
+
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objBuilding.Campus" class="form-control border-0 shadow" />
+                    <label asp-for="objBuilding.Campus" class="ms-2"></label>
+                    <span asp-validation-for="objBuilding.Campus" class="text-danger"></span>
+
+                </div>
+                @if (Model.objBuilding.BuildingId != 0)
+                {
+                    <input asp-for="objBuilding.BuildingId" type="hidden">
+                }
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary form-control">@(Model.objBuilding.BuildingId != 0 ? "Update" : "Create")</button>
+                        </div>
+                        <div class="col">
+                            <a asp-page="Index" class="btn btn-outline-primary border  form-control">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
