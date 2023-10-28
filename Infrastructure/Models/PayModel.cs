@@ -6,7 +6,8 @@ namespace CASPAR.Infrastructure.Models
     {
         [Key, Range(0, 65535)]
         public int PayModelId { get; set; }
-        [Required, StringLength(20), Display(Name = "Pay Model")]
+        //[Required, StringLength(20), Display(Name = "Pay Model")]
+        [Required, StringLength(20)]
         public String? PayType { get; set; }
 
     }
