@@ -24,12 +24,6 @@
                     <span asp-validation-for="objClassroom.Capacity" class="text-danger"></span>
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objClassroom.RoomConfigId"></label>
-                    <select asp-for="objClassroom.RoomConfigId" asp-items="@Model.RoomConfigList" class="form-select">
-                        <option disabled selected>--Select Room Configuration--</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-6">
                     <label asp-for="objClassroom.BuildingId"></label>
                     <select asp-for="objClassroom.BuildingId" asp-items="@Model.BuildingList" class="form-select">
                         <option disabled selected>--Select Building--</option>

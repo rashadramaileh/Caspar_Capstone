@@ -13,24 +13,18 @@ namespace CASPAR.Pages.Admins.ManageClassrooms
 
         [BindProperty]
         public Classroom objClassroom { get; set; }
-        public IEnumerable<SelectListItem> RoomConfigList { get; set; }
+        //public IEnumerable<SelectListItem> RoomConfigList { get; set; }
         public IEnumerable<SelectListItem> BuildingList { get; set; }
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             objClassroom = new Classroom();
             _webHostEnvironment = webHostEnvironment;
-            RoomConfigList = new List<SelectListItem>();
+            //RoomConfigList = new List<SelectListItem>();
             BuildingList = new List<SelectListItem>();
         }
         public IActionResult OnGet(int? id)
         {
-            RoomConfigList = _unitOfWork.RoomConfig.GetAll()
-                .Select(c => new SelectListItem
-                {
-                    Text = c.RoomConfigName,
-                    Value = c.RoomConfigId.ToString()
-                });
             BuildingList = _unitOfWork.Building.GetAll()
                 .Select(c => new SelectListItem
                 {
