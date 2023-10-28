@@ -1,0 +1,63 @@
+﻿@page
+@model WishlistDetailsModel
+@{
+}
+
+<div class="container">
+    <div class="row pt=4">
+        <!--Start Row-->
+        <div class="col-6">
+            <!--50% of row-->
+            <h2 class="text-primary">
+                Wishlist
+            </h2>
+        </div><!-- End 1st Column-->
+        <div class="col-7 text-end">
+            <!--50% row right justified-->
+            <a asp-page="Upsert" asp-route-id="0" asp-route-student="@Model.createId" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Course
+            </a>
+        </div> <!--End 2nd Column-->
+    </div> <!--End Row-->
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Course
+                </th>
+                <th>
+                    Notes
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+			<!--Loop though to create each row-->
+			@foreach (var obj in Model.objDetailsList)
+			{
+				<tr>
+					<td style="width:50%">
+						@obj.Course.CourseName
+					</td>
+					<td style="width:30%">
+						@obj.StudentNotes
+					</td>
+					<td style="width:20%">
+						<div class="w-75% btn-group" role="group">
+							<div class="text-center"> 
+                                <a href="/Students/Modalities/Index?id=@obj.StudentWishlistDetailsId" class="btn btn-primary text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-edit"></i> View </a>
+
+                                <a href="/Students/Courses/Upsert?id=@obj.StudentWishlistDetailsId&student=@obj.StudentWishlistId" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-edit"></i> Edit </a>
+
+                                <a href="/Students/Courses/Delete?id=@obj.StudentWishlistDetailsId&student=@obj.StudentWishlistId" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-trash-alt"></i> Delete </a>
+                             </div>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+    </table>
+</div>

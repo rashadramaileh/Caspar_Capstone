@@ -24,7 +24,7 @@ namespace CASPAR.Infrastructure.Models
         [ForeignKey("CourseId")]
         public Course? Course { get; set; }
 
-        [ForeignKey("StudentWishlistId"), DeleteBehavior(DeleteBehavior.NoAction)]
-        public InstructorWishlist? InstructorWishlist { get; set; }
+        [ForeignKey("StudentWishlistId"), DeleteBehavior(DeleteBehavior.Cascade)]
+        public StudentWishlist? StudentWishlist { get; set; }
     }
 }

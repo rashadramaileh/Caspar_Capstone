@@ -1,0 +1,38 @@
+﻿@page
+@model CASPAR.Pages.Students.Landing.UpsertModel
+@{
+}
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    <input asp-for="objStudentWishlist.StudentWishlistId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objStudentWishlist.StudentWishlistId != 0 ? "Update " : "Create ")Semester</h2>
+                    <hr />
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentWishlist.SemesterId"></label>
+                    <select id="ddlSemesterStatus" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
+                        <option disabled selected>--Select Semester--</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    @if (Model.objStudentWishlist.StudentWishlistId != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }
+                    <!--END ELSE -->
+                    <a asp-page="/Students/Landing/Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

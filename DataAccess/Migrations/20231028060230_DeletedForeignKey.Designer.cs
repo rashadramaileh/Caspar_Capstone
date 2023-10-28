@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231028060230_DeletedForeignKey")]
+    partial class DeletedForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,6 +79,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
+                    b.Property<int>("RoomConfigId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RoomNumber")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -84,6 +90,8 @@ namespace DataAccess.Migrations
                     b.HasKey("ClassroomId");
 
                     b.HasIndex("BuildingId");
+
+                    b.HasIndex("RoomConfigId");
 
                     b.ToTable("Classroom");
                 });
@@ -846,18 +854,16 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("StudentWishlistId");
-
                     b.ToTable("StudentWishlistDetails");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentWishlistModality", b =>
                 {
-                    b.Property<int>("StudentWishlistModalityId")
+                    b.Property<int?>("StudentWishlistModalityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentWishlistModalityId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("StudentWishlistModalityId"));
 
                     b.Property<int?>("ModalityId")
                         .HasColumnType("int");
@@ -1040,7 +1046,15 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CASPAR.Infrastructure.Models.RoomConfig", "RoomConfig")
+                        .WithMany()
+                        .HasForeignKey("RoomConfigId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Building");
+
+                    b.Navigation("RoomConfig");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Course", b =>
@@ -1401,15 +1415,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CASPAR.Infrastructure.Models.StudentWishlist", "StudentWishlist")
-                        .WithMany()
-                        .HasForeignKey("StudentWishlistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("StudentWishlist");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentWishlistModality", b =>

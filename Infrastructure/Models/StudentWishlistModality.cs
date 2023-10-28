@@ -7,7 +7,7 @@ namespace CASPAR.Infrastructure.Models
     {
         [Key]
         [Range(0, 255)]
-        public int? StudentWishlistModalityId { get; set; }
+        public int StudentWishlistModalityId { get; set; }
         [Range(0, 255)]
         public int? ModalityId { get; set; }
         [Range(0, 255)]
