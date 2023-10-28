@@ -10,22 +10,31 @@ namespace CASPAR.Pages.Students.Times
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public StudentTime objTimeList { get; set; }
+        public Campus objCampus { get; set; }
+        public TimeBlock objTimeBlock { get; set; }
         public DeleteModel(UnitOfWork unitOfWOrk)
         {
             _unitOfWork = unitOfWOrk;
             objTimeList = new StudentTime();
+            objCampus = new Campus();
+            objTimeBlock = new TimeBlock();
         }
         public IActionResult OnGet(int? id)
         {
             if (id != 0)
             {
                 objTimeList = _unitOfWork.StudentTime.GetById(id);
+                objCampus = _unitOfWork.Campus.GetById(objTimeList.CampusId);
+                objTimeBlock = _unitOfWork.TimeBlock.GetById(objTimeList.TimeBlockId);
+
             }
 
             if (objTimeList == null)
             {
                 return NotFound();
             }
+
+            
 
             return Page();
 

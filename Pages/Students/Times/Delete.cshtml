@@ -16,13 +16,13 @@
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
                 <div class="form-floating py-2 col-12">
-                    <input readonly asp-for="objTimeList.TimeBlockId" class="form-control border-0 shadow" />
-                    <label asp-for="objTimeList.TimeBlockId" class="ms-2">Time Name</label>
+                    <input readonly asp-for="objTimeBlock.TimeName" class="form-control border-0 shadow" />
+                    <label asp-for="objTimeBlock.TimeName" class="ms-2">Time Name</label>
                     <span asp-validation-for="objTimeList.TimeBlockId" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <input readonly asp-for="objTimeList.CampusId" class="form-control border-0 shadow" />
-                    <label asp-for="objTimeList.CampusId" class="ms-2">Time Name</label>
+                    <input readonly asp-for="objCampus.CampusName" class="form-control border-0 shadow" />
+                    <label asp-for="objCampus.CampusName" class="ms-2">Time Name</label>
                     <span asp-validation-for="objTimeList.CampusId" class="text-danger"></span>
                 </div>
                 <input asp-for="objTimeList.StudentWishlistModalityId" type="hidden">

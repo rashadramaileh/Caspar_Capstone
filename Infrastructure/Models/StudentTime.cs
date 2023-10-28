@@ -10,7 +10,7 @@ namespace CASPAR.Infrastructure.Models
 
         [Key]
         [Range(0, 255)]
-        public int? StudentTimeId { get; set; }
+        public int StudentTimeId { get; set; }
         [Range(0, 255)]
         public int? TimeBlockId { get; set; }
         public int CampusId { get; set; }

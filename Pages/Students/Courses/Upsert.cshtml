@@ -4,7 +4,10 @@
 }
 
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objStudentWishlistDetails.StudentWishlistDetailsId" hidden />
+    @if(Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0)
+    {
+        <input asp-for="objStudentWishlistDetails.StudentWishlistDetailsId" type="hidden" />
+    }
     <input asp-for="objStudentWishlistDetails.StudentWishlistId" hidden />
     <div class="row">
         <div class="col-10">
@@ -24,7 +27,7 @@
                         <span asp-validation-for="objStudentWishlistDetails.StudentNotes" class="text-danger"></span>
                 </div>
                 <div class="col-12">
-                        @if (Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0)
+                    @if (Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
