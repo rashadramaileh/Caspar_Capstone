@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231028060230_DeletedForeignKey")]
+    partial class DeletedForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -851,8 +854,6 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("StudentWishlistId");
-
                     b.ToTable("StudentWishlistDetails");
                 });
 
@@ -1414,15 +1415,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CASPAR.Infrastructure.Models.StudentWishlist", "StudentWishlist")
-                        .WithMany()
-                        .HasForeignKey("StudentWishlistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("StudentWishlist");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentWishlistModality", b =>
