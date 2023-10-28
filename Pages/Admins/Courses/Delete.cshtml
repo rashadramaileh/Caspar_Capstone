@@ -16,9 +16,29 @@
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
                 <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objCourseList.CoursePrefix" class="form-control border-0 shadow" />
+                    <label asp-for="objCourseList.CoursePrefix" class="ms-2">Course Name</label>
+                    <span asp-validation-for="objCourseList.CoursePrefix" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objCourseList.CourseNumber" class="form-control border-0 shadow" />
+                    <label asp-for="objCourseList.CourseNumber" class="ms-2">Course Name</label>
+                    <span asp-validation-for="objCourseList.CourseNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
                     <input readonly asp-for="objCourseList.CourseName" class="form-control border-0 shadow" />
                     <label asp-for="objCourseList.CourseName" class="ms-2">Course Name</label>
                     <span asp-validation-for="objCourseList.CourseName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objCourseList.CourseDesc" class="form-control border-0 shadow" />
+                    <label asp-for="objCourseList.CourseDesc" class="ms-2">Course Name</label>
+                    <span asp-validation-for="objCourseList.CourseDesc" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objCourseList.CreditHours" class="form-control border-0 shadow" />
+                    <label asp-for="objCourseList.CreditHours" class="ms-2">Course Name</label>
+                    <span asp-validation-for="objCourseList.CreditHours" class="text-danger"></span>
                 </div>
                 <input asp-for="objCourseList.CourseId" type="hidden">
                 <div class="submit pt-2">
