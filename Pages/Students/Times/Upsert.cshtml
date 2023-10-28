@@ -4,7 +4,10 @@
 }
 
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objTime.StudentTimeId" hidden />
+    @if (Model.objTime.StudentTimeId != 0)
+    {
+        <input asp-for="objTime.StudentTimeId" hidden />
+    }
     <input asp-for="objTime.StudentWishlistModalityId" hidden />
     <div class="row">
         <div class="col-10">
@@ -13,14 +16,14 @@
                     <h2 class="text-primary">@(Model.objTime.StudentTimeId != 0 ? "Update " : "Create ") Time</h2>
                     <hr />
                     <div class="mb-3 col-6">
-                        <label asp-for="objTime.TimeBlockId">Time</label>
-                        <select id="ddlSemesterStatus" asp-for="objTime.TimeBlockId" asp-items="@Model.TimeList" class="form-select">
+                        <label asp-for="objTime.TimeBlock.TimeName">Time</label>
+                        <select asp-for="objTime.TimeBlockId" asp-items="@Model.TimeList" class="form-select">
                             <option disabled selected>--Select Time--</option>
                         </select>
                     </div>
                     <div class="mb-3 col-6">
-                        <label asp-for="objTime.CampusId">Campus</label>
-                        <select id="ddlSemesterStatus" asp-for="objTime.CampusId" asp-items="@Model.CampusList" class="form-select">
+                        <label asp-for="objTime.Campus.CampusName">Campus</label>
+                        <select asp-for="objTime.CampusId" asp-items="@Model.CampusList" class="form-select">
                             <option disabled selected>--Select Campus--</option>
                         </select>
                     </div>

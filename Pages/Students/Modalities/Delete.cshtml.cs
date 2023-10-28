@@ -10,16 +10,19 @@ namespace CASPAR.Pages.Students.Modalities
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public StudentWishlistModality objModalityList { get; set; }
+        public Modality objMod { get; set; }
         public DeleteModel(UnitOfWork unitOfWOrk)
         {
             _unitOfWork = unitOfWOrk;
             objModalityList = new StudentWishlistModality();
+            objMod = new Modality();
         }
         public IActionResult OnGet(int? id)
         {
             if (id != 0)
             {
                 objModalityList = _unitOfWork.StudentWishlistModality.GetById(id);
+                objMod = _unitOfWork.Modality.GetById(objModalityList.ModalityId);
             }
 
             if (objModalityList == null)

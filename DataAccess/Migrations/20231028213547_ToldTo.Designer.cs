@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231028213547_ToldTo")]
+    partial class ToldTo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -776,11 +779,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentTime", b =>
                 {
-                    b.Property<int>("StudentTimeId")
+                    b.Property<int?>("StudentTimeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentTimeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("StudentTimeId"));
 
                     b.Property<int>("CampusId")
                         .HasColumnType("int");

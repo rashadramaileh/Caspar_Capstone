@@ -21,6 +21,11 @@ namespace CASPAR.Pages.Students.Times
         {
             createId = id;
             objTimeList = _unitOfWork.StudentTime.GetAll().Where(c => c.StudentWishlistModalityId == id);
+            foreach (StudentTime obj in objTimeList)
+            {
+                obj.TimeBlock = _unitOfWork.TimeBlock.GetById(obj.TimeBlockId);
+                obj.Campus = _unitOfWork.Campus.GetById(obj.CampusId);
+            }
             return Page();
         }
     }

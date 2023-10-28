@@ -16,8 +16,8 @@
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
                 <div class="form-floating py-2 col-12">
-                    <input readonly asp-for="objModalityList.ModalityId" class="form-control border-0 shadow" />
-                    <label asp-for="objModalityList.ModalityId" class="ms-2">Course Name</label>
+                    <input readonly asp-for="objMod.ModalityName" class="form-control border-0 shadow" />
+                    <label asp-for="objMod.ModalityName" class="ms-2">Course Name</label>
                     <span asp-validation-for="objModalityList.ModalityId" class="text-danger"></span>
                 </div>
                 <input asp-for="objModalityList.StudentWishlistModalityId" type="hidden">

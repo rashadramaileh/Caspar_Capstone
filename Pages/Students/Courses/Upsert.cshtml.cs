@@ -26,7 +26,7 @@ namespace CASPAR.Pages.Students.Courses
         {
             CourseList = _unitOfWork.Course.GetAll().Select(c => new SelectListItem
             {
-                Text = c.CourseName,
+                Text = c.CoursePrefix + c.CourseNumber + " " + c.CourseName,
                 Value = c.CourseId.ToString()
             });
 
