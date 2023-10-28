@@ -21,6 +21,10 @@ namespace CASPAR.Pages.Students.Modalities
         {
             createId = id;
             objModalityList = _unitOfWork.StudentWishlistModality.GetAll().Where(c => c.StudentWishListDetailsId == id);
+            foreach(StudentWishlistModality obj in  objModalityList)
+            {
+                obj.Modality = _unitOfWork.Modality.GetById(obj.ModalityId);
+            }
             return Page();
         }
     }
