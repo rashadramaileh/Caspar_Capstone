@@ -10,16 +10,16 @@
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objTime.StudentWishlistModalityId != 0 ? "Update " : "Create ")Modality</h2>
+                    <h2 class="text-primary">@(Model.objTime.StudentTimeId != 0 ? "Update " : "Create ") Time</h2>
                     <hr />
                     <div class="mb-3 col-6">
-                        <label asp-for="objTime.TimeBlockId">Modality</label>
+                        <label asp-for="objTime.TimeBlockId">Time</label>
                         <select id="ddlSemesterStatus" asp-for="objTime.TimeBlockId" asp-items="@Model.TimeList" class="form-select">
                             <option disabled selected>--Select Time--</option>
                         </select>
                     </div>
                     <div class="mb-3 col-6">
-                        <label asp-for="objTime.CampusId">Modality</label>
+                        <label asp-for="objTime.CampusId">Campus</label>
                         <select id="ddlSemesterStatus" asp-for="objTime.CampusId" asp-items="@Model.CampusList" class="form-select">
                             <option disabled selected>--Select Campus--</option>
                         </select>

@@ -4,7 +4,7 @@
 }
 
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objModality.StudentWishlistModalityId" hidden />
+    <input asp-for="objModality.StudentWishlistModalityId" value="0" hidden />
     <input asp-for="objModality.StudentWishListDetailsId" hidden />
    
     <div class="row">

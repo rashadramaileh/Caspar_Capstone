@@ -40,7 +40,6 @@ namespace CASPAR.Pages.Students.Times
             students = (int)student;
             objTime.StudentWishlistModalityId = students;
 
-
             if (id != 0)
             {
                 objTime = _unitOfWork.StudentTime.GetById(id);
