@@ -3,7 +3,7 @@
 @{
 }
 <form method="post" asp-page="Upsert" enctype="multipart/form-data">
-    <input asp-for="objClassroomFeaturePossession.FeatureId" hidden />
+    <input asp-for="objClassroomFeaturePossession.FeaturePossessionId" hidden />
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
@@ -13,19 +13,19 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objClassroomFeaturePossession.Classroom"></label>
-                    <select id="classroom" asp-for="objClassroomFeaturePossession.Classroom" asp-items="@Model.ClassroomList" class="form-select">
+                    <select id="classroom" asp-for="objClassroomFeaturePossession.ClassroomId" asp-items="@Model.ClassroomList" class="form-select">
                         <option disabled selected>--Select Classroom--</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objClassroomFeaturePossession.ClassroomFeature"></label>
-                    <select id="feature" asp-for="objClassroomFeaturePossession.ClassroomFeature" asp-items="@Model.FeatureList" class="form-select">
+                    <select id="feature" asp-for="objClassroomFeaturePossession.FeatureId" asp-items="@Model.FeatureList" class="form-select">
                         <option disabled selected>--Select Feature--</option>
                     </select>
                 </div>
                 <div class="col-12">
                     <!--IF Product being edited -->
-                    @if (Model.objClassroomFeaturePossession.FeatureId != 0)
+                    @if (Model.objClassroomFeaturePossession.FeaturePossessionId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
@@ -57,7 +57,7 @@
                 return false;
             }
             if (document.getElementById('feature').value == null) {
-                swal.fire('Error', 'Please select a Classroom', 'error');
+                swal.fire('Error', 'Please select a Feature', 'error');
                 return false;
             }
             return true;
