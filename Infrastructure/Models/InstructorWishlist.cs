@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CASPAR.Infrastructure.Models
@@ -6,7 +7,7 @@ namespace CASPAR.Infrastructure.Models
     public class InstructorWishlist
     {
         [Key]
-        [Range(0, 65535)]
+        [Range(0, 65535) , DeleteBehavior(DeleteBehavior.Cascade)]
         public int InstructorWishlistId { get; set; }
 
 

@@ -12,6 +12,12 @@ namespace CASPAR.Pages.Instructors
 
         [BindProperty]
         public InstructorWishlist objInstructorWishlist { get; set; }
+        [BindProperty]
+        public InstructorWishlistDetails objInstructorWishlistDetails { get; set; }
+        [BindProperty]
+        public InstructorWishlistModality objInstructorWishlistModality { get; set; }
+        [BindProperty]
+        public InstructorTime objInstructorTime { get; set; }
 
 
         public DeleteModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
@@ -41,7 +47,7 @@ namespace CASPAR.Pages.Instructors
             {
                 return NotFound();
             }
-
+           
 
             _unitOfWork.InstructorWishlist.Delete(objInstructorWishlist);
             TempData["success"] = "Product Deleted Successfully";

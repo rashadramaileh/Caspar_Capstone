@@ -14,10 +14,11 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "instructorWishlistDetails.instructorRanking", "width": "15%" },
-            { "data": "semester.semesterName", "width": "15%" },
+            { "data": "instructorRanking", "width": "25%" },
+            { "data": "course.courseName", "width": "25%" },
+            { "data": "instructorNotes", "width": "25%" },
             {
-                "data": "id",
+                "data": "instructorWishlistId",
                 "render": function (data) {
                     return `<div class="text-center"> 
                                 <a href="/Instructors/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
