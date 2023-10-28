@@ -10,3 +10,4 @@
 
 [Diagrams: Use Case | Activity](https://drive.google.com/file/d/1nb5cdXddBkPlkH2G7F_eNyJtMI6noM9h/view?usp=sharing)
 
+<img src="documents/BitbyBit_ERD.png"  width="250">

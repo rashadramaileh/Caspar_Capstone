@@ -22,6 +22,10 @@ namespace CASPAR.Pages.Students.Courses
         {
             createId = id;
             objDetailsList = _unitOfWork.StudentWishlistDetails.GetAll().Where(c => c.StudentWishlistId == id);
+            foreach (StudentWishlistDetails obj in objDetailsList)
+            {
+                obj.Course = _unitOfWork.Course.GetById(obj.CourseId);
+            }
             return Page();
         }
     }
