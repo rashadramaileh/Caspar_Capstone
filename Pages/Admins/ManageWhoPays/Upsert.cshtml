@@ -1,0 +1,37 @@
+﻿@page
+@model CASPAR.Pages.Admins.ManageWhoPays.UpsertModel
+@{
+}
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    <input asp-for="objWhoPays.WhoPaysId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objWhoPays.WhoPaysId != 0 ? "Update " : "Create ")Who Pays</h2>
+                    <hr />
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="objWhoPays.WhoPaysName" class="form-control border-0 shadow" />
+                    <label asp-for="objWhoPays.WhoPaysName" class="ms-2">Who Pays Name</label>
+                    <span asp-validation-for="objWhoPays.WhoPaysName" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    @if (Model.objWhoPays.WhoPaysId != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }
+                    <!--END ELSE -->
+                    <a asp-page="/Upsert" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

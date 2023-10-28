@@ -14,14 +14,14 @@ namespace CASPAR.Infrastructure.Models
         [Required, Range(0, 65535)]
         public int Capacity { get; set; }
 
-        [Required, Range(0, 65535), Display(Name = "Room Config")]
-        public int RoomConfigId { get; set; }
+        //[Required, Range(0, 65535), Display(Name = "Room Config")]
+        //public int RoomConfigId { get; set; }
 
         [Required, Range(0, 65535)]
         public int BuildingId { get; set; }
 
-        [ForeignKey("RoomConfigId")]
-        public RoomConfig? RoomConfig { get; set; }
+        //[ForeignKey("RoomConfigId")]
+        //public RoomConfig? RoomConfig { get; set; }
 
         [ForeignKey("BuildingId")]
         public Building? Building { get; set; }
