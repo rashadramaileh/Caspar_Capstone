@@ -1,0 +1,42 @@
+﻿@page
+@model CASPAR.Pages.Admins.SemestersStatus.DeleteModel
+@{
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-danger py-2">Delete Semester Status</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="submit">
+            <div class="border p-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objSemesterStatus.SemesterStatusName" class="form-control border-0 shadow" />
+                    <label asp-for="objSemesterStatus.SemesterStatusName" class="ms-2">Semester Status Name</label>
+                    <span asp-validation-for="objSemesterStatus.SemesterStatusName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objSemesterStatus.SemesterStatusDescription" class="form-control border-0 shadow" />
+                    <label asp-for="objSemesterStatus.SemesterStatusDescription" class="ms-2">Semester Status Description</label>
+                    <span asp-validation-for="objSemesterStatus.SemesterStatusDescription" class="text-danger"></span>
+                </div>
+                <input asp-for="objSemesterStatus.SemesterStatusID" type="hidden">
+                <div class="submit pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-page="Index" class="btn btn-outline-primary border form-control">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

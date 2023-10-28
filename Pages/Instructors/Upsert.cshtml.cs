@@ -18,6 +18,8 @@ namespace CASPAR.Pages.Instructors
         public InstructorWishlistModality objInstructorWishlistModality { get; set; }
         [BindProperty]
         public InstructorTime objInstructorTime { get; set; }
+        [BindProperty]
+        public Instructor objInstructor { get; set; }
 
 
         public IEnumerable<SelectListItem> InstructorList { get; set; }
@@ -28,6 +30,7 @@ namespace CASPAR.Pages.Instructors
         public IEnumerable<SelectListItem> TimeList { get; set; }
         public IEnumerable<SelectListItem> SemesterList { get; set; }
         public IEnumerable<SelectListItem> CampusList { get; set; }
+        
 
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
@@ -45,12 +48,7 @@ namespace CASPAR.Pages.Instructors
         }
         public IActionResult OnGet(int? id)
         {
-            InstructorList = _unitOfWork.Instructor.GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.User.ToString(),
-                    Value = x.InstructorId.ToString(),
-                });
+            
             RankingList = _unitOfWork.Ranking.GetAll()
                 .Select(x => new SelectListItem
                 {
@@ -94,7 +92,12 @@ namespace CASPAR.Pages.Instructors
                    Text = x.CampusName,
                    Value = x.CampusId.ToString(),
                });
-
+            InstructorList = _unitOfWork.Instructor.GetAll()
+              .Select(x => new SelectListItem
+              {
+                  Text = x.InstructorId.ToString(),
+                  Value = x.InstructorId.ToString(),
+              });
             // Are we in Create mode?
             if (id == null || id == 0)
             {

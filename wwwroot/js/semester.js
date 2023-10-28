@@ -21,13 +21,13 @@ function loadList() {
             { "data": "semesterStatus.semesterStatusName", "width": "15%" },
             { "data": "semesterType.semesterName", "width": "10%" },
             {
-                "data": "id",
+                "data": "semesterId",
                 "render": function (data) {
                     return `<div class="text-center"> 
-                                <a href="/Admins/Semester/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/Semesters/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-edit"></i> Edit </a>
                                     
-                                <a href="/Admins/Semester/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/Semesters/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-trash-alt"></i> Delete </a>
                         </div>`;
                 }, "width": "30%"

@@ -1,31 +1,32 @@
 ﻿@page
-@model CASPAR.Pages.Admins.ClassroomFeaturePossessions.IndexModel
+@model CASPAR.Pages.Admins.SemestersStatus.IndexModel
 @{
 }
+
 <div class="container">
     <div class="row pt=4">
         <!--Start Row-->
         <div class="col-6">
             <!--50% of row-->
             <h2 class="text-primary">
-                Classroom Feature Possession List
+                Semester Status List
             </h2>
         </div><!-- End 1st Column-->
         <div class="col-6 text-end">
             <!--50% row right justified-->
             <a asp-page="Upsert" asp-route-id="0" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Assign Features to classrooms
+                <i class="bi bi-plus-circle"></i> Create New Semester Status
             </a>
         </div> <!--End 2nd Column-->
     </div> <!--End Row-->
-    <table class="table table-bordered table-striped" id="DT_clssfeat" style="width:100%">
+    <table class="table table-bordered table-striped" id="DT_SemesterStatus" style="width:100%">
         <thead>
             <tr>
-                <th><!--Needs to see classroom, building, etc-->
-                    Room Number
+                <th>
+                    Semester Status Name
                 </th>
-                <th><!--Needs to see classroom, building, etc-->
-                    Feature
+                <th>
+                    Semester Status Description
                 </th>
                 <th>&nbsp;</th>
             </tr>
@@ -34,5 +35,5 @@
 </div> <!--Close Container-->
 @section Scripts
     {
-    <script src="~/js/classroomfeaturepossessions.js"></script>
-}
+    <script src="~/js/semesterstatus.js"></script>
+    }

@@ -16,13 +16,13 @@ function loadList() {
             //This needs to be changed VVVV
             { "data": "programName", "width": "70%" },
             {
-                "data": "id",
+                "data": "uniProgramId",
                 "render": function (data) {
                     return `<div class="text-center"> 
-                                <a href="/Admins/UniProgram/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/UniPrograms/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-edit"></i> Edit </a>
                                     
-                                <a href="/Admins/UniProgram/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/UniPrograms/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-trash-alt"></i> Delete </a>
                         </div>`;
                 }, "width": "30%"
