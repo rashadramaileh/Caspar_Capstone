@@ -1,23 +1,30 @@
 ﻿@page
-@model CASPAR.Pages.Admins.CourseTypes.UpsertModel
+@model CASPAR.Pages.Admins.CourseSemesters.UpsertModel
 @{
 }
 <form method="post" asp-page="Upsert" enctype="multipart/form-data">
-    <input asp-for="objCourseType.CourseTypeId" hidden />
+    <input asp-for="objCourseSemester.SemesterTypeId" hidden />
+    <input asp-for="objCourseSemester.CourseSemesterId" hidden />
     <div class="row">
-        <div class="col-10"> 
+        <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objCourseType.CourseTypeId != 0 ? "Update " : "Create ")Course Type</h2>
+                    <h2 class="text-primary">@(Model.objCourseSemester.CourseSemesterId != 0 ? "Update " : "Create ")Semester Type for @(Model.objCourseSemester.SemesterType.SemesterName)</h2>
                     <hr />
                 </div>
-                <div class="mb-3">
-                    <label asp-for="objCourseType.CourseTypeName"></label>
-                    <input id="txtName" asp-for="objCourseType.CourseTypeName" class="form-control" />
+                <div class="mb-3 col-6">
+                    <label asp-for="objCourseSemester.Course"></label>
+                    <select id="course" asp-for="objCourseSemester.CourseId" asp-items="@Model.objCourseList" class="form-select">
+                        <option disabled selected>--Select Course--</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objCourseSemester.QuantityTaught"></label>
+                    <input id="quantity" type="number" />
                 </div>
                 <div class="col-12">
                     <!--IF Product being edited -->
-                    @if (Model.objCourseType.CourseTypeId != 0)
+                    @if (Model.objCourseSemester.CourseSemesterId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
