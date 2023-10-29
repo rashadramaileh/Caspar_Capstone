@@ -1,0 +1,48 @@
+﻿@page
+@model CASPAR.Pages.Instructors.Times.DeleteModel
+@{
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-danger py-2">Delete Time</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="submit">
+            <div class="border p-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objDayBlock.DayName" class="form-control border-0 shadow" />
+                    <label asp-for="objDayBlock.DayName" class="ms-2">Day</label>
+                    <span asp-validation-for="objDayBlock.DaysBlockId" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objTimeBlock.meetingTimeName" class="form-control border-0 shadow" />
+                    <label asp-for="objTimeBlock.meetingTimeName" class="ms-2">Time</label>
+                    <span asp-validation-for="objTimeList.MeetingTimeId" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input readonly asp-for="objCampus.CampusName" class="form-control border-0 shadow" />
+                    <label asp-for="objCampus.CampusName" class="ms-2">Campus</label>
+                    <span asp-validation-for="objTimeList.CampusId" class="text-danger"></span>
+                </div>
+                <input asp-for="objTimeList.InstructorWishlistModalityId" type="hidden">
+                <input asp-for="objTimeList.InstructorTimeId" type="hidden" />
+                <div class="submit pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="/Instructors/Times/Index?id=@Model.objTimeList.InstructorWishlistModalityId" class="btn btn-outline-primary border  form-control">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
