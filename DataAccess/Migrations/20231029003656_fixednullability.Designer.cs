@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231029003656_fixednullability")]
+    partial class fixednullability
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,13 +275,16 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorTime", b =>
                 {
-                    b.Property<int>("InstructorTimeId")
+                    b.Property<int?>("InstructorTimeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstructorTimeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("InstructorTimeId"));
 
                     b.Property<int>("CampusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DayBlockId")
                         .HasColumnType("int");
 
                     b.Property<int?>("DaysBlockId")
@@ -294,7 +300,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("DaysBlockId");
+                    b.HasIndex("DayBlockId");
 
                     b.HasIndex("InstructorWishlistModalityId");
 
@@ -1135,7 +1141,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("CASPAR.Infrastructure.Models.DayBlock", "DayBlock")
                         .WithMany()
-                        .HasForeignKey("DaysBlockId");
+                        .HasForeignKey("DayBlockId");
 
                     b.HasOne("CASPAR.Infrastructure.Models.InstructorWishlistModality", "InstructorWishlistModality")
                         .WithMany()

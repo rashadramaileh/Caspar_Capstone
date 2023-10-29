@@ -1,0 +1,67 @@
+﻿@page
+@model CASPAR.Pages.Instructors.Times.IndexModel
+@{
+}
+<div class="container">
+    <div class="row pt=4">
+        <!--Start Row-->
+        <div class="col-6">
+            <!--50% of row-->
+            <h2 class="text-primary">
+                Times
+            </h2>
+        </div><!-- End 1st Column-->
+        <div class="col-7 text-end">
+            <!--50% row right justified-->
+            <a asp-page="Upsert" asp-route-id="0" asp-route-instructor="@Model.createId" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Time
+            </a>
+        </div> <!--End 2nd Column-->
+    </div> <!--End Row-->
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Day
+                </th>
+                <th>
+                    Time
+                </th>
+                <th>
+                    Campus
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Loop though to create each row-->
+            @foreach (var obj in Model.objTimeList)
+            {
+                <tr>
+                    <td style="width:40%">
+                        @obj.DayBlock.DayName
+                    </td>
+                    <td style="width:40%">
+                        @obj.MeetingTime.meetingTimeName
+                    </td>
+                    <td style="width:30%">
+                        @obj.Campus.CampusName
+                    </td>
+                    <td style="width:30%">
+                        <div class="w-75% btn-group" role="group">
+                            <div class="text-center">
+                                <a href="/Instructors/Times/Upsert?id=@obj.InstructorTimeId&instructor=@obj.InstructorWishlistModalityId" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-edit"></i> Edit
+                                </a>
+
+                                <a href="/Instructors/Times/Delete?id=@obj.InstructorTimeId&instructor=@obj.InstructorWishlistModalityId" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-trash-alt"></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

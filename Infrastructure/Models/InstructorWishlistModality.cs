@@ -8,7 +8,7 @@ namespace CASPAR.Infrastructure.Models
     {
         [Key]
         [Range(0, 255)]
-        public int? InstructorWishlistModalityId { get; set; }
+        public int InstructorWishlistModalityId { get; set; }
         [Range(0, 255), DisplayName("Format")]
         public int? ModalityId { get; set; }
         [Range(0, 255)]

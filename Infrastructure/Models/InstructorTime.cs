@@ -8,7 +8,7 @@ namespace CASPAR.Infrastructure.Models
     {
         [Key]
         [Range(0, 255)]
-        public int? InstructorTimeId { get; set; }
+        public int InstructorTimeId { get; set; }
         [Range(0, 255)]
         public int? DaysBlockId { get; set; }
         [Range(0, 255), Display(Name = "Time")]
@@ -26,7 +26,7 @@ namespace CASPAR.Infrastructure.Models
         [ForeignKey("MeetingTimeId")]
         public MeetingTime? MeetingTime { get; set; }
 
-        [ForeignKey("DayBlockId")]
+        [ForeignKey("DaysBlockId")]
         public DayBlock? DayBlock { get; set; }
     }
 }

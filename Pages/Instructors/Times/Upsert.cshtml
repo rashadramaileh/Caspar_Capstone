@@ -1,0 +1,54 @@
+﻿@page
+@model CASPAR.Pages.Instructors.Times.UpsertModel
+@{
+}
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    @if (Model.objTime.InstructorTimeId != 0)
+    {
+        <input asp-for="objTime.InstructorTimeId" hidden />
+    }
+    <input asp-for="objTime.InstructorWishlistModalityId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objTime.InstructorTimeId != 0 ? "Update " : "Create ") Time</h2>
+                    <hr />
+                    <div class="mb-3 col-6">
+                        <label asp-for="objTime.DayBlock.DayName">Time</label>
+                        <select asp-for="objTime.DaysBlockId" asp-items="@Model.DayList" class="form-select">
+                            <option disabled selected>--Select Day--</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objTime.MeetingTime.meetingTimeName">Time</label>
+                        <select asp-for="objTime.MeetingTimeId" asp-items="@Model.TimeList" class="form-select">
+                            <option disabled selected>--Select Time--</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objTime.Campus.CampusName">Campus</label>
+                        <select asp-for="objTime.CampusId" asp-items="@Model.CampusList" class="form-select">
+                            <option disabled selected>--Select Campus--</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        @if (Model.objTime.InstructorTimeId != 0)
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                        }
+                        <!--END ELSE -->
+                        <a href="/Instructors/Times/Index?id=@Model.objTime.InstructorWishlistModalityId" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
