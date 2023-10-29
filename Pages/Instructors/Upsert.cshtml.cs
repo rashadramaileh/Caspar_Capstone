@@ -48,12 +48,17 @@ namespace CASPAR.Pages.Instructors
         }
         public IActionResult OnGet(int? id)
         {
-            
-            RankingList = _unitOfWork.Ranking.GetAll()
+
+            List<int> Rankings = new List<int>();
+            for (int i = 1; i < 10; i++)
+            {
+                Rankings.Add(i);
+            }
+            RankingList = Rankings
                 .Select(x => new SelectListItem
                 {
-                    Text = x.Rank.ToString(),
-                    Value = x.RankingId.ToString(),
+                    Text = x.ToString(),
+                    Value = x.ToString(),
                 });
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem

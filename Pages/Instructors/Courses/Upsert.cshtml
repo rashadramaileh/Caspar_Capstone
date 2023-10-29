@@ -1,0 +1,51 @@
+﻿@page
+@model CASPAR.Pages.Instructors.Courses.UpsertModel
+@{
+}
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+    @if (Model.objInstructorWishlistDetails.InstructorWishlistDetailsId != 0)
+    {
+        <input asp-for="objInstructorWishlistDetails.InstructorWishlistDetailsId" type="hidden" />
+    }
+    <input asp-for="objInstructorWishlistDetails.InstructorWishlistId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objInstructorWishlistDetails.InstructorWishlistDetailsId != 0 ? "Update " : "Create ")Course</h2>
+                    <hr />
+                    <div class="mb-3 col-6">
+                        <label asp-for="objInstructorWishlistDetails.InstructorRanking"></label>
+                        <select id="ddlSemesterStatus" asp-for="objInstructorWishlistDetails.InstructorRanking" asp-items="@Model.RankingList" class="form-select">
+                            <option disabled selected>--Select Rank--</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objInstructorWishlistDetails.CourseId"></label>
+                        <select id="ddlSemesterStatus" asp-for="objInstructorWishlistDetails.CourseId" asp-items="@Model.CourseList" class="form-select">
+                            <option disabled selected>--Select Course--</option>
+                        </select>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <input asp-for="objInstructorWishlistDetails.InstructorNotes" class="form-control border-0 shadow" />
+                        <label asp-for="objInstructorWishlistDetails.InstructorNotes" class="ms-2">Notes</label>
+                        <span asp-validation-for="objInstructorWishlistDetails.InstructorNotes" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        @if (Model.objInstructorWishlistDetails.InstructorWishlistDetailsId != 0)
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                        }
+                        <!--END ELSE -->
+                        <a href="/Instructors/Courses/WishlistDetails?id=@Model.objInstructorWishlistDetails.InstructorWishlistId" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
