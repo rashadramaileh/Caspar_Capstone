@@ -9,6 +9,7 @@ function loadList() {
         "ajax": {
             "url": "/api/courseSemester",
             "type": "GET",
+            "data": { id: $('stid').id },
             "datatype": "json"
         },
         "columns": [
@@ -16,11 +17,13 @@ function loadList() {
             { "data": "course.courseName", "width": "30%" },
             { "data": "quantityTaught", "width": "30%" },
             {
-                "data": "semesterTypeId",
-                "courseSemesterid": "courseSemesterId",
-                "render": function (data) {
+                "data": {
+                    "id": "semesterTypeId",
+                    "sid": "courseSemesterId"
+                },
+                "render": function (row) {
                     return `<div class="text-center"> 
-                                <a href="/Admins/CourseSemesters/Upsert?id=${courseSemesterid}&sid=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/CourseSemesters/Upsert?id=${row.id}&sid=${row.sid}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
                                     <i class="far fa-edit"></i> Edit </a>
                         </div>`;
                 }, "width": "30%"
@@ -31,4 +34,5 @@ function loadList() {
         },
         "width": "100%",
     });
+
 }
