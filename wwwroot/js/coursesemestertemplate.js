@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 function loadList() {
-    dataTable = $('#DT_SemesterType').DataTable({
+    dataTable = $('#DT_CourseSemester').DataTable({
         "ajax": {
             "url": "/api/courseSemester",
             "type": "GET",
@@ -13,15 +13,15 @@ function loadList() {
         },
         "columns": [
             // Should not be capital
-            //This needs to be changed VVVV
-            { "data": "semesterName", "width": "70%" },
+            { "data": "course.courseName", "width": "30%" },
+            { "data": "quantityTaught", "width": "30%" },
             {
                 "data": "semesterTypeId",
-                "coursesemesterid": "courseSemesterId",
+                "courseSemesterid": "courseSemesterId",
                 "render": function (data) {
                     return `<div class="text-center"> 
-                                <a href="/Admins/CourseSemester/TermCourse?id=${coursesemesterid}cs=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
-                                    <i class="far fa-edit"></i> View & Manage </a>
+                                <a href="/Admins/CourseSemesters/Upsert?id=${courseSemesterid}&sid=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-edit"></i> Edit </a>
                         </div>`;
                 }, "width": "30%"
             }

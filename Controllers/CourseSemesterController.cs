@@ -16,9 +16,9 @@ namespace CASPAR.Controllers
         }
 
         [HttpGet]
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
-            return Json(new { data = _unitOfWork.CourseSemester.GetAll(null,null,"SemesterType") });
+            return Json(new { data = _unitOfWork.CourseSemester.GetAll(null,null,"SemesterType,Course").Where(c => c.SemesterTypeId == id) }); // added the .Where statement delete if not working
         }
     }
 }

@@ -35,6 +35,7 @@ namespace CASPAR.Pages.Admins.CourseSemesters
                 });
             objSemesterType = _unitOfWork.SemesterType.GetById(sid);
             objCourseSemester.SemesterType = objSemesterType;
+            objCourseSemester.SemesterTypeId = objSemesterType.SemesterTypeId;
 
             // Are we in Create
             if (id == null || id == 0)
@@ -71,7 +72,7 @@ namespace CASPAR.Pages.Admins.CourseSemesters
 
             //redirect to another page. 
 
-            return RedirectToPage($"./TermCourse?id={@objSemesterType.SemesterTypeId}");
+            return RedirectToPage($"./Index");
 
 
 
