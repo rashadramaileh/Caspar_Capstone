@@ -1,0 +1,29 @@
+﻿@page
+@model CASPAR.Pages.Admins.CourseSemesters.IndexModel
+@{
+}
+<div class="container">
+    <div class="row pt=4">
+        <!--Start Row-->
+        <div class="col-6">
+            <!--50% of row-->
+            <h2 class="text-primary">
+                Semester Template List
+            </h2>
+        </div><!-- End 1st Column-->
+    </div> <!--End Row-->
+    <table class="table table-bordered table-striped" id="DT_SemesterType" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Semester Type Name
+                </th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+    </table>
+</div> <!--Close Container-->
+@section Scripts
+    {
+    <script src="~/js/semestertemplate.js"></script>
+}
