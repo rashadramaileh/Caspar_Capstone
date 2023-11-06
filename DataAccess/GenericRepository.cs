@@ -85,7 +85,7 @@ namespace DataAccess
 
         // The virtual keyword is used to modify a method, property, indexer, or 
         // and allows for it to be overridden in a derived class.
-        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>>? predicate = null, Expression<Func<T, int>>? orderBy = null, string? includes = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate, Expression<Func<T, int>>? orderBy = null, string? includes = null)
         {
             IQueryable<T> queryable = _dbcontext.Set<T>();
             if (predicate != null && includes == null)
@@ -95,22 +95,22 @@ namespace DataAccess
                     .AsEnumerable();
             }
 
-            // has includes
+            //has includes
             else if (includes != null)
             {
                 foreach (var includeProperty in includes.Split(new char[] { ',' },
-                    StringSplitOptions.RemoveEmptyEntries))
+                      StringSplitOptions.RemoveEmptyEntries))
                 {
                     queryable = queryable.Include(includeProperty);
                 }
             }
-
             if (predicate == null)
             {
                 if (orderBy == null)
                 {
                     return queryable.AsEnumerable();
                 }
+
                 else
                 {
                     return queryable.OrderBy(orderBy).ToList();
@@ -128,9 +128,9 @@ namespace DataAccess
                 else
                 {
                     return queryable
-                        .Where(predicate)
-                        .OrderBy(orderBy)
-                        .ToList();
+                       .Where(predicate)
+                       .OrderBy(orderBy)
+                       .ToList();
                 }
             }
         }

@@ -16,6 +16,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+            <a class="navbar-brand"><img src="~/images/wsu_horiz1_reverse.png" /> </a>
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">CASPAR</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,40 +28,54 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageBuilding/Index">Manage Buildings</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageCampus/Index">Manage Campus</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageClassrooms/Index">Manage Classrooms</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeatures/Index">Manage Classroom Features</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeaturePossessions/Index">Manage Classroom Feature Possession</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/Courses/Index">Manage Courses</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/CourseTypes/Index">Manage Course Types</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/DayBlocks/Index">Manage Day Blocks</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/Majors/Index">Manage Majors</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/MeetingTimes/Index">Manage Meeting Times</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageModality/Index">Manage Modality</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/PartOfTerms/Index">Manage Part Of Terms</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManagePayModel/Index">Manage Pay Model</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageSections">Manage Sections</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageSectionStatus/Index">Manage Section Status</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/Semesters/Index">Manage Semesters</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/SemestersStatus/Index">Manage Semester Statuses</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/SemesterTypes/Index">Manage Semester Types</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/TimeBlocks/Index">Manage Time Blocks</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/UniPrograms/Index">Manage Uni Programs</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageWhoPays/Index">Manage Who Pays</a>
+                                <a class="dropdown-item text-dark" asp-page="">My Profile</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/Semesters/Index">Semesters</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/SemestersStatus/Index">Semester Statuses</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/SemesterTypes/Index">Semester Types</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/PartOfTerms/Index">Part Of Terms</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="">Manage Instructor Release Times</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManagePayModel/Index">Pay Model</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageWhoPays/Index">Who Pays</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageCampus/Index">Campus</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageBuilding/Index">Buildings</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageClassrooms/Index">Classrooms</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeatures/Index">Classroom Features</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeaturePossessions/Index">Classroom Feature Possession</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/UniPrograms/Index">Uni Programs</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/Courses/Index">Courses</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/CourseTypes/Index">Course Types</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageModality/Index">Modality</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageSections">Sections</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageSectionStatus/Index">Section Status</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/MeetingTimes/Index">Meeting Times</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/DayBlocks/Index">Day Blocks</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/TimeBlocks/Index">Time Blocks</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/Majors/Index">Majors</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item text-dark" asp-page="/Instructors/Landing/Index">Home Page</a>
-                                <a class="dropdown-item text-dark" href="#">Manage My Release Time</a>
+                                
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item text-dark" asp-page="/Students/Landing/Index">Home Page</a>
+                                <a class="dropdown-item text-dark" asp-page="/Students/StudentWishlistHome">Wishlist Home Page</a>
                                 <a class="dropdown-item text-dark" href="#">Manage My Profile</a>
 
                             </div>
@@ -73,7 +88,7 @@
                         </li>
                         
                     </ul>
-                    <partial name="_LoginPartial"/>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

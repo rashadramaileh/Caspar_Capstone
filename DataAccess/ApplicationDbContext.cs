@@ -11,8 +11,6 @@ namespace DataAccess
 
         }
         //Create Models
-
-        //public DbSet<Manufacturer> Manufacturers { get; set; } // the physical table "Manufacturers"
         
         public DbSet<Building> Building { get; set; } // the physical table "Buildings"
         public DbSet<Classroom> Classroom { get; set; }

@@ -120,7 +120,7 @@ namespace CASPAR.Pages.Students
             _unitOfWork.Commit();
 
             //redirect to the products page
-            return RedirectToPage("/Students/Index");
+            return RedirectToPage("/Students/StudentWishlistHome");
         }
     }
 }
