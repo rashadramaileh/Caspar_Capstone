@@ -6,7 +6,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Students
 {
-    public class UpsertModel : PageModel
+    public class CheckBoxItem
+    {
+        public bool Checked { get; set; }
+        public bool Disabled { get; set; }
+        public string Text { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
+    }
+
+    public class WishlistVM
+    {
+        [BindProperty]
+        public StudentWishlist objStudentWishlist { get; set; }
+        public StudentWishlistDetails objStudentWishlistDetails { get; set; }
+        public StudentWishlistModality objStudentWishlistModality { get; set; }
+        public StudentTime objStudentTime { get; set; }
+        
+    }
+
+        public class UpsertModel : PageModel
     {
 
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -19,25 +37,34 @@ namespace CASPAR.Pages.Students
         public StudentWishlistModality objStudentWishlistModality { get; set; }
         [BindProperty]
         public StudentTime objStudentTime { get; set; }
+        public List<CheckBoxItem> modalityCheck { get; set; } = new List<CheckBoxItem>();
 
 
         public IEnumerable<SelectListItem> StudentList { get; set; }
         public IEnumerable<SelectListItem> CourseList { get; set; }
         public IEnumerable<SelectListItem> FormatList { get; set; }
         public IEnumerable<SelectListItem> TimeList { get; set; }
-        public IEnumerable<SelectListItem> SemesterList { get; set; }
         public IEnumerable<SelectListItem> CampusList { get; set; }
 
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
+
+           modalityCheck = new List<CheckBoxItem>
+            {
+                new CheckBoxItem {Text = "Face to Face", Value = "FaceToFace"},
+                new CheckBoxItem {Text = "Online", Value = "Online"},
+                new CheckBoxItem {Text = "Hybrid", Value = "Hybrid"},
+                new CheckBoxItem {Text = "Flex", Value = "Flex"},
+                new CheckBoxItem {Text = "In Person", Value = "InPerson"},
+            };
+
             _unitOfWork = unitOfWork;
+            
             objStudentWishlist = new StudentWishlist();
             StudentList = new List<SelectListItem>();
             CourseList = new List<SelectListItem>();
-            FormatList = new List<SelectListItem>();
             
             TimeList = new List<SelectListItem>();
-            SemesterList = new List<SelectListItem>();
             CampusList = new List<SelectListItem>();
             _webHostEnvironment = webHostEnvironment;
         }
@@ -55,13 +82,6 @@ namespace CASPAR.Pages.Students
                     Text = x.CourseName,
                     Value = x.CourseId.ToString(),
                 });
-
-            FormatList = _unitOfWork.Modality.GetAll()
-               .Select(x => new SelectListItem
-               {
-                   Text = x.ModalityName,
-                   Value = x.ModalityName.ToString(),
-               });
            
             TimeList = _unitOfWork.TimeBlock.GetAll()
                .Select(x => new SelectListItem
@@ -69,12 +89,7 @@ namespace CASPAR.Pages.Students
                    Text = x.TimeName,
                    Value = x.TimeBlockId.ToString(),
                });
-            SemesterList = _unitOfWork.Semester.GetAll()
-               .Select(x => new SelectListItem
-               {
-                   Text = x.SemesterName,
-                   Value = x.SemesterId.ToString(),
-               });
+
             CampusList = _unitOfWork.Campus.GetAll()
                .Select(x => new SelectListItem
                {

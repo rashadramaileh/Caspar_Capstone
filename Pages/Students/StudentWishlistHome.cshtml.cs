@@ -22,16 +22,25 @@ namespace CASPAR.Pages.Students
         public StudentWishlist objStudentWishlist { get; set; }
         
         public List<StudentWishlistVM> objStudentWishlistVMs { get; set; }
+        public IEnumerable<SelectListItem> SemesterList { get; set; }
 
         public StudentWishlishtHomeModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objStudentWishlist = new StudentWishlist();
             objStudentWishlistVMs = new List<StudentWishlistVM>();
+            SemesterList = new List<SelectListItem>();
         }
 
         public void OnGet()
         {
+            SemesterList = _unitOfWork.Semester.GetAll()
+              .Select(x => new SelectListItem
+              {
+                  Text = x.SemesterName,
+                  Value = x.SemesterId.ToString(),
+              });
+
             objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == 8); //find an existing student wishlist
             var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
 

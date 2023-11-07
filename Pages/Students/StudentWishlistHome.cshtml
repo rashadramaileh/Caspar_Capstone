@@ -7,6 +7,12 @@
             <h2 class="text-primary">
                 Student Wishlists
             </h2>
+            <div class="mb-3 col-6">
+                <label asp-for="objStudentWishlist.Semester"></label>
+                <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
+                    <option disabled selected>--Select Semester--</option>
+                </select>
+            </div>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Upsert" asp-route-id="0" class="btn btn-primary" style="float:right">
