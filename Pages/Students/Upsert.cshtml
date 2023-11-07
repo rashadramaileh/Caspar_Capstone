@@ -23,18 +23,19 @@
                     @foreach (var modality in Model.modalityCheck)
                     {
                         <label>@modality.Text
-                        <input type="checkbox" name="modalityCheck" value="@modality.Value" checked="@modality.Checked" />
+                        <input type="checkbox" name="modalityCheck" value="@modality.Value" checked="@modality.Checked" onclick="ShowDiv(this)" id="@modality.Text" />
                         </label>
+
                     }
                 </div>
-                <div class="mb-3 col-6" hidden>
+                <div class="mb-3 col-6" id="testing" style="display: none">
                     <label asp-for="objStudentTime.TimeBlock.TimeBlockId"></label>
                     <select id="ddlDayBlock" asp-for="objStudentTime.TimeBlock" asp-items="@Model.TimeList" class="form-select">
                         <option disabled selected>--Select Time--</option>
                     </select>
                 </div>
                 
-                <div class="mb-3 col-6" hidden>
+                <div class="mb-3 col-6" id="testing2" style="display: none">
                     <label asp-for="objStudentTime.Campus"></label>
                     <select id="ddlCampus" asp-for="objStudentTime.Campus" asp-items="@Model.CampusList" class="form-select">
                         <option disabled selected>--Select Campus--</option>
@@ -68,6 +69,19 @@
             plugins: "lists",
             menubar: "file edit format"
         });
+
+        function ShowDiv(value){
+            if (value.id.includes("Online") || value.id.includes("Flex")) {
+
+            }
+            else{
+                var dv = document.getElementById("testing");
+                dv.style.display = value.checked ? "block" : "none";
+
+                var dl = document.getElementById("testing2");
+                dl.style.display = value.checked ? "block" : "none";
+            }
+        }
 
         function ValidateInput() 
         {
