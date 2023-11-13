@@ -9,7 +9,7 @@
             </h2>
             <div class="mb-3 col-6">
                 <label asp-for="objStudentWishlist.Semester"></label>
-                <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
+                <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select" onchange="">
                     <option disabled selected>--Select Semester--</option>
                 </select>
             </div>
@@ -75,11 +75,20 @@
 @section Scripts
 {
     <script>
-        var divsToHide = document.getElementsByClassName("classname"); //divsToHide is an array
-        for (var i = 0; i < divsToHide.length; i++) 
+        function filterContent
         {
-            divsToHide[i].style.visibility = "hidden"; // or
-            divsToHide[i].style.display = "none"; // depending on what you're doing
+            var selectedValue = document.getElementById("ddlSemester").value.ToString();// get the value selected
+            if (selectedValue == null) {
+                alert("No Selected Value")
+                return;
+            }
+
+            var divsToHide = document.getElementsByClassName(selectedValue) //divsToHide is an array
+            for (var i = 0; i < divsToHide.length; i++) {
+                divsToHide[i].style.visibility = "hidden"; // or
+                divsToHide[i].style.display = "none"; // depending on what you're doing
+            }
+
         }
     </script>
 }

@@ -47,6 +47,8 @@ namespace CASPAR.Pages.Students
             objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == 8); //find an existing student wishlist
             var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
 
+            var studentSemester = _unitOfWork.Semester.GetAll(x => x.SemesterId == objStudentWishlist.SemesterId, null, "Semester");
+
             foreach (var details in studentWishlistDetails)
             {
                 var objStudentWishlistVM = new StudentWishlistVM
