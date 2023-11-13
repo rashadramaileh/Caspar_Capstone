@@ -23,7 +23,6 @@ namespace CASPAR.Pages.Students
         
         public List<StudentWishlistVM> objStudentWishlistVMs { get; set; }
         public IEnumerable<SelectListItem> SemesterList { get; set; }
-        public string SemesterName {  get; set; }
         
 
         public StudentWishlishtHomeModel(UnitOfWork unitOfWork)
@@ -31,6 +30,7 @@ namespace CASPAR.Pages.Students
             _unitOfWork = unitOfWork;
             objStudentWishlist = new StudentWishlist();
             objStudentWishlistVMs = new List<StudentWishlistVM>();
+            
             SemesterList = new List<SelectListItem>();
         }
 
@@ -70,17 +70,6 @@ namespace CASPAR.Pages.Students
                 }
                 objStudentWishlistVMs.Add(objStudentWishlistVM);
             }
-        }
-
-        public IActionResult OnPostd()
-        {
-            return RedirectToPage("Generated", new {SemesterList = SemesterName});
-        }
-
-        public async Task<IActionResult> OnGetAsync(string semesterName)
-        {
-
-            return Page();
         }
     }
 }
