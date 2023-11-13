@@ -2,6 +2,7 @@ using DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Models;
+using CASPAR.Infrastructure.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

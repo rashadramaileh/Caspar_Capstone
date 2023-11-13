@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Infrastructure.Models;
+using CASPAR.Infrastructure.Models;
 
 namespace CASPAR.Areas.Identity.Pages.Account
 {

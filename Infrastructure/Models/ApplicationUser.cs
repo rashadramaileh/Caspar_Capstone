@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 
 
-namespace Infrastructure.Models
+namespace CASPAR.Infrastructure.Models
 {
 
     // Add profile data for application users by adding properties to the ApplicationUser class
