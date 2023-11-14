@@ -41,7 +41,7 @@
         <tbody>
             @foreach (var wishlist in Model.objStudentWishlistVMs)
             {
-                <tr>
+                <tr class="toFilter @wishlist.objStudentWishlistDetails.StudentWishlist.SemesterId"><!-- add the id of the semester as a class-->
                     <td style="width:25%"> @wishlist.objStudentWishlistDetails.Course.CoursePrefix @wishlist.objStudentWishlistDetails.Course.CourseNumber
                         @wishlist.objStudentWishlistDetails.Course?.CourseName </td>
                     <td style="width:25%">
@@ -77,7 +77,7 @@
     <script>
         function filterContent
         {
-            var selectedValue = document.getElementById("ddlSemester").value.ToString();// get the value selected
+            var selectedValue = document.getElementById("ddlSemester").value.toString();// get the value selected
             if (selectedValue == null) {
                 alert("No Selected Value")
                 return;
@@ -85,8 +85,14 @@
 
             var divsToHide = document.getElementsByClassName(selectedValue) //divsToHide is an array
             for (var i = 0; i < divsToHide.length; i++) {
-                divsToHide[i].style.visibility = "hidden"; // or
-                divsToHide[i].style.display = "none"; // depending on what you're doing
+                if (divsToHide[i].classList.contains(selectedValue)) 
+                {
+                    divsToHide[i].style.visibility = "hidden"; // or
+                } 
+                else 
+                {
+                    divsToHide[i].style.visibility = "visible"; // or
+                }
             }
 
         }

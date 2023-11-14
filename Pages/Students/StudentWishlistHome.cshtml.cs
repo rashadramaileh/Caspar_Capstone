@@ -14,6 +14,7 @@ namespace CASPAR.Pages.Students
         public StudentWishlistDetails objStudentWishlistDetails { get; set; } //this is not a list anymore !
         public List<StudentWishlistModality> objStudentWishlistModalities { get; set; }
         public List<StudentTime> objStudentTimes { get; set; }
+        //public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
     }
 
     public class StudentWishlishtHomeModel : PageModel
@@ -23,15 +24,17 @@ namespace CASPAR.Pages.Students
         
         public List<StudentWishlistVM> objStudentWishlistVMs { get; set; }
         public IEnumerable<SelectListItem> SemesterList { get; set; }
-        
+        public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
+
 
         public StudentWishlishtHomeModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objStudentWishlist = new StudentWishlist();
             objStudentWishlistVMs = new List<StudentWishlistVM>();
-            
+
             SemesterList = new List<SelectListItem>();
+            ListStudentWishlist = new List<StudentWishlist>();
         }
 
         public void OnGet()
@@ -42,36 +45,50 @@ namespace CASPAR.Pages.Students
                   Text = x.SemesterName,
                   Value = x.SemesterId.ToString(),
               });
-            
 
-            objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == 8); //find an existing student wishlist
-            var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
 
-            var studentSemester = _unitOfWork.Semester.GetAll(x => x.SemesterId == objStudentWishlist.SemesterId, null, "Semester");
 
-            foreach (var details in studentWishlistDetails)
-            {
-                var objStudentWishlistVM = new StudentWishlistVM
+            ListStudentWishlist = _unitOfWork.StudentWishlist.GetAll(x => x.StudentId == 2 , null, "Wishlist");// needs to find all wishlists for a given student
+            //objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == 8); //find an existing student wishlist
+            //var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
+
+
+            foreach (var objStudentWishlist in ListStudentWishlist)
+            {//outer loop
+                var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
+
+
+                foreach (var details in studentWishlistDetails)
                 {
-                    objStudentWishlistDetails = details,
-                    objStudentWishlistModalities = new List<StudentWishlistModality>(),
-                    objStudentTimes = new List<StudentTime>(),
-                };
-
-                var studentWishlistModalities = _unitOfWork.StudentWishlistModality.GetAll(x => x.StudentWishListDetailsId == details.StudentWishlistDetailsId, null, "Modality");
-
-                foreach (var modality in studentWishlistModalities)
-                {
-                    objStudentWishlistVM.objStudentWishlistModalities.Add(modality);
-
-                    var studentTimes = _unitOfWork.StudentTime.GetAll(x => x.StudentWishlistModalityId == modality.StudentWishlistModalityId, null, "TimeBlock");
-                    foreach (var time in studentTimes)
+                    var objStudentWishlistVM = new StudentWishlistVM
                     {
-                        objStudentWishlistVM.objStudentTimes.Add(time);
+                        objStudentWishlistDetails = details,
+                        objStudentWishlistModalities = new List<StudentWishlistModality>(),
+                        objStudentTimes = new List<StudentTime>(),
+
+                    };
+
+                    var studentSemester = _unitOfWork.StudentWishlist.GetAll(x => x.SemesterId == details.StudentWishlist.SemesterId, null, "Semester");
+                    foreach (var semesterName in studentSemester)
+                    {
+                        
                     }
+
+                    var studentWishlistModalities = _unitOfWork.StudentWishlistModality.GetAll(x => x.StudentWishListDetailsId == details.StudentWishlistDetailsId, null, "Modality");
+
+                    foreach (var modality in studentWishlistModalities)
+                    {
+                        objStudentWishlistVM.objStudentWishlistModalities.Add(modality);
+
+                        var studentTimes = _unitOfWork.StudentTime.GetAll(x => x.StudentWishlistModalityId == modality.StudentWishlistModalityId, null, "TimeBlock");
+                        foreach (var time in studentTimes)
+                        {
+                            objStudentWishlistVM.objStudentTimes.Add(time);
+                        }
+                    }
+                    objStudentWishlistVMs.Add(objStudentWishlistVM);
                 }
-                objStudentWishlistVMs.Add(objStudentWishlistVM);
-            }
+            }//end outer loop
         }
     }
 }
