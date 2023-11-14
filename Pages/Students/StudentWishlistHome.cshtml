@@ -78,13 +78,15 @@
         function filterContent
         {
             var selectedValue = document.getElementById("ddlSemester").value.toString();// get the value selected
-            if (selectedValue == null) {
+            if (selectedValue == null) 
+            {
                 alert("No Selected Value")
                 return;
             }
 
             var divsToHide = document.getElementsByClassName(selectedValue) //divsToHide is an array
-            for (var i = 0; i < divsToHide.length; i++) {
+            for (var i = 0; i < divsToHide.length; i++) 
+            {
                 if (divsToHide[i].classList.contains(selectedValue)) 
                 {
                     divsToHide[i].style.visibility = "hidden"; // or

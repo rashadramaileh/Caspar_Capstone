@@ -48,7 +48,7 @@ namespace CASPAR.Pages.Students
 
 
 
-            ListStudentWishlist = _unitOfWork.StudentWishlist.GetAll(x => x.StudentId == 2 , null, "Wishlist");// needs to find all wishlists for a given student
+            ListStudentWishlist = _unitOfWork.StudentWishlist.GetAll(x => x.StudentId == 2);// needs to find all wishlists for a given student
             //objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == 8); //find an existing student wishlist
             //var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
 
