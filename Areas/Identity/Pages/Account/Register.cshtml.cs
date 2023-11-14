@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Infrastructure.Models;
 using CASPAR.Infrastructure.Models;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Areas.Identity.Pages.Account
 {
@@ -28,23 +30,26 @@ namespace CASPAR.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
-        private readonly IUserEmailStore<ApplicationUser> _emailStore;
+        //private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            RoleManager<IdentityRole> roleManager)
+            //IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
-            _emailStore = GetEmailStore();
+            //_emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+            _roleManager = roleManager;
+            //_emailSender = emailSender;
         }
 
         /// <summary>
@@ -99,6 +104,25 @@ namespace CASPAR.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [DisplayName("First Name")]
+            public string FirstName { get; set; }
+            [Required]
+            [DisplayName("Last Name")]
+            public string LastName { get; set; }
+            [DisplayName("Street Address")]
+            public string StreetAddress { get; set; }
+            public string City { get; set; }
+            public string State { get; set; }
+
+            [DisplayName("Postal Code")]
+            public string PostalCode { get; set; }
+            [DisplayName("Phone Number")]
+            public string PhoneNumber { get; set; }
+
+            public string Role { get; set; }
+            public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
 
@@ -106,7 +130,16 @@ namespace CASPAR.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            Input = new InputModel()
+            {
+                RoleList = _roleManager.Roles.Select(r => r.Name).Select(x => new SelectListItem
+                {
+                    Text = x,
+                    Value = x
+                })
+            };
         }
+    
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -117,7 +150,17 @@ namespace CASPAR.Areas.Identity.Pages.Account
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                //await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                user.Email = Input.Email;
+                user.StreetAddress = Input.StreetAddress;
+                user.City = Input.City;
+                user.State = Input.State;
+                user.PostalCode = Input.PostalCode;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -133,8 +176,8 @@ namespace CASPAR.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -170,13 +213,13 @@ namespace CASPAR.Areas.Identity.Pages.Account
             }
         }
 
-        private IUserEmailStore<ApplicationUser> GetEmailStore()
-        {
-            if (!_userManager.SupportsUserEmail)
-            {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
-            }
-            return (IUserEmailStore<ApplicationUser>)_userStore;
-        }
+        //private IUserEmailStore<ApplicationUser> GetEmailStore()
+        //{
+        //    if (!_userManager.SupportsUserEmail)
+        //    {
+        //        throw new NotSupportedException("The default UI requires a user store with email support.");
+        //    }
+        //    return (IUserEmailStore<ApplicationUser>)_userStore;
+        //}
     }
 }

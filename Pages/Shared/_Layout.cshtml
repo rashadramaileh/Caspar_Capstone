@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Utility;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,61 +26,73 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item text-dark" asp-page="">My Profile</a>
+                        @if (User.IsInRole(SD.AdminRole))
+                        {
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/Semesters/Index">Semesters</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/SemestersStatus/Index">Semester Statuses</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/SemesterTypes/Index">Semester Types</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/PartOfTerms/Index">Part Of Terms</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-dark" asp-page="">My Profile</a>
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" asp-page="">Manage Instructor Release Times</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/Semesters/Index">Semesters</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/SemestersStatus/Index">Semester Statuses</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/SemesterTypes/Index">Semester Types</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/PartOfTerms/Index">Part Of Terms</a>
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManagePayModel/Index">Pay Model</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageWhoPays/Index">Who Pays</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-dark" asp-page="">Manage Instructor Release Times</a>
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageCampus/Index">Campus</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageBuilding/Index">Buildings</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageClassrooms/Index">Classrooms</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeatures/Index">Classroom Features</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeaturePossessions/Index">Classroom Feature Possession</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManagePayModel/Index">Pay Model</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageWhoPays/Index">Who Pays</a>
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/UniPrograms/Index">Uni Programs</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/Courses/Index">Courses</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/CourseTypes/Index">Course Types</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageModality/Index">Modality</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageSections">Sections</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageSectionStatus/Index">Section Status</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageCampus/Index">Campus</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageBuilding/Index">Buildings</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageClassrooms/Index">Classrooms</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeatures/Index">Classroom Features</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ClassroomFeaturePossessions/Index">Classroom Feature Possession</a>
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/MeetingTimes/Index">Meeting Times</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/DayBlocks/Index">Day Blocks</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/TimeBlocks/Index">Time Blocks</a>
-                                <a class="dropdown-item text-dark" asp-page="/Admins/Majors/Index">Majors</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item text-dark" asp-page="/Instructors/Landing/Index">Home Page</a>
-                                
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item text-dark" asp-page="/Students/StudentWishlistHome">Wishlist Home Page</a>
-                                <a class="dropdown-item text-dark" href="#">Manage My Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/UniPrograms/Index">Uni Programs</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/Courses/Index">Courses</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/CourseTypes/Index">Course Types</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageModality/Index">Modality</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageSections">Sections</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/ManageSectionStatus/Index">Section Status</a>
 
-                            </div>
-                        </li>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/MeetingTimes/Index">Meeting Times</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/DayBlocks/Index">Day Blocks</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/TimeBlocks/Index">Time Blocks</a>
+                                    <a class="dropdown-item text-dark" asp-page="/Admins/Majors/Index">Majors</a>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.InstructorRole))
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-dark" asp-page="/Instructors/Landing/Index">Home Page</a>
+
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.StudentRole))
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-dark" asp-page="/Students/StudentWishlistHome">Wishlist Home Page</a>
+                                    <a class="dropdown-item text-dark" href="#">Manage My Profile</a>
+
+                                </div>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-page="/About">About</a>
                         </li>
