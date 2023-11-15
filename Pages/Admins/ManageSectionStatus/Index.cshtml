@@ -2,7 +2,7 @@
 @model CASPAR.Pages.Admins.ManageSectionStatus.IndexModel
 @{
 }
-
+@if (User.IsInRole("Admin")){
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
@@ -27,7 +27,11 @@
 
     </table>
 </div>
-
+}
+else
+{
+    Response.Redirect("../../../..");
+}
 @section Scripts
     {
     <script src="~/js/sectionstatus.js"> </script>

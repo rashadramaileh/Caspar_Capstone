@@ -2,7 +2,8 @@
 @model CASPAR.Pages.Admins.SemestersStatus.IndexModel
 @{
 }
-
+@if (User.IsInRole("Admin"))
+{
 <div class="container">
     <div class="row pt=4">
         <!--Start Row-->
@@ -33,6 +34,9 @@
         </thead>
     </table>
 </div> <!--Close Container-->
+} else {
+    Response.Redirect("../../../..");
+}
 @section Scripts
     {
     <script src="~/js/semesterstatus.js"></script>
