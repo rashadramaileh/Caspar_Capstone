@@ -13,4 +13,3 @@ namespace Utility
         public const string StudentRole = "Student";
     }
 }
-
