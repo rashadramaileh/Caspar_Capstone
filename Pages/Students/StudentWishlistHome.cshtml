@@ -1,18 +1,23 @@
 ﻿@page
 @model CASPAR.Pages.Students.StudentWishlishtHomeModel
 
+
+    <input asp-for="objStudentWishlist.SemesterId" hidden />
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
                 Student Wishlists
             </h2>
+            <form method="post">
             <div class="mb-3 col-6">
                 <label asp-for="objStudentWishlist.Semester"></label>
-                <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select" onchange="">
+                <select id="ddlSemester" asp-for="SemesterId" asp-items="@Model.SemesterList" class="form-select">
                     <option disabled selected>--Select Semester--</option>
                 </select>
             </div>
+                <button type="submit" class="btn btn-primary" style="width:150px" onchange="">Change Semester</button>
+            </form>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Upsert" asp-route-id="0" asp-route-wishlist="@Model.objStudentWishlist.StudentWishlistId" class="btn btn-primary" style="float:right">
@@ -41,7 +46,7 @@
         <tbody>
             @foreach (var wishlist in Model.objStudentWishlistVMs)
             {
-                <tr class="toFilter @wishlist.objStudentWishlistDetails.StudentWishlist.SemesterId"><!-- add the id of the semester as a class-->
+                <tr>
                     <td style="width:25%"> @wishlist.objStudentWishlistDetails.Course.CoursePrefix @wishlist.objStudentWishlistDetails.Course.CourseNumber
                         @wishlist.objStudentWishlistDetails.Course?.CourseName </td>
                     <td style="width:25%">
@@ -71,32 +76,3 @@
         </tbody>
     </table>
 </div>
-
-@section Scripts
-{
-    <script>
-        function filterContent
-        {
-            var selectedValue = document.getElementById("ddlSemester").value.toString();// get the value selected
-            if (selectedValue == null) 
-            {
-                alert("No Selected Value")
-                return;
-            }
-
-            var divsToHide = document.getElementsByClassName(selectedValue) //divsToHide is an array
-            for (var i = 0; i < divsToHide.length; i++) 
-            {
-                if (divsToHide[i].classList.contains(selectedValue)) 
-                {
-                    divsToHide[i].style.visibility = "hidden"; // or
-                } 
-                else 
-                {
-                    divsToHide[i].style.visibility = "visible"; // or
-                }
-            }
-
-        }
-    </script>
-}
