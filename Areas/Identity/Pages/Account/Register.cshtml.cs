@@ -22,6 +22,7 @@ using Infrastructure.Models;
 using CASPAR.Infrastructure.Models;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Utility;
 
 namespace CASPAR.Areas.Identity.Pages.Account
 {
@@ -41,6 +42,7 @@ namespace CASPAR.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             RoleManager<IdentityRole> roleManager)
+           
             //IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -160,13 +162,23 @@ namespace CASPAR.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                
+                
+                
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    if (Input.Role == null)
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.StudentRole);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

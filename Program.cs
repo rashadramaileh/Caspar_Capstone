@@ -5,6 +5,7 @@ using Infrastructure.Models;
 using CASPAR.Infrastructure.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Utility;
+using Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<UnitOfWork>();
 //builder.Services.AddScoped<DbInitializer>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 var app = builder.Build();
