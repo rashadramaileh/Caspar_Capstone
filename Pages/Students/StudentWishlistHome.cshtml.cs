@@ -61,10 +61,6 @@ namespace CASPAR.Pages.Students
                     Value = x.SemesterId.ToString(),
                 });
 
-            /*
-             * Replace the StudentWishlistId with the StudentId vvvvvvv
-             */
-
             if (semesterId != null)
             {
                 objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId && x.SemesterId == semesterId);
