@@ -11,7 +11,7 @@ namespace CASPAR.Pages.Students
     public class StudentWishlistVM
     {
         [BindProperty]
-        public StudentWishlistDetails objStudentWishlistDetails { get; set; } //this is not a list anymore !
+        public StudentWishlistDetails objStudentWishlistDetails { get; set; }
         public List<StudentWishlistModality> objStudentWishlistModalities { get; set; }
         public List<StudentTime> objStudentTimes { get; set; }
         //public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
@@ -27,6 +27,7 @@ namespace CASPAR.Pages.Students
         public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
         [BindProperty]
         public int StudentWishlistId { get; set; } = 8;
+        public int StudentId { get; set; } = 2;
         [BindProperty]
         public int SemesterId { get; set; }
 
@@ -43,15 +44,15 @@ namespace CASPAR.Pages.Students
 
         public void OnGet()
         {
-            GetStudentWishlistData(StudentWishlistId, null);
+            GetStudentWishlistData(StudentId, null);
         }
 
         public void OnPost()
         {
-            GetStudentWishlistData(StudentWishlistId, SemesterId);
+            GetStudentWishlistData(StudentId, SemesterId);
         }
 
-        private void GetStudentWishlistData(int studentWishlistId, int? semesterId)
+        private void GetStudentWishlistData(int studentId, int? semesterId)
         {
             SemesterList = _unitOfWork.Semester.GetAll()
                 .Select(x => new SelectListItem
@@ -60,14 +61,29 @@ namespace CASPAR.Pages.Students
                     Value = x.SemesterId.ToString(),
                 });
 
+            /*
+             * Replace the StudentWishlistId with the StudentId vvvvvvv
+             */
+
             if (semesterId != null)
             {
-                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == StudentWishlistId && x.SemesterId == SemesterId);
+                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId && x.SemesterId == semesterId);
             }
             else
             {
-                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == StudentWishlistId);
+                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId);
             }
+
+            if(objStudentWishlist == null) 
+            {
+                objStudentWishlist = new StudentWishlist
+                {
+                    StudentId = studentId,
+                    SemesterId  = semesterId??1,
+                };
+                _unitOfWork.StudentWishlist.Add(objStudentWishlist);
+            }
+
             var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
 
             foreach (var details in studentWishlistDetails)
