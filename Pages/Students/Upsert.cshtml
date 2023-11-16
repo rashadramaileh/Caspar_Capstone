@@ -165,10 +165,12 @@
             var newChild = newParent.childNodes[3]
             newChild.setAttribute("for", "objStudentTime_" + count + "__TimeBlock")
             newChild = newParent.childNodes[5]
+            newChild.setAttribute("id", "ddlblock " + count)
             newChild.setAttribute("name", "objStudentTime[" + count + "].TimeBlockId")
             newChild = newParent.childNodes[7]
             newChild.setAttribute("for", "objStudentTime_" + count + "__Campus")
             newChild = newParent.childNodes[9]
+            newChild.setAttribute("id", "ddlCampus " + count)
             newChild.setAttribute("name", "objStudentTime[" + count + "].CampusId")
             newChild = newParent.childNodes[13]
             newChild.setAttribute("id", "objStudentTime_" + count + "__StudentWishlistModalityId")
@@ -176,6 +178,9 @@
             newChild = newParent.childNodes[11]
             newChild.setAttribute("id", count)
             newChild.setAttribute("style", "display:inline")
+            var card = document.getElementById("ddlCampus " + 0).parentElement.parentElement
+            console.log(card)
+            console.log(document.getElementsByClassName('count').length)
         }
 
         function removeDiv(value){
@@ -191,19 +196,24 @@
                 return false
             }
 
-            if ($('#ddlFormat option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Format', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
+                var card = document.getElementById("ddlblock " + i)
+                if (card.parentElement.parentElement.style.display == 'inline') {
+                    if (card.options[card.selectedIndex].value == '--Select Time--') {
+                        swal.fire('Error', 'Please Select a Time', 'error')
+                        return false
+                    }
+                }
             }
 
-            if ($('#ddlCampus option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Campus', 'error')
-                return false
-            }
-
-            if ($('#ddlTimeBlock option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Time', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++){
+                var card = document.getElementById("ddlCampus " + i)
+                if (card.parentElement.parentElement.style.display == 'inline'){
+                    if (card.options[card.selectedIndex].value == '--Select Campus--') {
+                        swal.fire('Error', 'Please Select a Campus', 'error')
+                        return false
+                    }
+                }
             }
 
             return true;

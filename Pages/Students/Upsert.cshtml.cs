@@ -276,11 +276,12 @@ namespace CASPAR.Pages.Students
                         oldTimes[i].TimeBlockId = objStudentTime.Find(c => c.StudentTimeId == oldTimes[i].StudentTimeId).TimeBlockId;
                     }     
                 }
+
                 //Adding / Editing times
 
                 for(int i = 0; i < objStudentTime.Count; i++)
                 {
-                    if (!toIgnore.Contains(objStudentTime[i].StudentTimeId))
+                    if (!toIgnore.Contains(objStudentTime[i].StudentTimeId) && objStudentTime[i].CampusId != 0 && objStudentTime[i].TimeBlockId != 0)
                     {
                         if (objStudentTime[i].StudentTimeId == 0)
                         {
