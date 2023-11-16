@@ -3,34 +3,87 @@
 @{
 }
 <div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-primary">Delete Wishlist Item</h2>
-            </div>
-        </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" class="row">
-            <div class="border p-3">
-                @*<div asp-validation-summary="ModelOnly"></div>*@
-                <input readonly asp-for="objStudentWishlist.StudentWishlistId" class="form-control border-0 shadow" />
-                <label asp-for="objStudentWishlist.StudentWishlistId" class="ms-2"></label>
-                <span asp-validation-for="objStudentWishlist.StudentWishlistId" class="text-danger"></span>
+	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-primary">Delete Wishlist Item</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<form method="post" class="submit">
+			<div class="border p-3">
+				@*<div asp-validation-summary="ModelOnly"></div>*@
+				@*<input readonly asp-for="objStudentWishlist.StudentWishlistId" class="form-control border-0 shadow" />
+				<label asp-for="objStudentWishlist.StudentWishlistId" class="ms-2"></label>
+				<span asp-validation-for="objStudentWishlist.StudentWishlistId" class="text-danger"></span>*@
 
-                <input type="hidden" asp-for="objStudentWishlist.StudentWishlistId" />
+				<input type="hidden" asp-for="objStudentWishlist.StudentWishlistId" />
+				<input type="hidden" asp-for="objStudentWishlistDetails.StudentWishlistDetailsId" />
 
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-danger form-control">Delete</button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-page="./Index" class="btn btn-outline-primary border  form-control">
-                            Back to List
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+				<div class="form-floating py-2 col-12">
+					<div readonly id="course" class="form-control border-0 shadow">
+						@Model.objStudentWishlistDetails.Course.CoursePrefix@Model.objStudentWishlistDetails.Course.CourseNumber @Model.objStudentWishlistDetails.Course.CourseName
+					</div>
+					<label for="course" class="ms-2">Course Name</label>
+				</div>
+
+
+
+				@foreach (var modality in Model.objStudentWishlistModality)
+				{
+					<table>
+						<thead>
+							<tr>
+								<th>
+									<input readonly asp-for="@modality.Modality.ModalityName" class="form-control" style="background-color: white; outline: white; border:hidden"/>
+									@*<label asp-for="@modality.Modality.ModalityName" class="ms-2"></label>*@
+									<span asp-validation-for="@modality.Modality.ModalityName" class="text-danger"></span>
+								</th>
+								<th>
+									Time
+								</th>
+								<th>
+									Campus
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var time in Model.objStudentTime.Where(c => c.StudentWishlistModalityId == modality.StudentWishlistModalityId))
+							{
+								<tr>
+									<td>
+										&nbsp;
+									</td>
+									<td>
+										<input readonly asp-for="@time.TimeBlock.TimeName" class="form-control" />
+										@*<label asp-for="@time.TimeBlock.TimeName" class="ms-2"></label>*@
+										<span asp-validation-for="@time.TimeBlock.TimeName" class="text-danger"></span>
+									</td>
+									<td>
+										<input readonly asp-for="@time.Campus.CampusName" class="form-control" />
+								@*<label asp-for="@time.Campus.CampusName" class="ms-2"></label>*@
+										<span asp-validation-for="@time.Campus.CampusName" class="text-danger"></span>
+									</td>
+								</tr>
+
+							}
+
+						</tbody>
+					</table>
+				}
+
+				<div class="row pt-2">
+					<div class="col-6 col-md-3">
+						<button type="submit" class="btn btn-danger form-control">Delete</button>
+					</div>
+					<div class="col-6 col-md-3">
+						<a asp-page ="/Students/StudentWishlistHome" class="btn btn-outline-primary border  form-control">
+							Back to List
+						</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
