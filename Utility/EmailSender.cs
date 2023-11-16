@@ -22,7 +22,7 @@ namespace Utility
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var emailToSend = new MimeMessage();
-            emailToSend.From.Add(MailboxAddress.Parse("rich@richfry.com"));
+            emailToSend.From.Add(MailboxAddress.Parse("sebastianbuxman@mail.weber.edu"));
             emailToSend.To.Add(MailboxAddress.Parse(email));
             emailToSend.Subject = subject;
             emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
@@ -37,7 +37,7 @@ namespace Utility
             //return Task.CompletedTask;
             var client = new SendGridClient(SendGridSecret);
             //THIS MUST MATCH A VERIFIED SENDGRID E-MAIL ADDRESS!!
-            var from = new EmailAddress("rich@richfry.com", "Cheaper By the Dozen");
+            var from = new EmailAddress("sebastianbuxman@mail.weber.edu", "Cheaper By the Dozen");
             var to = new EmailAddress(email);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
             return client.SendEmailAsync(msg);

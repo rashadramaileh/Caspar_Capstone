@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utility\Utility.csproj" />
+    <ProjectReference Include="..\CASPAR\Utility\Utility.csproj" />
     <ProjectReference Include="DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
