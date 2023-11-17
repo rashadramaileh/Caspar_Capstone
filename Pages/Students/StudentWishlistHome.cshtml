@@ -13,7 +13,7 @@
             <div class="mb-3 col-6">
                 <label asp-for="objStudentWishlist.Semester"></label>
                 <select id="ddlSemester" asp-for="SemesterId" asp-items="@Model.SemesterList" class="form-select">
-                    <option disabled selected>--Select Semester--</option>
+                    <option disabled selected value="0">--Select Semester--</option>
                 </select>
             </div>
                 <button type="submit" class="btn btn-primary" style="width:150px" onchange="">Change Semester</button>
