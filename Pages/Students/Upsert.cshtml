@@ -108,6 +108,12 @@
                         j++;
                     }
                 }
+
+                <div class="mb-3">
+					<label asp-for="objStudentWishlistDetails.StudentNotes"></label>
+                    <textarea asp-for="objStudentWishlistDetails.StudentNotes" id="txtDesc" rows="3" class="form-control"></textarea>
+				</div>
+
                 <div class="col-12">
                     @if (Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0)
                     {
