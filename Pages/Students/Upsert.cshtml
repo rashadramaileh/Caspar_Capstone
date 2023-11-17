@@ -4,8 +4,10 @@
 @{
     
 }
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data" onload="getHtml()">
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data" onload="">
     <input asp-for="objStudentWishlist.StudentWishlistId" hidden />
+    <input asp-for="objStudentWishlistDetails.StudentWishlistDetailsId" hidden />
+    <input asp-for="objStudentWishlistDetails.StudentWishlistId" hidden />
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
@@ -39,37 +41,79 @@
                     }
                     </div>
                 </div>
-
+                 
                 @{var j = 0;}
                 @for (var i = 0; i < Model.modalityCheck.Count; i++)
                 { 
                     if (!Model.modalityCheck[i].Text.Contains("Online") && !Model.modalityCheck[i].Text.Contains("Flex"))
                     {
-                        <div id="@Model.modalityCheck[i].Text" style="display: none;" class="mb-3 col-12">
+
+                        <div id="@Model.modalityCheck[i].Text" style="display: @(Model.modalityCheck[i].Checked == true ? "inline " : "none ");" class="mb-3 col-12">
                             <h5>@Model.modalityCheck[i].Text</h5>
                             <button type="button" onclick="AddAnotherItem('@Model.modalityCheck[i].Text')">Add Another Time</button>
 
-                            <div class="count">
+                            @if(Model.objStudentTime[j].StudentTimeId == 0){
+                                <div class="count">
+                                
+                                    <br>
+                                    <label asp-for="objStudentTime[j].TimeBlock">Time</label>
+                                    <select id="ddlblock @j" asp-for="objStudentTime[j].TimeBlockId" asp-items="@Model.TimeList" class="form-select">
+                                        <option disabled selected>--Select Time--</option>
+                                    </select>
                             
-                                <br>
-                                <label asp-for="objStudentTime[j].TimeBlock">Time</label>
-                                <select id="ddlDayBlock" asp-for="objStudentTime[j].TimeBlockId" asp-items="@Model.TimeList" class="form-select">
-                                    <option disabled selected>--Select Time--</option>
-                                </select>
-                            
-                                <label asp-for="objStudentTime[j].Campus">Campus</label>
-                                <select id="ddlCampus" asp-for="objStudentTime[j].CampusId" asp-items="@Model.CampusList" class="form-select">
-                                    <option disabled selected>--Select Campus--</option>
-                                </select>
+                                    <label asp-for="objStudentTime[j].Campus">Campus</label>
+                                    <select id="ddlCampus @j" asp-for="objStudentTime[j].CampusId" asp-items="@Model.CampusList" class="form-select">
+                                        <option disabled selected>--Select Campus--</option>
+                                    </select>
 
-                                <i class="bi bi-trash" id="@j" onclick="removeDiv(this)" style="display:none"></i>
+                                    <i class="bi bi-trash" id="@j" onclick="removeDiv(this)" style="display:none"></i>
 
-                                <input type="hidden" asp-for="objStudentTime[j].StudentWishlistModalityId" value="@Model.modalityCheck[i].Value"/>
-                            </div>
+                                    <input type="hidden" asp-for="objStudentTime[j].StudentWishlistModalityId" value="@Model.modalityCheck[i].Value"/>
+                                    
+                                </div>
+                            }
+                            else{
+                                @for(int k = 0; k < Model.objStudentTime.Count; k++)
+                                {
+                                    if(Model.objStudentTime[k].StudentWishlistModalityId == Model.modalityCheck[i].Value)
+                                    {
+                                        <div class="count">
+
+                                            <br>
+                                            <label asp-for="objStudentTime[k].TimeBlock">Time</label>
+                                            <select id="ddlblock @k" asp-for="objStudentTime[k].TimeBlockId" asp-items="@Model.TimeList" class="form-select">
+                                                <option disabled selected>--Select Time--</option>
+                                            </select>
+
+                                            <label asp-for="objStudentTime[k].Campus">Campus</label>
+                                            <select id="ddlCampus @k" asp-for="objStudentTime[k].CampusId" asp-items="@Model.CampusList" class="form-select">
+                                                <option disabled selected>--Select Campus--</option>
+                                            </select>
+                                            @if(k > 1)
+                                            {
+                                                <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:inline"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:none"></i>
+                                            }
+
+                                            <input type="hidden" asp-for="objStudentTime[k].StudentWishlistModalityId" value="@Model.modalityCheck[i].Value" />
+                                            <input type="hidden" asp-for="objStudentTime[k].StudentTimeId" />
+                                        </div>
+                                    }
+                                }
+                            }
                         </div>
                         j++;
                     }
                 }
+
+                <div class="mb-3">
+					<label asp-for="objStudentWishlistDetails.StudentNotes"></label>
+                    <textarea asp-for="objStudentWishlistDetails.StudentNotes" id="txtDesc" rows="3" class="form-control"></textarea>
+				</div>
+
                 <div class="col-12">
                     @if (Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0)
                     {
@@ -127,10 +171,12 @@
             var newChild = newParent.childNodes[3]
             newChild.setAttribute("for", "objStudentTime_" + count + "__TimeBlock")
             newChild = newParent.childNodes[5]
+            newChild.setAttribute("id", "ddlblock " + count)
             newChild.setAttribute("name", "objStudentTime[" + count + "].TimeBlockId")
             newChild = newParent.childNodes[7]
             newChild.setAttribute("for", "objStudentTime_" + count + "__Campus")
             newChild = newParent.childNodes[9]
+            newChild.setAttribute("id", "ddlCampus " + count)
             newChild.setAttribute("name", "objStudentTime[" + count + "].CampusId")
             newChild = newParent.childNodes[13]
             newChild.setAttribute("id", "objStudentTime_" + count + "__StudentWishlistModalityId")
@@ -138,6 +184,9 @@
             newChild = newParent.childNodes[11]
             newChild.setAttribute("id", count)
             newChild.setAttribute("style", "display:inline")
+            var card = document.getElementById("ddlCampus " + 0).parentElement.parentElement
+            console.log(card)
+            console.log(document.getElementsByClassName('count').length)
         }
 
         function removeDiv(value){
@@ -148,28 +197,29 @@
         function ValidateInput() 
         {
 
-            if ($('#ddlCourse option:selected').val() == 0) {
+            if ($('#ddlCourse option:selected').val() == '--Select Course--') {
                 swal.fire('Error', 'Please Select a Course', 'error')
                 return false
             }
 
-            if ($('#ddlFormat option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Format', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
+                var card = document.getElementById("ddlblock " + i)
+                if (card.parentElement.parentElement.style.display == 'inline') {
+                    if (card.options[card.selectedIndex].value == '--Select Time--') {
+                        swal.fire('Error', 'Please Select a Time', 'error')
+                        return false
+                    }
+                }
             }
 
-            if ($('#ddlCampus option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Campus', 'error')
-                return false
-            }
-
-            if ($('#ddlTimeBlock option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Time', 'error')
-                return false
-            }
-            if ($('#ddlSemester option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Semester', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++){
+                var card = document.getElementById("ddlCampus " + i)
+                if (card.parentElement.parentElement.style.display == 'inline'){
+                    if (card.options[card.selectedIndex].value == '--Select Campus--') {
+                        swal.fire('Error', 'Please Select a Campus', 'error')
+                        return false
+                    }
+                }
             }
 
             return true;
