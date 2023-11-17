@@ -2,6 +2,8 @@
 @model CASPAR.Pages.Admins.ManageWhoPays.UpsertModel
 @{
 }
+@if (User.IsInRole("Admin"))
+{
 
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
     <input asp-for="objWhoPays.WhoPaysId" hidden />
@@ -35,3 +37,6 @@
         </div>
     </div>
 </form>
+} else {
+    Response.Redirect("../../../..");
+}

@@ -13,6 +13,7 @@ namespace DataAccess
         {
             _dbcontext = dbContext;
         }
+        private IGenericRepository<ApplicationUser> _ApplicationUser;
         public IGenericRepository<Building> _Building;
         public IGenericRepository<Campus> _Campus;
         public IGenericRepository<Classroom> _Classroom;
@@ -55,6 +56,18 @@ namespace DataAccess
         public IGenericRepository<UserRole> _UserRole;
         public IGenericRepository<WhoPays> _WhoPays;
 
+
+        public IGenericRepository<ApplicationUser> ApplicationUser
+        {
+            get
+            {
+                if (_ApplicationUser == null)
+                {
+                    _ApplicationUser = new GenericRepository<ApplicationUser>(_dbcontext);
+                }
+                return _ApplicationUser;
+            }
+        }
         public IGenericRepository<Building> Building
         {
             get

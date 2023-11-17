@@ -2,7 +2,8 @@
 @model CASPAR.Pages.Admins.TimeBlocks.UpsertModel
 @{
 }
-
+@if (User.IsInRole("Admin"))
+{
 <form method="post" asp-page="Upsert" enctype="multipart/form-data">
     <input asp-for="objTimeBlock.TimeBlockId" hidden />
     <div class="row">
@@ -35,6 +36,9 @@
         </div>
     </div>
 </form>
+} else {
+    Response.Redirect("../../../..");
+}
 @section Scripts{
     <script>
 
