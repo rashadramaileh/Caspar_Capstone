@@ -40,12 +40,15 @@
 									@*<label asp-for="@modality.Modality.ModalityName" class="ms-2"></label>*@
 									<span asp-validation-for="@modality.Modality.ModalityName" class="text-danger"></span>
 								</th>
+								@if(Model.objStudentTime.Where(c => c.StudentWishlistModalityId == modality.StudentWishlistModalityId).Count() != 0)
+								{
 								<th>
 									Time
 								</th>
 								<th>
 									Campus
 								</th>
+								}
 							</tr>
 						</thead>
 						<tbody>
