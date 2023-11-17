@@ -1,6 +1,6 @@
 ﻿@page
 @model CASPAR.Pages.Admins.ManageBuilding.UpsertModel
-
+@if (User.IsInRole("Admin")){
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
     <input asp-for="objBuilding.BuildingId" hidden />
     <div class="row">
@@ -39,3 +39,8 @@
         </div>
     </div>
 </form>
+}
+else
+{
+    Response.Redirect("../../../..");
+}

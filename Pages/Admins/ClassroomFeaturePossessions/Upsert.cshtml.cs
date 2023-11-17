@@ -1,11 +1,13 @@
 using DataAccess;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Admins.ClassroomFeaturePossessions
 {
+    
     public class UpsertModel : PageModel
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

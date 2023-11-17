@@ -2,6 +2,8 @@
 @model CASPAR.Pages.Admins.Majors.UpsertModel
 @{
 }
+@if (User.IsInRole("Admin"))
+{
 <form method="post" asp-page="Upsert" enctype="multipart/form-data">
     <input asp-for="objMajor.MajorID" hidden />
     <div class="row">
@@ -34,6 +36,9 @@
         </div>
     </div>
 </form>
+} else {
+    Response.Redirect("../../../..");
+}
 @section Scripts{
     <script>
 
