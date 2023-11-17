@@ -97,11 +97,13 @@ namespace CASPAR.Pages.Students
                 {
                     objStudentWishlistVM.objStudentWishlistModalities.Add(modality);
 
-                    var studentTimes = _unitOfWork.StudentTime.GetAll(x => x.StudentWishlistModalityId == modality.StudentWishlistModalityId, null, "TimeBlock");
+                    var studentTimes = _unitOfWork.StudentTime.GetAll(x => x.StudentWishlistModalityId == modality.StudentWishlistModalityId, null, "TimeBlock,Campus");
                     foreach (var time in studentTimes)
                     {
                         objStudentWishlistVM.objStudentTimes.Add(time);
+                        
                     }
+                    
                 }
                 objStudentWishlistVMs.Add(objStudentWishlistVM);
             }

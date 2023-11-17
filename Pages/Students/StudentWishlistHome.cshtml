@@ -2,7 +2,7 @@
 @model CASPAR.Pages.Students.StudentWishlishtHomeModel
 
 
-    <input asp-for="objStudentWishlist.SemesterId" hidden />
+<input asp-for="objStudentWishlist.SemesterId" hidden />
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
@@ -10,18 +10,18 @@
                 Student Wishlists
             </h2>
             <form method="post">
-            <div class="mb-3 col-6">
-                <label asp-for="objStudentWishlist.Semester"></label>
-                <select id="ddlSemester" asp-for="SemesterId" asp-items="@Model.SemesterList" class="form-select">
-                    <option disabled selected value="0">--Select Semester--</option>
-                </select>
-            </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objStudentWishlist.Semester"></label>
+                    <select id="ddlSemester" asp-for="SemesterId" asp-items="@Model.SemesterList" class="form-select">
+                        <option disabled selected value="0">--Select Semester--</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary" style="width:150px" onchange="">Change Semester</button>
             </form>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Upsert" asp-route-id="0" asp-route-wishlist="@Model.objStudentWishlist.StudentWishlistId" class="btn btn-primary" style="float:right">
-                <i  class="bi bi-plus-circle"></i> Create New Wishlist
+                <i class="bi bi-plus-circle"></i> Create New Wishlist
             </a>
         </div>
     </div>
@@ -39,6 +39,9 @@
                     Time of Day
                 </th>
                 <th>
+                    Campus
+                </th>
+                <th>
                     &nbsp;
                 </th>
             </tr>
@@ -47,20 +50,28 @@
             @foreach (var wishlist in Model.objStudentWishlistVMs)
             {
                 <tr>
-                    <td style="width:25%"> @wishlist.objStudentWishlistDetails.Course.CoursePrefix @wishlist.objStudentWishlistDetails.Course.CourseNumber
-                        @wishlist.objStudentWishlistDetails.Course?.CourseName </td>
                     <td style="width:25%">
-                    @foreach (var modality in wishlist.objStudentWishlistModalities)
-                    {
-                        <p>@modality.Modality.ModalityName </p>
-                    }
+                        @wishlist.objStudentWishlistDetails.Course.CoursePrefix @wishlist.objStudentWishlistDetails.Course.CourseNumber
+                        @wishlist.objStudentWishlistDetails.Course?.CourseName
                     </td>
                     <td style="width:25%">
-                    @foreach (var time in wishlist.objStudentTimes)
-                    {
-                        <p> @time.TimeBlock.TimeName </p>
-                    }
-                    </td> 
+                        @foreach (var modality in wishlist.objStudentWishlistModalities)
+                        {
+                            <p>@modality.Modality.ModalityName </p>
+                        }
+                    </td>
+                    <td style="width:25%">
+                        @foreach (var time in wishlist.objStudentTimes)
+                        {
+                            <p> @time.TimeBlock.TimeName </p>
+                        }
+                    </td>
+                    <td style="width:25%">
+                        @foreach (var time in wishlist.objStudentTimes)
+                        {
+                            <p>@time.Campus?.CampusName</p>
+                        }
+                    </td>
                     <td style="width:25%">
                         <div class="w-75 btn-group" role="group">
                             <a asp-page="Upsert" asp-route-id="@wishlist.objStudentWishlistDetails.StudentWishlistDetailsId" asp-route-wishlist="@wishlist.objStudentWishlistDetails.StudentWishlistId" class="btn btn-primary mx-2">
