@@ -37,7 +37,7 @@ namespace Utility
             //return Task.CompletedTask;
             var client = new SendGridClient(SendGridSecret);
             //THIS MUST MATCH A VERIFIED SENDGRID E-MAIL ADDRESS!!
-            var from = new EmailAddress("sebastianbuxman@mail.weber.edu", "Cheaper By the Dozen");
+            var from = new EmailAddress("sebastianbuxman@mail.weber.edu", "CASPAR");
             var to = new EmailAddress(email);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
             return client.SendEmailAsync(msg);
