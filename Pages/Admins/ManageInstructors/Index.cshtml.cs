@@ -10,13 +10,18 @@ namespace CASPAR.Pages.Admins.ManageInstructors
         private readonly UnitOfWork _unitofwork;
         
         [BindProperty]
-        public Instructor instructor { get; set; }
+        public IEnumerable<Instructor> objInstructorList { get; set; }
 
-
-        public IActionResult OnGet(int id)
+        public IndexModel(UnitOfWork unit)
         {
+            _unitofwork = unit;
+            objInstructorList = new List<Instructor>();
+        }
 
 
+        public IActionResult OnGet()
+        {
+            objInstructorList = _unitofwork.Instructor.GetAll(null,null,"User");
 
             return Page();
         }
