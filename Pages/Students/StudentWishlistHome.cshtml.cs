@@ -107,6 +107,7 @@ namespace CASPAR.Pages.Students
                 }
                 objStudentWishlistVMs.Add(objStudentWishlistVM);
             }
+            TempData["success"] = "Semester Filtered Successfully";
         }
     }
 }

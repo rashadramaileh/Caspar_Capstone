@@ -13,22 +13,21 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
         [BindProperty]
         public InstructorRelease objinstructorRelease { get; set; }
         [BindProperty]
+        public Semester objsemester { get; set; }
+        [BindProperty]
         public List<InstructorRelease> objReleaseAmount { get; set; }
 
         public IRTUpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objinstructorRelease = new InstructorRelease();
+            objsemester = new Semester();
             objReleaseAmount = new List<InstructorRelease>();
         }
 
         public IActionResult OnGet(int? id)
         {
-            foreach (var item in _unitOfWork.InstructorRelease.GetAll())
-            {
-                InstructorRelease toAdd = new InstructorRelease();
-                objReleaseAmount.Add(toAdd);
-            }
+            
 
 
             return Page();

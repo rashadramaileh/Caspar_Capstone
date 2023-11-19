@@ -4,6 +4,7 @@
 }
 
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data"> 
+    <input asp-for="objinstructorRelease.InstructorReleaseId" hidden />
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
@@ -12,7 +13,10 @@
                     <hr />
                 </div>
                 <div class="mb-3 col-6">
-                    <label asp-for="objinstructorRelease.InstructorReleaseId"></label>
+                    <label asp-for="objinstructorRelease.ReleaseTimeName"></label>
+                    <select id="ddlReleaseTimeName" asp-for="objinstructorRelease.ReleaseTimeName" asp-items="@Model." class="form-select">
+                        <option disabled selected>---Select Release Time Semester</option>
+                    </select>
                     
                 </div>
                 <div class="col-12">
