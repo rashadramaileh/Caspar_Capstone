@@ -31,6 +31,9 @@
         <thead>
             <tr>
                 <th>
+                    Ranking
+                </th>
+                <th>
                     Course
                 </th>
                 <th>
@@ -54,6 +57,10 @@
             @foreach (var wishlist in Model.objInstructorWishlistVMs)
             {
                 <tr>
+                    <td style="width:15%">
+                        @wishlist.objInstructorWishlistDetails.InstructorRanking
+                    </td>
+
                     <td style="width:20%">
                         @wishlist.objInstructorWishlistDetails.Course.CoursePrefix @wishlist.objInstructorWishlistDetails.Course.CourseNumber
                         @wishlist.objInstructorWishlistDetails.Course?.CourseName
@@ -64,19 +71,19 @@
                             <p>@modality.Modality.ModalityName </p>
                         }
                     </td>
-                    <td style="width:20%">
+                    <td style="width:15%">
                         @foreach (var time in wishlist.objInstructorTimes)
                         {
                             <p> @time.DayBlock.DayName </p>
                         }
                     </td>
-                    <td style="width:20%">
+                    <td style="width:15%">
                         @foreach (var time in wishlist.objInstructorTimes)
                         {
                             <p> @time.MeetingTime.meetingTimeName </p>
                         }
                     </td>
-                    <td style="width:20%">
+                    <td style="width:15%">
                         @foreach (var time in wishlist.objInstructorTimes)
                         {
                             <p>@time.Campus?.CampusName</p>
