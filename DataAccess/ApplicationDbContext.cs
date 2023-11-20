@@ -1,10 +1,12 @@
 ﻿using CASPAR.Infrastructure.Models;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>//DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -57,13 +59,14 @@ namespace DataAccess
         //Seed Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             //modelBuilder.Entity<Manufacturer>().HasData(
             //    new Manufacturer { Id = 1, Name = "Coca Cola" },
             //    new Manufacturer { Id = 2, Name = "Frito Lay" },
             //    new Manufacturer { Id = 3, Name = "Pepsi" },
             //    new Manufacturer { Id = 4, Name = "Palmaz Vinyards" }
             //    );
+            base.OnModelCreating(modelBuilder);
 
 
         }
