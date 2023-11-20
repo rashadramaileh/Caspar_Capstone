@@ -1,15 +1,18 @@
 ﻿@page
 @model CASPAR.Pages.Instructors.UpsertModel
-@{
-}
 
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+@{
+
+}
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data" onload="">
     <input asp-for="objInstructorWishlist.InstructorWishlistId" hidden />
+    <input asp-for="objInstructorWishlistDetails.InstructorWishlistDetailsId" hidden />
+    <input asp-for="objInstructorWishlistDetails.InstructorWishlistId" hidden />
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objInstructorWishlist.InstructorWishlistId != 0 ? "Update " : "Create ")Wishlist</h2>
+                    <h2 class="text-primary">@(Model.objInstructorWishlistDetails.InstructorWishlistDetailsId != 0 ? "Update " : "Create ") Wishlist</h2>
                     <hr />
                 </div>
                 <div class="mb-3 col-6">
@@ -18,45 +21,107 @@
                         <option disabled selected>--Select Course--</option>
                     </select>
                 </div>
+
                 <div class="mb-3 col-6">
-                    <label asp-for="objInstructorWishlistModality.Modality.ModalityId"></label>
-                    <select id="ddlFormat" asp-for="objInstructorWishlistModality.ModalityId" asp-items="@Model.FormatList" class="form-select">
-                        <option disabled selected>--Select Format--</option>
-                    </select>
+                    <div>
+                        @for (var i = 0; i < Model.modalityCheck.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.modalityCheck[i].Checked" onclick="testing(@Model.modalityCheck[i].Value, '@Model.modalityCheck[i].Text')" id="@Model.modalityCheck[i].Value" />
+                            <label asp-for="@Model.modalityCheck[i].Checked">@Model.modalityCheck[i].Text</label>
+                            <input type="hidden" asp-for="@Model.modalityCheck[i].Value" />
+                            <input type="hidden" asp-for="@Model.modalityCheck[i].Text" />
+                            <input type="hidden" asp-for="@Model.modalityCheck[i].Disabled" />
+                        }
+                    </div>
                 </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objInstructorTime.DayBlock.DaysBlockId"></label>
-                    <select id="ddlDayBlock" asp-for="objInstructorTime.DayBlock.DayName" asp-items="@Model.DayList" class="form-select">
-                        <option disabled selected>--Select Day--</option>
-                    </select>
+
+                @{
+                    var j = 0;
+                }
+                @for (var i = 0; i < Model.modalityCheck.Count; i++)
+                {
+                    if (!Model.modalityCheck[i].Text.Contains("Online") && !Model.modalityCheck[i].Text.Contains("Flex"))
+                    {
+
+                        <div id="@Model.modalityCheck[i].Text" style="display: @(Model.modalityCheck[i].Checked == true ? "inline " : "none ");" class="mb-3 col-12">
+                            <h5>@Model.modalityCheck[i].Text</h5>
+                            <button type="button" onclick="AddAnotherItem('@Model.modalityCheck[i].Text')">Add Another Time</button>
+
+                            @if (Model.objInstructorTime[j].InstructorTimeId == 0)
+                            {
+                                <div class="count">
+                                     
+                                    <br>
+                                    <label asp-for="objInstructorTime[j].DayBlock">Day</label>
+                                    <select id="ddlblock @j" asp-for="objInstructorTime[j].DaysBlockId" asp-items="@Model.TimeList" class="form-select">
+                                        <option disabled selected>--Select Day--</option>
+                                    </select>
+
+                                    <label asp-for="objInstructorTime[j].MeetingTime">Time</label>
+                                    <select id="ddlMeeting @j" asp-for="objInstructorTime[j].MeetingTimeId" asp-items="@Model.MeetingList" class="form-select">
+                                        <option disabled selected>--Select Time--</option>
+                                    </select>
+
+                                    <label asp-for="objInstructorTime[j].Campus">Campus</label>
+                                    <select id="ddlCampus @j" asp-for="objInstructorTime[j].CampusId" asp-items="@Model.CampusList" class="form-select">
+                                        <option disabled selected>--Select Campus--</option>
+                                    </select>
+
+                                    <i class="bi bi-trash" id="@j" onclick="removeDiv(this)" style="display:none"></i>
+
+                                    <input type="hidden" asp-for="objInstructorTime[j].InstructorWishlistModalityId" value="@Model.modalityCheck[i].Value" />
+                                </div>
+                            }
+                            else
+                            {
+                                @for (int k = 0; k < Model.objInstructorTime.Count; k++)
+                                {
+                                    if (Model.objInstructorTime[k].InstructorWishlistModalityId == Model.modalityCheck[i].Value)
+                                    {
+                                        <div class="count">
+
+                                            <br>
+                                            <label asp-for="objInstructorTime[k].DaysBlockId">Time</label>
+                                            <select id="ddlblock @k" asp-for="objInstructorTime[k].DaysBlockId" asp-items="@Model.TimeList" class="form-select">
+                                                <option disabled selected>--Select Day--</option>
+                                            </select>
+
+                                            <label asp-for="objInstructorTime[j].MeetingTime">Time</label>
+                                            <select id="ddlMeeting @j" asp-for="objInstructorTime[j].MeetingTimeId" asp-items="@Model.MeetingList" class="form-select">
+                                                <option disabled selected>--Select Time--</option>
+                                            </select>
+
+                                            <label asp-for="objInstructorTime[k].Campus">Campus</label>
+                                            <select id="ddlCampus @k" asp-for="objInstructorTime[k].CampusId" asp-items="@Model.CampusList" class="form-select">
+                                                <option disabled selected>--Select Campus--</option>
+                                            </select>
+                                            @if (k > 1)
+                                            {
+                                                <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:inline"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:none"></i>
+                                            }
+
+                                            <input type="hidden" asp-for="objInstructorTime[k].InstructorWishlistModalityId" value="@Model.modalityCheck[i].Value" />
+                                            <input type="hidden" asp-for="objInstructorTime[k].InstructorTimeId" />
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        j++;
+                    }
+                }
+
+                <div class="mb-3">
+                    <label asp-for="objInstructorWishlistDetails.InstructorNotes"></label>
+                    <textarea asp-for="objInstructorWishlistDetails.InstructorNotes" id="txtDesc" rows="3" class="form-control"></textarea>
                 </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objInstructorTime.MeetingTime.meetingTimeId"></label>
-                    <select id="ddlMeetingTime" asp-for="objInstructorTime.MeetingTime" asp-items="@Model.TimeList" class="form-select">
-                        <option disabled selected>--Select Time--</option>
-                    </select>
-                </div>
-                
-                <div class="mb-3 col-6">
-                    <label asp-for="objInstructorWishlist.Semester"></label>
-                    <select id="ddlSemester" asp-for="objInstructorWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
-                        <option disabled selected>--Select Semester--</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objInstructorTime.Campus"></label>
-                    <select id="ddlCampus" asp-for="objInstructorTime.Campus" asp-items="@Model.CampusList" class="form-select">
-                        <option disabled selected>--Select Campus--</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objInstructorWishlist.InstructorId"></label>
-                    <select id="ddlInstructor" asp-for="objInstructorWishlist.InstructorId" asp-items="@Model.InstructorList" class="form-select">
-                        <option disabled selected>--Select Instructor--</option>
-                    </select>
-                </div>
+
                 <div class="col-12">
-                    @if (Model.objInstructorWishlist.InstructorWishlistId != 0)
+                    @if (Model.objInstructorWishlistDetails.InstructorWishlistDetailsId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
@@ -65,7 +130,7 @@
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
                     }
                     <!--END ELSE -->
-                    <a asp-page="/Instructors/Index" class="btn btn-secondary" style="width:150px">
+                    <a asp-page="/Instructors/InstructorWishlistHome" class="btn btn-secondary" style="width:150px">
                         Back to List
                     </a>
                 </div>
@@ -75,7 +140,7 @@
 </form>
 
 @section Scripts
-{
+    {
     <script>
 
         tinymce.init({
@@ -84,30 +149,95 @@
             menubar: "file edit format"
         });
 
-        function ValidateInput() 
-        {
-            if ($('#ddlCourse option:selected').val() == 0) {
+        function testing(value, text) {
+            var checkBox = document.getElementById(value)
+            var text = document.getElementById(text)
+            if (checkBox.checked) {
+                text.style.display = "inline";
+            }
+            else {
+                text.style.display = "none";
+            }
+        }
+
+        function AddAnotherItem(text) {
+            //Gets current count of items available
+            var count = document.getElementsByClassName('count').length
+            //Getting correct Modality
+            var textBox = document.getElementById(text)
+            //Getting drop down value node
+            var child = textBox.childNodes[5]
+            //Cloning the node to use for future node
+            const node = child.cloneNode(true)
+            //Setting up the correct values for the new node
+            node.id = 'input' + count;
+            var childVal = child.innerHTML
+            document.getElementById(text).appendChild(node)
+            var newParent = document.getElementById('input' + count)
+            var newChild = newParent.childNodes[3]
+            newChild.setAttribute("for", "objInstructorTime_" + count + "__DayBlock")
+            newChild = newParent.childNodes[5]
+            newChild.setAttribute("id", "ddlblock " + count)
+            newChild.setAttribute("name", "objInstructorTime[" + count + "].DaysBlockId")
+            newChild = newParent.childNodes[7]
+            newChild.setAttribute("for", "objInstructorTime_" + count + "__MeetingTime")
+            newChild = newParent.childNodes[9]
+            newChild.setAttribute("id", "ddlMeeting " + count)
+            newChild.setAttribute("name", "objInstructorTime[" + count + "].MeetingTimeId")
+            newChild = newParent.childNodes[11]
+            newChild.setAttribute("for", "objInstructorTime_" + count + "__Campus")
+            newChild = newParent.childNodes[13]
+            newChild.setAttribute("id", "ddlCampus " + count)
+            newChild.setAttribute("name", "objInstructorTime[" + count + "].CampusId")
+            newChild = newParent.childNodes[17]
+            newChild.setAttribute("id", "objInstructorTime_" + count + "__InstructorWishlistModalityId")
+            newChild.setAttribute("name", "objInstructorTime[" + count + "].InstructorWishlistModalityId")
+            newChild = newParent.childNodes[15]
+            newChild.setAttribute("id", count)
+            newChild.setAttribute("style", "display:inline")
+        }
+
+        function removeDiv(value) {
+            var toRemove = document.getElementById(value.id).closest("div div")
+            toRemove.childNodes[17].setAttribute("value", "-1")
+            toRemove.setAttribute("style", "display: none")
+        }
+
+        function ValidateInput() {
+
+            if ($('#ddlCourse option:selected').val() == '--Select Course--') {
                 swal.fire('Error', 'Please Select a Course', 'error')
                 return false
             }
 
-            if ($('#ddlFormat option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Format', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
+                var card = document.getElementById("ddlblock " + i)
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
+                    if (card.options[card.selectedIndex].value == '--Select Day--') {
+                        swal.fire('Error', 'Please Select a Day', 'error')
+                        return false
+                    }
+                }
             }
 
-            if ($('#ddlCampus option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Campus', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
+                var card = document.getElementById("ddlMeeting " + i)
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
+                    if (card.options[card.selectedIndex].value == '--Select Time--') {
+                        swal.fire('Error', 'Please Select a Time', 'error')
+                        return false
+                    }
+                }
             }
 
-            if ($('#ddlTimeBlock option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Time', 'error')
-                return false
-            }
-            if ($('#ddlSemester option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Semester', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
+                var card = document.getElementById("ddlCampus " + i)
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
+                    if (card.options[card.selectedIndex].value == '--Select Campus--') {
+                        swal.fire('Error', 'Please Select a Campus', 'error')
+                        return false
+                    }
+                }
             }
 
             return true;

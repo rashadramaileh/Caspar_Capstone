@@ -28,7 +28,7 @@ namespace CASPAR.Pages.Students
         [BindProperty]
         public int StudentWishlistId { get; set; } = 8;
         public int StudentId { get; set; } = 2;
-        [BindProperty]
+        [BindProperty] 
         public int SemesterId { get; set; }
 
 
