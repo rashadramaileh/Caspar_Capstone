@@ -2,6 +2,8 @@
 @model CASPAR.Pages.Admins.ManageWhoPays.IndexModel
 @{
 }
+@if (User.IsInRole("Admin"))
+{
 
 <div class="container">
     <div class="row pt-4">
@@ -26,7 +28,9 @@
 
     </table>
 </div>
-
+} else {
+    Response.Redirect("../../../..");
+}
 @section Scripts
     {
     <script src="~/js/whopays.js"> </script>

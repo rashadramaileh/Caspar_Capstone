@@ -2,37 +2,44 @@
 @model CASPAR.Pages.Admins.ClassroomFeaturePossessions.DeleteModel
 @{
 }
-<div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-8 text-center">
-                <h2 class="text-danger">Delete Feature from a Classroom</h2>
+@if (User.IsInRole("Admin"))
+{
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-8 text-center">
+                    <h2 class="text-danger">Delete Feature from a Classroom</h2>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" class="submit">
-            <div class="border p-3">
-                <div class="form-floating py-2 col-12">
-                <label asp-for="objClassroomFeature.ClassroomId" class="ms-2"></label>
-                <input readonly asp-for="objClassroomFeature.ClassroomId" class="form-control border-0 shadow" />
+        <div class="card-body p-4">
+            <form method="post" class="submit">
+                <div class="border p-3">
+                    <div class="form-floating py-2 col-12">
+                    <label asp-for="objClassroomFeature.ClassroomId" class="ms-2"></label>
+                    <input readonly asp-for="objClassroomFeature.ClassroomId" class="form-control border-0 shadow" />
                 
-                <span asp-validation-for="objClassroomFeature" class="text-danger"></span>
+                    <span asp-validation-for="objClassroomFeature" class="text-danger"></span>
 
-                <label asp-for="objClassroomFeature.FeatureId" class="ms-2"></label>
-                <input readonly asp-for="objClassroomFeature.FeatureId" class="form-control border-0 shadow" />
-                </div>
-                <div class="submit pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    <label asp-for="objClassroomFeature.FeatureId" class="ms-2"></label>
+                    <input readonly asp-for="objClassroomFeature.FeatureId" class="form-control border-0 shadow" />
                     </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-page="./Index" class="btn btn-outline-primary border  form-control">
-                            Back to List
-                        </a>
+                    <div class="submit pt-2">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-danger form-control">Delete</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-page="./Index" class="btn btn-outline-primary border  form-control">
+                                Back to List
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+}
+else
+{
+    Response.Redirect("../../../..");
+}

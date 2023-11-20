@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Manage Courses";
 }
-
+@if (User.IsInRole("Admin"))
+{
 <div class="container">
     <div class="row pt=4">
         <!--Start Row-->
@@ -50,7 +51,11 @@
 
     </table>
 </div>
-
+}
+else
+{
+    Response.Redirect("../../../..");
+}
 @section Scripts
     {
     <script src="~/js/course.js"> </script>

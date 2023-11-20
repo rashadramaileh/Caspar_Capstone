@@ -5,7 +5,8 @@ namespace Infrastructure.Interfaces
 {
     public interface IUnitOfWork
     {
-        
+        public IGenericRepository<ApplicationUser> ApplicationUser { get; }
+
         public IGenericRepository<Building> Building { get; } 
         public IGenericRepository<Classroom> Classroom { get;}
         public IGenericRepository<ClassroomFeature> ClassroomFeature { get; }
