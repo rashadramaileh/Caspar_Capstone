@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CASPAR.Pages.Instructors;
-using CASPAR.Pages.Instructors;
 
 namespace CASPAR.Pages.Instructors
 {
@@ -47,7 +45,7 @@ namespace CASPAR.Pages.Instructors
 
 		public void OnPost()
 		{
-			GetInstructorWishlistData(InstructorId, null);
+			GetInstructorWishlistData(InstructorId, SemesterId);
 		}
 
 		private void GetInstructorWishlistData(int instructorId, int? semesterId)
