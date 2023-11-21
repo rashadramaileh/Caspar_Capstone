@@ -2,7 +2,7 @@
 @model CASPAR.Pages.Admins.InstructorReleaseTimes.InstructorReleaseTimeModel
 @{
 }
-<input asp-for="objReleaseList.SemesterId" hidden />
+@* <input asp-for="objReleaseList.InstructorReleaseId" hidden /> *@
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
@@ -11,7 +11,7 @@
             </h2>
             <form method="post">
                 <div class="mb-3 col-6">
-                    <label asp-for="objReleaseList.Semester"></label>
+                    <label asp-for="objSemester"></label>
                     <select id="ddlSemester" asp-for="SemesterId" asp-items="@Model.SemesterList" class="form-select">
                         <option disabled selected value="0">--Select Semester--</option>
                     </select>
@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="IRTUpsert" asp-route-id="0" asp-route-wishlist="@Model.objReleaseList.InstructorReleaseId" class="btn btn-primary" style="float:right">
+            <a asp-page="IRTUpsert" asp-route-id="0" asp-route-wishlist="@Model.objRelease.InstructorReleaseId" class="btn btn-primary" style="float:right">
                 <i class="bi bi-plus-circle"></i> New Instructor Release Time
             </a>
         </div>
