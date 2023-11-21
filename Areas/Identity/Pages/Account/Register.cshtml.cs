@@ -45,6 +45,7 @@ namespace CASPAR.Areas.Identity.Pages.Account
             IEmailSender emailSender)
         {
             _userManager = userManager;
+            _userManager.Options.SignIn.RequireConfirmedAccount = true;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
