@@ -2,6 +2,7 @@
 @model CASPAR.Pages.Admins.MeetingTimes.UpsertModel
 @{
 }
+@if (User.IsInRole("Admin")){
 
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
     <input asp-for="objMeetingTime.meetingTimeId" hidden />
@@ -35,3 +36,8 @@
         </div>
     </div>
 </form>
+}
+else
+{
+    Response.Redirect("../../../..");
+}

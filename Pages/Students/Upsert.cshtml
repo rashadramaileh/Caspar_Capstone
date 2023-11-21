@@ -184,14 +184,15 @@
             newChild = newParent.childNodes[11]
             newChild.setAttribute("id", count)
             newChild.setAttribute("style", "display:inline")
-            var card = document.getElementById("ddlCampus " + 0).parentElement.parentElement
-            console.log(card)
-            console.log(document.getElementsByClassName('count').length)
+            //var card = document.getElementById("ddlCampus " + 0).parentElement.parentElement
+            //console.log(card)
+            //console.log(document.getElementsByClassName('count').length)
         }
 
-        function removeDiv(value){
+        function removeDiv(value) {
             var toRemove = document.getElementById(value.id).closest("div div")
-            return toRemove.remove();
+            toRemove.childNodes[13].setAttribute("value", "-1")
+            toRemove.setAttribute("style", "display: none")
         }
 
         function ValidateInput() 
@@ -204,7 +205,7 @@
 
             for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
                 var card = document.getElementById("ddlblock " + i)
-                if (card.parentElement.parentElement.style.display == 'inline') {
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
                     if (card.options[card.selectedIndex].value == '--Select Time--') {
                         swal.fire('Error', 'Please Select a Time', 'error')
                         return false
@@ -214,7 +215,7 @@
 
             for (let i = 0; i < document.getElementsByClassName('count').length; i++){
                 var card = document.getElementById("ddlCampus " + i)
-                if (card.parentElement.parentElement.style.display == 'inline'){
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
                     if (card.options[card.selectedIndex].value == '--Select Campus--') {
                         swal.fire('Error', 'Please Select a Campus', 'error')
                         return false

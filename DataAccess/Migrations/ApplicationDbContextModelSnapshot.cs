@@ -17,7 +17,7 @@ namespace DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -42,7 +42,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.ToTable("Building");
+                    b.ToTable("Building", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Campus", b =>
@@ -59,7 +59,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CampusId");
 
-                    b.ToTable("Campus");
+                    b.ToTable("Campus", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Classroom", b =>
@@ -85,7 +85,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("BuildingId");
 
-                    b.ToTable("Classroom");
+                    b.ToTable("Classroom", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Course", b =>
@@ -129,7 +129,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UniProgramId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.CourseSemester", b =>
@@ -155,7 +155,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SemesterTypeId");
 
-                    b.ToTable("CourseSemester");
+                    b.ToTable("CourseSemester", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.CourseType", b =>
@@ -173,7 +173,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CourseTypeId");
 
-                    b.ToTable("CourseType");
+                    b.ToTable("CourseType", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.DayBlock", b =>
@@ -190,7 +190,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("DaysBlockId");
 
-                    b.ToTable("DayBlock");
+                    b.ToTable("DayBlock", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Instructor", b =>
@@ -211,7 +211,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Instructor");
+                    b.ToTable("Instructor", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorLoad", b =>
@@ -237,7 +237,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("InstructorLoad");
+                    b.ToTable("InstructorLoad", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorRelease", b =>
@@ -267,7 +267,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("InstructorRelease");
+                    b.ToTable("InstructorRelease", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorTime", b =>
@@ -300,7 +300,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("MeetingTimeId");
 
-                    b.ToTable("InstructorTime");
+                    b.ToTable("InstructorTime", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorUniProgram", b =>
@@ -323,7 +323,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UniProgramId");
 
-                    b.ToTable("InstructorUniProgram");
+                    b.ToTable("InstructorUniProgram", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorWishlist", b =>
@@ -346,7 +346,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("InstructorWishlist");
+                    b.ToTable("InstructorWishlist", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorWishlistDetails", b =>
@@ -375,7 +375,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("InstructorWishlistId");
 
-                    b.ToTable("InstructorWishlistDetails");
+                    b.ToTable("InstructorWishlistDetails", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorWishlistModality", b =>
@@ -398,7 +398,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ModalityId");
 
-                    b.ToTable("InstructorWishlistModality");
+                    b.ToTable("InstructorWishlistModality", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Major", b =>
@@ -415,7 +415,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("MajorID");
 
-                    b.ToTable("Major");
+                    b.ToTable("Major", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.MeetingTime", b =>
@@ -433,7 +433,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("meetingTimeId");
 
-                    b.ToTable("MeetingTime");
+                    b.ToTable("MeetingTime", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Modality", b =>
@@ -455,7 +455,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("ModalityId");
 
-                    b.ToTable("Modality");
+                    b.ToTable("Modality", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.PartOfTerm", b =>
@@ -473,7 +473,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("PartOfTermID");
 
-                    b.ToTable("PartOfTerm");
+                    b.ToTable("PartOfTerm", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.PayModel", b =>
@@ -491,7 +491,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("PayModelId");
 
-                    b.ToTable("PayModel");
+                    b.ToTable("PayModel", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.PreReq", b =>
@@ -512,7 +512,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("PreReq");
+                    b.ToTable("PreReq", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Ranking", b =>
@@ -529,7 +529,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("RankingId");
 
-                    b.ToTable("Rankings");
+                    b.ToTable("Rankings", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Role", b =>
@@ -551,7 +551,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Role");
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.RoomConfig", b =>
@@ -569,7 +569,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("RoomConfigId");
 
-                    b.ToTable("RoomConfiguration");
+                    b.ToTable("RoomConfiguration", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Section", b =>
@@ -648,7 +648,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("WhoPaysId");
 
-                    b.ToTable("Section");
+                    b.ToTable("Section", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.SectionStatus", b =>
@@ -670,7 +670,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("SectionStatusId");
 
-                    b.ToTable("SectionStatus");
+                    b.ToTable("SectionStatus", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Semester", b =>
@@ -706,7 +706,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SemesterTypeId");
 
-                    b.ToTable("Semester");
+                    b.ToTable("Semester", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.SemesterStatus", b =>
@@ -728,7 +728,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("SemesterStatusID");
 
-                    b.ToTable("SemesterStatus");
+                    b.ToTable("SemesterStatus", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.SemesterType", b =>
@@ -745,7 +745,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("SemesterTypeId");
 
-                    b.ToTable("SemesterType");
+                    b.ToTable("SemesterType", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Student", b =>
@@ -768,7 +768,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Student");
+                    b.ToTable("Student", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentTime", b =>
@@ -796,7 +796,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TimeBlockId");
 
-                    b.ToTable("StudentTime");
+                    b.ToTable("StudentTime", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentWishlist", b =>
@@ -819,7 +819,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentWishlist");
+                    b.ToTable("StudentWishlist", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentWishlistDetails", b =>
@@ -845,7 +845,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("StudentWishlistId");
 
-                    b.ToTable("StudentWishlistDetails");
+                    b.ToTable("StudentWishlistDetails", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.StudentWishlistModality", b =>
@@ -868,7 +868,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("StudentWishListDetailsId");
 
-                    b.ToTable("StudentWishlistModality");
+                    b.ToTable("StudentWishlistModality", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.TimeBlock", b =>
@@ -886,7 +886,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("TimeBlockId");
 
-                    b.ToTable("TimeBlock");
+                    b.ToTable("TimeBlock", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.UniProgram", b =>
@@ -904,7 +904,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("UniProgramId");
 
-                    b.ToTable("UniProgram");
+                    b.ToTable("UniProgram", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.User", b =>
@@ -933,7 +933,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.UserRole", b =>
@@ -956,7 +956,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.WhoPays", b =>
@@ -974,7 +974,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("WhoPaysId");
 
-                    b.ToTable("WhoPays");
+                    b.ToTable("WhoPays", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Models.ClassroomFeature", b =>
@@ -992,7 +992,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("ClassroomFeatureId");
 
-                    b.ToTable("ClassroomFeature");
+                    b.ToTable("ClassroomFeature", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Models.ClassroomFeaturePossession", b =>
@@ -1015,7 +1015,240 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("ClassroomFeaturePossession");
+                    b.ToTable("ClassroomFeaturePossession", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.Building", b =>
@@ -1460,6 +1693,57 @@ namespace DataAccess.Migrations
                     b.Navigation("Classroom");
 
                     b.Navigation("ClassroomFeature");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

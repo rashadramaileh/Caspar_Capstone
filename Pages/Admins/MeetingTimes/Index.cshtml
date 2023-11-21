@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Manage Meeting Times";
 }
+@if (User.IsInRole("Admin")){
 
 <div class="container">
     <div class="row pt=4">
@@ -32,7 +33,11 @@
 
     </table>
 </div>
-
+}
+else
+{
+    Response.Redirect("../../../..");
+}
 @section Scripts
     {
     <script src="/js/meetingTime.js"> </script>

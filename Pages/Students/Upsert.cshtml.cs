@@ -77,12 +77,12 @@ namespace CASPAR.Pages.Students
             {
                 CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId };
                 modalityCheck.Add(toAdd);
-            }
 
-            foreach (var item in _unitOfWork.TimeBlock.GetAll())
-            {
-                StudentTime toAdd = new StudentTime();
-                objStudentTime.Add(toAdd);
+                if(item.ModalityName != "Online")
+                {
+                    StudentTime toAddTime = new StudentTime();
+                    objStudentTime.Add(toAddTime);
+                }
             }
 
             StudentList = _unitOfWork.Student.GetAll()
@@ -94,7 +94,7 @@ namespace CASPAR.Pages.Students
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem
                 {
-                    Text = x.CourseName,
+                    Text = x.CoursePrefix + x.CourseNumber + " " + x.CourseName,
                     Value = x.CourseId.ToString(),
                 });
            
@@ -177,6 +177,15 @@ namespace CASPAR.Pages.Students
             //if the product is new (create)
             if (objStudentWishlistDetails.StudentWishlistDetailsId == 0)
             {
+                foreach (var item in objStudentTime)
+                {
+                    if (item.StudentWishlistModalityId == -1)
+                    {
+                        item.StudentWishlistModalityId = 0;
+                        item.StudentTimeId = -1;
+                    }
+                }
+
                 objStudentWishlistDetails.StudentWishlistId = objStudentWishlist.StudentWishlistId;
                 _unitOfWork.StudentWishlistDetails.Add(objStudentWishlistDetails);
 				foreach (var item in modalityCheck)
@@ -191,7 +200,7 @@ namespace CASPAR.Pages.Students
 
                         foreach (var time in objStudentTime)
                         {
-                            if (time.StudentWishlistModalityId == item.Value)
+                            if (time.StudentWishlistModalityId == item.Value && time.StudentTimeId != -1)
                             {
                                 time.StudentWishlistModalityId = _unitOfWork.StudentWishlistModality.Get(c => c.StudentWishlistModalityId == objStudentWishlistModality.StudentWishlistModalityId).StudentWishlistModalityId;    //objStudentWishlistModality.StudentWishlistModalityId;
                                 _unitOfWork.StudentTime.Add(time);
@@ -284,16 +293,19 @@ namespace CASPAR.Pages.Students
                 {
                     if (!toIgnore.Contains(objStudentTime[i].StudentTimeId) && objStudentTime[i].CampusId != 0 && objStudentTime[i].TimeBlockId != 0)
                     {
-                        if (objStudentTime[i].StudentTimeId == 0)
+                        if (objStudentTime[i].StudentTimeId != -1)
                         {
-                            objStudentTime[i].StudentWishlistModalityId = oldValues.Find(c => c.ModalityId == objStudentTime[i].StudentWishlistModalityId).StudentWishlistModalityId;
-                            _unitOfWork.StudentTime.Add(objStudentTime[i]);
-                        }
-                        //Update if its id != 0
-                        else
-                        {
-                            StudentTime toadd = oldTimes.Find(c => c.StudentTimeId == objStudentTime[i].StudentTimeId);
-                            _unitOfWork.StudentTime.Update(toadd);
+                            if (objStudentTime[i].StudentTimeId == 0)
+                            {
+                                objStudentTime[i].StudentWishlistModalityId = oldValues.Find(c => c.ModalityId == objStudentTime[i].StudentWishlistModalityId).StudentWishlistModalityId;
+                                _unitOfWork.StudentTime.Add(objStudentTime[i]);
+                            }
+                            //Update if its id != 0
+                            else
+                            {
+                                StudentTime toadd = oldTimes.Find(c => c.StudentTimeId == objStudentTime[i].StudentTimeId);
+                                _unitOfWork.StudentTime.Update(toadd);
+                            }
                         }
                     }   
                 }

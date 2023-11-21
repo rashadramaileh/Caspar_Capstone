@@ -1,19 +1,20 @@
 ﻿using CASPAR.Infrastructure.Models;
 using Infrastructure.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>//DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
         //Create Models
-        
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public DbSet<Building> Building { get; set; } // the physical table "Buildings"
         public DbSet<Classroom> Classroom { get; set; }
         public DbSet<ClassroomFeature> ClassroomFeature { get; set; }
@@ -55,21 +56,6 @@ namespace DataAccess
         public DbSet<Role> Role { get; set; }
         public DbSet<SemesterStatus> SemesterStatus { get; set; }
         public DbSet<SemesterType> SemesterType { get; set; }
-
-        //Seed Data
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-            //modelBuilder.Entity<Manufacturer>().HasData(
-            //    new Manufacturer { Id = 1, Name = "Coca Cola" },
-            //    new Manufacturer { Id = 2, Name = "Frito Lay" },
-            //    new Manufacturer { Id = 3, Name = "Pepsi" },
-            //    new Manufacturer { Id = 4, Name = "Palmaz Vinyards" }
-            //    );
-            base.OnModelCreating(modelBuilder);
-
-
-        }
 
     }
 }
