@@ -72,7 +72,7 @@ namespace CASPAR.Pages.Admins.CourseSemesters
 
             //redirect to another page. 
 
-            return RedirectToPage($"./Index");
+            return RedirectToPage($"/TermCourse?id={objCourseSemester.SemesterTypeId}");
 
 
 
