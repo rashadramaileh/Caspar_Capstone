@@ -35,6 +35,11 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item text-dark" asp-page="">My Profile</a>
 
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/ManageInstructors/Index">Manage Instructors</a>
+                                <a class="dropdown-item text-dark" asp-page="/Admins/InstructorReleaseTimes/InstructorReleaseTime">Manage Instructor Release Times</a>
+
+
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-dark" asp-page="/Admins/Semesters/Index">Semesters</a>
                                     <a class="dropdown-item text-dark" asp-page="/Admins/SemestersStatus/Index">Semester Statuses</a>
@@ -117,7 +122,7 @@
         </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @*<partial name="_ToastrNotification" />*@
+            <partial name="_ToastrNotification" />
             @RenderBody()
         </main>
     </div>
@@ -127,7 +132,6 @@
             &copy; 2023 - CASPAR - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

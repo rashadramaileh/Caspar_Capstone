@@ -14,6 +14,9 @@ namespace CASPAR.Infrastructure.Models
         [Range(0, 12)]
         public int ReleaseTimeAmount { get; set; }
 
+        [Range(0, 200)]
+        public string? ReleaseNotes { get; set; }
+
         [Range(1, 65535)]
         public int UserId { get; set; }
 

@@ -57,7 +57,5 @@ namespace DataAccess
         public DbSet<SemesterStatus> SemesterStatus { get; set; }
         public DbSet<SemesterType> SemesterType { get; set; }
 
-       
-
     }
 }

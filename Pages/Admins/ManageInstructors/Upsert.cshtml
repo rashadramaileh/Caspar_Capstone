@@ -1,0 +1,62 @@
+﻿@page
+@model CASPAR.Pages.Admins.ManageInstructors.UpsertModel
+@{
+}
+<form method="post" asp-page="Upsert" enctype="multipart/form-data">
+    <input asp-for="objInstructor.InstructorId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objInstructor.InstructorId != 0 ? "Update " : "Create ")Major</h2>
+                    <hr />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="objInstructor.User.UserFirst"></label>
+                    <input id="txtFirstNAme" asp-for="objInstructor.User.UserFirst" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="objInstructor.User.UserLast"></label>
+                    <input id="txtLastName" asp-for="objInstructor.User.UserLast" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="objInstructor.Adjunct"></label>
+                    <input id="boolAdjunct" asp-for="objInstructor.Adjunct" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <!--IF Product being edited -->
+                    @if (Model.objInstructor.InstructorId != 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }<!--END ELSE -->
+
+                    <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() {
+            if (document.getElementById('txtName').value == "") {
+                swal.fire('Error', 'Please Enter a Name', 'error');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
