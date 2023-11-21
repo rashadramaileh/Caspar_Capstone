@@ -11,7 +11,7 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
     {
         private readonly UnitOfWork _unitOfWork;
         public InstructorRelease objReleaseList { get; set; }
-        public int InstructorId { get; set; } = 1;
+        public int UserId { get; set; } = 1;
 
         [BindProperty]
         public int SemesterId { get; set; }
@@ -26,15 +26,15 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
 
         public void OnGet()
         {
-            GetReleaseData(InstructorId, null);
+            GetReleaseData(UserId, null);
         }
 
         public void OnPost() 
         {
-            GetReleaseData(InstructorId, SemesterId);
+            GetReleaseData(UserId, SemesterId);
         }
 
-        private void GetReleaseData(int instructorid, int? semesterId)
+        private void GetReleaseData(int instructorId, int? semesterId)
         {
             SemesterList = _unitOfWork.Semester.GetAll()
                 .Select(x => new SelectListItem
@@ -45,24 +45,24 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
 
             if (semesterId != null && semesterId != 0)
             {
-                objReleaseList = _unitOfWork.InstructorRelease.Get(x => x.UserId == instructorid && x.SemesterId == semesterId);
+                objReleaseList = _unitOfWork.InstructorRelease.Get(x => x.UserId == instructorId && x.SemesterId == semesterId);
             }
             else
             {
-                objReleaseList = _unitOfWork.InstructorRelease.Get(x => x.UserId == instructorid);
+                objReleaseList = _unitOfWork.InstructorRelease.Get(x => x.UserId == instructorId);
             }
 
-            if(objReleaseList == null)
+            if (objReleaseList == null)
             {
                 objReleaseList = new InstructorRelease
                 {
-                    UserId = instructorid,
+                    UserId = instructorId,
                     SemesterId = semesterId ?? 1,
                 };
                 _unitOfWork.InstructorRelease.Add(objReleaseList);
             }
 
-            var instrucorReleaseTimeDetails = _unitOfWork.InstructorRelease.GetAll(x => x.InstructorReleaseId == objReleaseList.InstructorReleaseId, null, "Instructor Name");
+            var instrucorReleaseTimeDetails = _unitOfWork.InstructorRelease.GetAll(x => x.InstructorReleaseId == objReleaseList.InstructorReleaseId, null, null);
 
             foreach (var item in instrucorReleaseTimeDetails)
             {
