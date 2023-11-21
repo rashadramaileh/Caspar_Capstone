@@ -77,22 +77,13 @@ namespace CASPAR.Pages.Students
             {
                 CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId };
                 modalityCheck.Add(toAdd);
-            }
 
-            foreach (var item in _unitOfWork.TimeBlock.GetAll())
-            {
-                StudentTime toAdd = new StudentTime();
-                objStudentTime.Add(toAdd);
+                if(item.ModalityName != "Online")
+                {
+                    StudentTime toAddTime = new StudentTime();
+                    objStudentTime.Add(toAddTime);
+                }
             }
-
-            //modalityCheck = 
-            //{
-            //	new CheckBoxItem { Text = "Face to Face", Value = "FaceToFace" },
-            //	new CheckBoxItem { Text = "Online", Value = "Online" },
-            //	new CheckBoxItem { Text = "Hybrid", Value = "Hybrid" },
-            //	new CheckBoxItem { Text = "Flex", Value = "Flex" },
-            //	new CheckBoxItem { Text = "In Person", Value = "InPerson" },
-            //};
 
             StudentList = _unitOfWork.Student.GetAll()
                 .Select(x => new SelectListItem
@@ -103,7 +94,7 @@ namespace CASPAR.Pages.Students
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem
                 {
-                    Text = x.CourseName,
+                    Text = x.CoursePrefix + x.CourseNumber + " " + x.CourseName,
                     Value = x.CourseId.ToString(),
                 });
            
@@ -135,9 +126,41 @@ namespace CASPAR.Pages.Students
             // Edit mode
             if (id != 0)
             {
+                int count = 0;
+                List<int> modalityIds = new List<int>();
                 objStudentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetById(id);
-                objStudentWishlistModality = _unitOfWork.StudentWishlistModality.GetById(id);
-                objStudentTime = (List<StudentTime>)_unitOfWork.StudentTime.GetAll();
+                foreach (var item in modalityCheck)
+                {
+                    foreach (var modality in _unitOfWork.StudentWishlistModality.GetAll(c => c.StudentWishListDetailsId == id))
+                    {
+                        if (item.Value == modality.ModalityId)
+                        {
+                            modalityIds.Add(modality.StudentWishlistModalityId);
+                            item.Checked = true;
+
+                            if (_unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == modality.StudentWishlistModalityId).FirstOrDefault() != null)
+                            {
+                                objStudentTime[count] = _unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == modality.StudentWishlistModalityId).FirstOrDefault();
+                                objStudentTime[count].StudentWishlistModalityId = (int)modality.ModalityId;
+                            }
+                            count++;
+                        }
+                    }
+                }
+
+                foreach (var item in modalityIds)
+                {
+                    if(_unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == item).Skip(1) != null)
+                    {
+                        foreach (var time in _unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == item).Skip(1))
+                        {
+                            time.StudentWishlistModalityId = (int)_unitOfWork.StudentWishlistModality.GetById(item).ModalityId;
+                            objStudentTime.Add(time);
+                            count++;
+                        }
+                    }
+                }
+                
             }
 
             //assuming I'm in create mode
@@ -154,6 +177,15 @@ namespace CASPAR.Pages.Students
             //if the product is new (create)
             if (objStudentWishlistDetails.StudentWishlistDetailsId == 0)
             {
+                foreach (var item in objStudentTime)
+                {
+                    if (item.StudentWishlistModalityId == -1)
+                    {
+                        item.StudentWishlistModalityId = 0;
+                        item.StudentTimeId = -1;
+                    }
+                }
+
                 objStudentWishlistDetails.StudentWishlistId = objStudentWishlist.StudentWishlistId;
                 _unitOfWork.StudentWishlistDetails.Add(objStudentWishlistDetails);
 				foreach (var item in modalityCheck)
@@ -168,7 +200,7 @@ namespace CASPAR.Pages.Students
 
                         foreach (var time in objStudentTime)
                         {
-                            if (time.StudentWishlistModalityId == item.Value)
+                            if (time.StudentWishlistModalityId == item.Value && time.StudentTimeId != -1)
                             {
                                 time.StudentWishlistModalityId = _unitOfWork.StudentWishlistModality.Get(c => c.StudentWishlistModalityId == objStudentWishlistModality.StudentWishlistModalityId).StudentWishlistModalityId;    //objStudentWishlistModality.StudentWishlistModalityId;
                                 _unitOfWork.StudentTime.Add(time);
@@ -176,7 +208,106 @@ namespace CASPAR.Pages.Students
                         }
                     }
 				}
-                
+            }
+
+            //Updating an existing wishlist (edit)
+            else
+            {
+                //Updates class change on details page
+                _unitOfWork.StudentWishlistDetails.Update(objStudentWishlistDetails);
+
+                //Get list of old modalities and times to check against
+                List<StudentWishlistModality> oldValues = new List<StudentWishlistModality>(); 
+                List<StudentTime> oldTimes = new List<StudentTime>();
+                List<int> toIgnore = new List<int>();
+
+                //load the lists
+                foreach (var item in _unitOfWork.StudentWishlistModality.GetAll(c => c.StudentWishListDetailsId == objStudentWishlistDetails.StudentWishlistDetailsId))
+                {
+                    oldValues.Add(item);
+                }
+
+                foreach (var item in oldValues)
+                {
+                    foreach(var time in _unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == item.StudentWishlistModalityId).ToList())
+                    {
+                        oldTimes.Add(time);
+                    }
+                }
+
+                //Check new modalities against old modalities
+                foreach (var modality in modalityCheck)
+                {
+                    if (modality.Checked == true)
+                    {
+                        //Modality is new, was not in previous edit / create
+                        if(oldValues.Find(c => c.ModalityId == modality.Value) == null)
+                        {
+                            objStudentWishlistModality = new StudentWishlistModality() { StudentWishlistModalityId = 0, ModalityId = modality.Value, StudentWishListDetailsId = objStudentWishlistDetails.StudentWishlistDetailsId };
+                            _unitOfWork.StudentWishlistModality.Add(objStudentWishlistModality);
+                            oldValues.Add(objStudentWishlistModality);
+                        }
+                        //If it exists already, no need to update since there is no new information being added.
+                    }
+                    else 
+                    { 
+                        //If value is no longer checked, but is in the database, it needs to be deleted.
+                        if(oldValues.Find(c => c.ModalityId == modality.Value) != null)
+                        {
+                            objStudentWishlistModality = _unitOfWork.StudentWishlistModality.GetById(oldValues.Find(c => c.ModalityId == modality.Value).StudentWishlistModalityId);
+
+                            //Have to delete all times since they have a foreign key to StudentWishlistModalityId first.
+                            foreach (var time in _unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == objStudentWishlistModality.StudentWishlistModalityId))
+                            {
+                                _unitOfWork.StudentTime.Delete(time);
+                                toIgnore.Add(time.StudentTimeId);
+                            }
+                            _unitOfWork.StudentWishlistModality.Delete(objStudentWishlistModality);
+                        }
+                    }
+                }
+
+                //If  time from a modality is deleted, but not the whole modality, we need to check that its in the db, in old values, but not in new values, then delete.
+                foreach(var item in oldTimes)
+                {
+                    if(objStudentTime.Find(c => c.StudentTimeId == item.StudentTimeId) == null && _unitOfWork.StudentTime.GetById(item.StudentTimeId) != null)
+                    {
+                        _unitOfWork.StudentTime.Delete(item);
+                        toIgnore.Add(item.StudentTimeId);
+                    }
+                }
+
+                for (int i = 0; i < oldTimes.Count; i++)
+                {
+                    if (!toIgnore.Contains(oldTimes[i].StudentTimeId))
+                    {
+                        oldTimes[i].CampusId = objStudentTime.Find(c => c.StudentTimeId == oldTimes[i].StudentTimeId).CampusId;
+                        oldTimes[i].TimeBlockId = objStudentTime.Find(c => c.StudentTimeId == oldTimes[i].StudentTimeId).TimeBlockId;
+                    }     
+                }
+
+                //Adding / Editing times
+
+                for(int i = 0; i < objStudentTime.Count; i++)
+                {
+                    if (!toIgnore.Contains(objStudentTime[i].StudentTimeId) && objStudentTime[i].CampusId != 0 && objStudentTime[i].TimeBlockId != 0)
+                    {
+                        if (objStudentTime[i].StudentTimeId != -1)
+                        {
+                            if (objStudentTime[i].StudentTimeId == 0)
+                            {
+                                objStudentTime[i].StudentWishlistModalityId = oldValues.Find(c => c.ModalityId == objStudentTime[i].StudentWishlistModalityId).StudentWishlistModalityId;
+                                _unitOfWork.StudentTime.Add(objStudentTime[i]);
+                            }
+                            //Update if its id != 0
+                            else
+                            {
+                                StudentTime toadd = oldTimes.Find(c => c.StudentTimeId == objStudentTime[i].StudentTimeId);
+                                _unitOfWork.StudentTime.Update(toadd);
+                            }
+                        }
+                    }   
+                }
             }
             //Save changes to Database
             _unitOfWork.Commit();

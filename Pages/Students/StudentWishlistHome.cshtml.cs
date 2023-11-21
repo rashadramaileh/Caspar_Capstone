@@ -11,9 +11,10 @@ namespace CASPAR.Pages.Students
     public class StudentWishlistVM
     {
         [BindProperty]
-        public StudentWishlistDetails objStudentWishlistDetails { get; set; } //this is not a list anymore !
+        public StudentWishlistDetails objStudentWishlistDetails { get; set; }
         public List<StudentWishlistModality> objStudentWishlistModalities { get; set; }
         public List<StudentTime> objStudentTimes { get; set; }
+        //public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
     }
 
     public class StudentWishlishtHomeModel : PageModel
@@ -23,25 +24,62 @@ namespace CASPAR.Pages.Students
         
         public List<StudentWishlistVM> objStudentWishlistVMs { get; set; }
         public IEnumerable<SelectListItem> SemesterList { get; set; }
+        public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
+        [BindProperty]
+        public int StudentWishlistId { get; set; } = 8;
+        public int StudentId { get; set; } = 2;
+        [BindProperty] 
+        public int SemesterId { get; set; }
+
 
         public StudentWishlishtHomeModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objStudentWishlist = new StudentWishlist();
             objStudentWishlistVMs = new List<StudentWishlistVM>();
+
             SemesterList = new List<SelectListItem>();
+            ListStudentWishlist = new List<StudentWishlist>();
         }
 
         public void OnGet()
         {
-            SemesterList = _unitOfWork.Semester.GetAll()
-              .Select(x => new SelectListItem
-              {
-                  Text = x.SemesterName,
-                  Value = x.SemesterId.ToString(),
-              });
+            GetStudentWishlistData(StudentId, null);
+        }
 
-            objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentWishlistId == 8); //find an existing student wishlist
+        public void OnPost()
+        {
+            GetStudentWishlistData(StudentId, SemesterId);
+        }
+
+        private void GetStudentWishlistData(int studentId, int? semesterId)
+        {
+            SemesterList = _unitOfWork.Semester.GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.SemesterName,
+                    Value = x.SemesterId.ToString(),
+                });
+
+            if (semesterId != null && semesterId !=0)
+            {
+                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId && x.SemesterId == semesterId);
+            }
+            else
+            {
+                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId);
+            }
+
+            if(objStudentWishlist == null) 
+            {
+                objStudentWishlist = new StudentWishlist
+                {
+                    StudentId = studentId,
+                    SemesterId  = semesterId??1,
+                };
+                _unitOfWork.StudentWishlist.Add(objStudentWishlist);
+            }
+
             var studentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetAll(x => x.StudentWishlistId == objStudentWishlist.StudentWishlistId, null, "Course");
 
             foreach (var details in studentWishlistDetails)
@@ -59,11 +97,13 @@ namespace CASPAR.Pages.Students
                 {
                     objStudentWishlistVM.objStudentWishlistModalities.Add(modality);
 
-                    var studentTimes = _unitOfWork.StudentTime.GetAll(x => x.StudentWishlistModalityId == modality.StudentWishlistModalityId, null, "TimeBlock");
+                    var studentTimes = _unitOfWork.StudentTime.GetAll(x => x.StudentWishlistModalityId == modality.StudentWishlistModalityId, null, "TimeBlock,Campus");
                     foreach (var time in studentTimes)
                     {
                         objStudentWishlistVM.objStudentTimes.Add(time);
+                        
                     }
+                    
                 }
                 objStudentWishlistVMs.Add(objStudentWishlistVM);
             }

@@ -1,0 +1,51 @@
+﻿@page
+@model CASPAR.Pages.Admins.Semesters.FillModel
+@{
+}
+@* tell the user if they are trying to fill a semester that already has sections *@
+@* Give them a button if they are sure they want to add the template of courses *@
+
+<div class="container">
+    <div class="row pt=4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Populate the Semester @Model.semester.SemesterName with the Courses from the @Model.semester.SemesterType.SemesterName Template
+            </h2>
+            <h4 class="text-secondary">
+                To change the template edit the semester with the desired template type. 
+            </h4>
+        </div>
+        @*         <div class="col-7 text-end">
+        <a asp-page="Fill" asp-route-id="@Model.semester.SemesterId" class="btn btn-danger">
+        <i class="bi bi-plus-circle"></i> Please confirm
+        </a>
+        </div> *@
+
+    </div>
+    <div class="row pt=4">
+        <div class="col-6">
+            <form method="post" asp-page="Fill" asp-route-id="@Model.semester.SemesterId" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="border p-3 mt-4 row">
+                            <div class="col-12">
+                                <!--IF Product being edited -->
+                                @if (Model.section?.SectionId != null)
+                                {
+                                    <button type="submit" class="btn btn-danger" style="width:300px">Add @Model.semester.SemesterType.SemesterName template courses to existing sections</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary" style="width:300px">Fill sections from Template</button>
+                                }<!--END ELSE -->
+                                <a asp-page="Index" class="btn btn-secondary">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
