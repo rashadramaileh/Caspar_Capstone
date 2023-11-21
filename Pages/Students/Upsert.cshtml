@@ -2,14 +2,17 @@
 @model CASPAR.Pages.Students.UpsertModel
 
 @{
+    
 }
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data" onload="">
     <input asp-for="objStudentWishlist.StudentWishlistId" hidden />
+    <input asp-for="objStudentWishlistDetails.StudentWishlistDetailsId" hidden />
+    <input asp-for="objStudentWishlistDetails.StudentWishlistId" hidden />
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objStudentWishlist.StudentWishlistId != 0 ? "Update " : "Create ")Wishlist</h2>
+                    <h2 class="text-primary">@(Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0 ? "Update " : "Create ") Wishlist</h2>
                     <hr />
                 </div>
                 <div class="mb-3 col-6">
@@ -18,33 +21,101 @@
                         <option disabled selected>--Select Course--</option>
                     </select>
                 </div>
+
                 <div class="mb-3 col-6">
-                    <label asp-for="objStudentWishlistModality.Modality.ModalityId"></label>
-                    <select id="ddlFormat" asp-for="objStudentWishlistModality.Modality" asp-items="@Model.FormatList" class="form-select">
-                        <option disabled selected>--Select Format--</option>
-                    </select>
+                    <div>
+                    @for (var i = 0; i < Model.modalityCheck.Count; i++)
+                    {
+                        @*<label>@modality.Text
+                        <input type="checkbox" name="modalityCheck" value="@modality.Value" checked="@modality.Checked" onclick="ShowDiv(this)" id="@modality.Text" asp-items="@Model.modalityCheck" />
+                        </label>*@
+                        @*<input asp-for="@modality.Checked" id="@modality.Value" type="checkbox" name="Modality" value="@modality.Checked"/>
+                        <label asp-for="@modality.Value">@modality.Text</label>
+                        <input asp-for="@modality.Value" hidden />
+                        <input asp-for="@modality.Disabled" hidden />*@
+                        <input type="checkbox" asp-for="@Model.modalityCheck[i].Checked" onclick="testing(@Model.modalityCheck[i].Value, '@Model.modalityCheck[i].Text')" id="@Model.modalityCheck[i].Value" />
+                        <label asp-for="@Model.modalityCheck[i].Checked">@Model.modalityCheck[i].Text</label>
+                        <input type="hidden" asp-for="@Model.modalityCheck[i].Value" />
+                        <input type="hidden" asp-for="@Model.modalityCheck[i].Text" />
+                        <input type="hidden" asp-for="@Model.modalityCheck[i].Disabled" />
+                    }
+                    </div>
                 </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objStudentTime.TimeBlock.TimeBlockId"></label>
-                    <select id="ddlDayBlock" asp-for="objStudentTime.TimeBlock" asp-items="@Model.TimeList" class="form-select">
-                        <option disabled selected>--Select Time--</option>
-                    </select>
-                </div>
-                
-                <div class="mb-3 col-6">
-                    <label asp-for="objStudentWishlist.Semester"></label>
-                    <select id="ddlSemester" asp-for="objStudentWishlist.SemesterId" asp-items="@Model.SemesterList" class="form-select">
-                        <option disabled selected>--Select Semester--</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objStudentTime.Campus"></label>
-                    <select id="ddlCampus" asp-for="objStudentTime.Campus" asp-items="@Model.CampusList" class="form-select">
-                        <option disabled selected>--Select Campus--</option>
-                    </select>
-                </div>
+                 
+                @{var j = 0;}
+                @for (var i = 0; i < Model.modalityCheck.Count; i++)
+                { 
+                    if (!Model.modalityCheck[i].Text.Contains("Online") && !Model.modalityCheck[i].Text.Contains("Flex"))
+                    {
+
+                        <div id="@Model.modalityCheck[i].Text" style="display: @(Model.modalityCheck[i].Checked == true ? "inline " : "none ");" class="mb-3 col-12">
+                            <h5>@Model.modalityCheck[i].Text</h5>
+                            <button type="button" onclick="AddAnotherItem('@Model.modalityCheck[i].Text')">Add Another Time</button>
+
+                            @if(Model.objStudentTime[j].StudentTimeId == 0){
+                                <div class="count">
+                                
+                                    <br>
+                                    <label asp-for="objStudentTime[j].TimeBlock">Time</label>
+                                    <select id="ddlblock @j" asp-for="objStudentTime[j].TimeBlockId" asp-items="@Model.TimeList" class="form-select">
+                                        <option disabled selected>--Select Time--</option>
+                                    </select>
+                            
+                                    <label asp-for="objStudentTime[j].Campus">Campus</label>
+                                    <select id="ddlCampus @j" asp-for="objStudentTime[j].CampusId" asp-items="@Model.CampusList" class="form-select">
+                                        <option disabled selected>--Select Campus--</option>
+                                    </select>
+
+                                    <i class="bi bi-trash" id="@j" onclick="removeDiv(this)" style="display:none"></i>
+
+                                    <input type="hidden" asp-for="objStudentTime[j].StudentWishlistModalityId" value="@Model.modalityCheck[i].Value"/>
+                                    
+                                </div>
+                            }
+                            else{
+                                @for(int k = 0; k < Model.objStudentTime.Count; k++)
+                                {
+                                    if(Model.objStudentTime[k].StudentWishlistModalityId == Model.modalityCheck[i].Value)
+                                    {
+                                        <div class="count">
+
+                                            <br>
+                                            <label asp-for="objStudentTime[k].TimeBlock">Time</label>
+                                            <select id="ddlblock @k" asp-for="objStudentTime[k].TimeBlockId" asp-items="@Model.TimeList" class="form-select">
+                                                <option disabled selected>--Select Time--</option>
+                                            </select>
+
+                                            <label asp-for="objStudentTime[k].Campus">Campus</label>
+                                            <select id="ddlCampus @k" asp-for="objStudentTime[k].CampusId" asp-items="@Model.CampusList" class="form-select">
+                                                <option disabled selected>--Select Campus--</option>
+                                            </select>
+                                            @if(k > 1)
+                                            {
+                                                <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:inline"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:none"></i>
+                                            }
+
+                                            <input type="hidden" asp-for="objStudentTime[k].StudentWishlistModalityId" value="@Model.modalityCheck[i].Value" />
+                                            <input type="hidden" asp-for="objStudentTime[k].StudentTimeId" />
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        j++;
+                    }
+                }
+
+                <div class="mb-3">
+					<label asp-for="objStudentWishlistDetails.StudentNotes"></label>
+                    <textarea asp-for="objStudentWishlistDetails.StudentNotes" id="txtDesc" rows="3" class="form-control"></textarea>
+				</div>
+
                 <div class="col-12">
-                    @if (Model.objStudentWishlist.StudentWishlistId != 0)
+                    @if (Model.objStudentWishlistDetails.StudentWishlistDetailsId != 0)
                     {
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
                     }
@@ -53,7 +124,7 @@
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
                     }
                     <!--END ELSE -->
-                    <a asp-page="/Students/Index" class="btn btn-secondary" style="width:150px">
+                    <a asp-page="/Students/StudentWishlistHome" class="btn btn-secondary" style="width:150px">
                         Back to List
                     </a>
                 </div>
@@ -65,37 +136,91 @@
 @section Scripts
 {
     <script>
-
+      
         tinymce.init({
             selector: 'textarea',
             plugins: "lists",
             menubar: "file edit format"
         });
 
+        function testing(value, text){
+            var checkBox = document.getElementById(value)
+            var text = document.getElementById(text)
+            if (checkBox.checked) {
+                text.style.display = "inline";
+            }
+            else{
+                text.style.display = "none";
+            }
+        }
+
+        function AddAnotherItem(text){
+            //Gets current count of items available
+            var count = document.getElementsByClassName('count').length
+            //Getting correct Modality
+            var textBox = document.getElementById(text)
+            //Getting drop down value node
+            var child = textBox.childNodes[5]
+            //Cloning the node to use for future node
+            const node = child.cloneNode(true)
+            //Setting up the correct values for the new node
+            node.id = 'input' + count;
+            var childVal = child.innerHTML
+            document.getElementById(text).appendChild(node)
+            var newParent = document.getElementById('input' + count)
+            var newChild = newParent.childNodes[3]
+            newChild.setAttribute("for", "objStudentTime_" + count + "__TimeBlock")
+            newChild = newParent.childNodes[5]
+            newChild.setAttribute("id", "ddlblock " + count)
+            newChild.setAttribute("name", "objStudentTime[" + count + "].TimeBlockId")
+            newChild = newParent.childNodes[7]
+            newChild.setAttribute("for", "objStudentTime_" + count + "__Campus")
+            newChild = newParent.childNodes[9]
+            newChild.setAttribute("id", "ddlCampus " + count)
+            newChild.setAttribute("name", "objStudentTime[" + count + "].CampusId")
+            newChild = newParent.childNodes[13]
+            newChild.setAttribute("id", "objStudentTime_" + count + "__StudentWishlistModalityId")
+            newChild.setAttribute("name", "objStudentTime[" + count + "].StudentWishlistModalityId")
+            newChild = newParent.childNodes[11]
+            newChild.setAttribute("id", count)
+            newChild.setAttribute("style", "display:inline")
+            //var card = document.getElementById("ddlCampus " + 0).parentElement.parentElement
+            //console.log(card)
+            //console.log(document.getElementsByClassName('count').length)
+        }
+
+        function removeDiv(value) {
+            var toRemove = document.getElementById(value.id).closest("div div")
+            toRemove.childNodes[13].setAttribute("value", "-1")
+            toRemove.setAttribute("style", "display: none")
+        }
+
         function ValidateInput() 
         {
-            if ($('#ddlCourse option:selected').val() == 0) {
+
+            if ($('#ddlCourse option:selected').val() == '--Select Course--') {
                 swal.fire('Error', 'Please Select a Course', 'error')
                 return false
             }
 
-            if ($('#ddlFormat option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Format', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++) {
+                var card = document.getElementById("ddlblock " + i)
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
+                    if (card.options[card.selectedIndex].value == '--Select Time--') {
+                        swal.fire('Error', 'Please Select a Time', 'error')
+                        return false
+                    }
+                }
             }
 
-            if ($('#ddlCampus option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Campus', 'error')
-                return false
-            }
-
-            if ($('#ddlTimeBlock option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Time', 'error')
-                return false
-            }
-            if ($('#ddlSemester option:selected').val() == 0) {
-                swal.fire('Error', 'Please Select a Semester', 'error')
-                return false
+            for (let i = 0; i < document.getElementsByClassName('count').length; i++){
+                var card = document.getElementById("ddlCampus " + i)
+                if (card.parentElement.parentElement.style.display == 'inline' && card.parentElement.style.display != 'none') {
+                    if (card.options[card.selectedIndex].value == '--Select Campus--') {
+                        swal.fire('Error', 'Please Select a Campus', 'error')
+                        return false
+                    }
+                }
             }
 
             return true;

@@ -1,6 +1,6 @@
 ﻿@page
 @model CASPAR.Pages.Admins.ManageModality.UpsertModel
-
+@if (User.IsInRole("Admin")){
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
     <input asp-for="objModality.ModalityId" hidden />
     <div class="row">
@@ -38,3 +38,8 @@
         </div>
     </div>
 </form>
+}
+else
+{
+    Response.Redirect("../../../..");
+}

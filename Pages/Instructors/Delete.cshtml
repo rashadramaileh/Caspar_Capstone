@@ -3,34 +3,103 @@
 @{
 }
 <div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-primary">Delete Wishlist Item</h2>
-            </div>
-        </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" class="row">
-            <div class="border p-3">
-                @*<div asp-validation-summary="ModelOnly"></div>*@
-                <input readonly asp-for="objInstructorWishlist.InstructorWishlistId" class="form-control border-0 shadow" />
-                <label asp-for="objInstructorWishlist.InstructorWishlistId" class="ms-2"></label>
-                <span asp-validation-for="objInstructorWishlist.InstructorWishlistId" class="text-danger"></span>
+	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-primary">Delete Wishlist Item</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<form method="post" class="submit">
+			<div class="border p-3">
+				@*<div asp-validation-summary="ModelOnly"></div>*@
+				@*<input readonly asp-for="objInstructorWishlist.InstructorWishlistId" class="form-control border-0 shadow" />
+				<label asp-for="objInstructorWishlist.InstructorWishlistId" class="ms-2"></label>
+				<span asp-validation-for="objInstructorWishlist.InstructorWishlistId" class="text-danger"></span>*@
 
-                <input type="hidden" asp-for="objInstructorWishlist.InstructorWishlistId" />
+				<input type="hidden" asp-for="objInstructorWishlist.InstructorWishlistId" />
+				<input type="hidden" asp-for="objInstructorWishlistDetails.InstructorWishlistDetailsId" />
 
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-danger form-control">Delete</button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-page="./Index" class="btn btn-outline-primary border  form-control">
-                            Back to List
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+				<div class="form-floating py-2 col-12">
+					<div readonly id="course" class="form-control border-0 shadow">
+						@Model.objInstructorWishlistDetails.Course.CoursePrefix@Model.objInstructorWishlistDetails.Course.CourseNumber @Model.objInstructorWishlistDetails.Course.CourseName
+					</div>
+					<label for="course" class="ms-2">Course Name</label>
+				</div>
+
+
+
+				@foreach (var modality in Model.objInstructorWishlistModality)
+				{
+					<table>
+						<thead>
+							<tr>
+								<th>
+									<input readonly asp-for="@modality.Modality.ModalityName" class="form-control" style="background-color: white; outline: white; border:hidden" />
+									@*<label asp-for="@modality.Modality.ModalityName" class="ms-2"></label>*@
+									<span asp-validation-for="@modality.Modality.ModalityName" class="text-danger"></span>
+								</th>
+								@if (Model.objInstructorTime.Where(c => c.InstructorWishlistModalityId == modality.InstructorWishlistModalityId).Count() != 0)
+								{
+									<th>
+										Day
+									</th>
+									<th>
+										Time
+									</th>
+									<th>
+										Campus
+									</th>
+								}
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var time in Model.objInstructorTime.Where(c => c.InstructorWishlistModalityId == modality.InstructorWishlistModalityId))
+							{
+								<tr>
+									<td>
+										&nbsp;
+									</td>
+									<td>
+										<input readonly asp-for="@time.DayBlock.DayName" class="form-control" />
+										@*<label asp-for="@time.TimeBlock.TimeName" class="ms-2"></label>*@
+										<span asp-validation-for="@time.DayBlock.DayName" class="text-danger"></span>
+									</td>
+									<td>
+										<input readonly asp-for="@time.MeetingTime.meetingTimeName" class="form-control" />
+										@*<label asp-for="@time.TimeBlock.TimeName" class="ms-2"></label>*@
+										<span asp-validation-for="@time.MeetingTime.meetingTimeName" class="text-danger"></span>
+									</td>
+									<td>
+										<input readonly asp-for="@time.Campus.CampusName" class="form-control" />
+										@*<label asp-for="@time.Campus.CampusName" class="ms-2"></label>*@
+										<span asp-validation-for="@time.Campus.CampusName" class="text-danger"></span>
+									</td>
+								</tr>
+
+							}
+
+						</tbody>
+					</table>
+				}
+
+				<div class="mb-3">
+					<label asp-for="objInstructorWishlistDetails.InstructorNotes"></label>
+					<textarea readonly asp-for="objInstructorWishlistDetails.InstructorNotes" id="txtDesc" rows="3" class="form-control"></textarea>
+				</div>
+
+				<div class="row pt-2">
+					<div class="col-6 col-md-3">
+						<button type="submit" class="btn btn-danger form-control">Delete</button>
+					</div>
+					<div class="col-6 col-md-3">
+						<a asp-page="/Instructors/InstructorWishlistHome" class="btn btn-outline-primary border  form-control">
+							Back to List
+						</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>

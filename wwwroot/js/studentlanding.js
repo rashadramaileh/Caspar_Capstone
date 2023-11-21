@@ -13,8 +13,10 @@ function loadList() {
         },
         "columns": [
             // Should not be capital
-            //This needs to be changed VVVV
-            { "data": "semester.semesterName", "width": "70%" },
+            { "data": "course.prefix" + "course.number" + "course.name", "width": "70%" },
+            { "data": "modality.modalityname", "width": "70%" },
+            { "data": "campus.campusname", "width": "70%" },
+            { "data": "timeblock.timename", "width": "70%" },
             {
                 "data": "studentWishlistId",
                 "render": function (data) {

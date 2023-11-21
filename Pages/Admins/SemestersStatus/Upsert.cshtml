@@ -2,7 +2,8 @@
 @model CASPAR.Pages.Admins.SemestersStatus.UpsertModel
 @{
 }
-
+@if (User.IsInRole("Admin"))
+{
 <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
     <input asp-for="objSemesterStatus.SemesterStatusID" hidden />
     <div class="row">
@@ -40,3 +41,6 @@
         </div>
     </div>
 </form>
+} else {
+    Response.Redirect("../../../..");
+}
