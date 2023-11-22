@@ -2,3 +2,39 @@
 @model CASPAR.Pages.Admins.InstructorReleaseTimes.IRTUpsertModel
 @{
 }
+
+<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data"> 
+    <input asp-for="objinstructorRelease.InstructorReleaseId" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.objinstructorRelease.InstructorReleaseId != 0 ? "Update " : "Create ")Instructor Release Time</h2>
+                    <hr />
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="objinstructorRelease.ReleaseTimeName"></label>
+                    <select id="ddlReleaseTimeName" asp-for="InstructorReleaseId" asp-items="@Model.InstructorNameList" class="form-select">
+                        <option disabled selected>---Select Release Time Semester</option>
+                    </select>
+
+                </div>
+                <div class="col-12">
+                    @if (Model.objinstructorRelease.InstructorReleaseId != 0)
+                    {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                    }
+                    else
+                    {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                    }
+                    <!--END ELSE -->
+                    <a asp-page="/Students/Landing/Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
