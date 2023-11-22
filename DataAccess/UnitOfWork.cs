@@ -51,8 +51,6 @@ namespace DataAccess
         public IGenericRepository<StudentTime> _StudentTime;
         public IGenericRepository<TimeBlock> _TimeBlock;
         public IGenericRepository<UniProgram> _UniProgram;
-        public IGenericRepository<User> _User;
-        public IGenericRepository<UserRole> _UserRole;
         public IGenericRepository<WhoPays> _WhoPays;
 
 
@@ -506,30 +504,6 @@ namespace DataAccess
                     _UniProgram = new GenericRepository<UniProgram>(_dbcontext);
                 }
                 return _UniProgram;
-            }
-        }
-
-        public IGenericRepository<User> User
-        {
-            get
-            {
-                if (_User == null)
-                {
-                    _User = new GenericRepository<User>(_dbcontext);
-                }
-                return _User;
-            }
-        }
-
-        public IGenericRepository<UserRole> UserRole
-        {
-            get
-            {
-                if (_UserRole == null)
-                {
-                    _UserRole = new GenericRepository<UserRole>(_dbcontext);
-                }
-                return _UserRole;
             }
         }
 
