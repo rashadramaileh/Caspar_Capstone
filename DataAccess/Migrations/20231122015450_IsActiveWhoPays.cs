@@ -5,14 +5,14 @@
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class SectionStatusIsActive : Migration
+    public partial class IsActiveWhoPays : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
                 name: "IsActive",
-                table: "SectionStatus",
+                table: "WhoPays",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
@@ -23,7 +23,7 @@ namespace DataAccess.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "IsActive",
-                table: "SectionStatus");
+                table: "WhoPays");
         }
     }
 }

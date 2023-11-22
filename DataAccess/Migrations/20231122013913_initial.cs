@@ -63,7 +63,8 @@ namespace DataAccess.Migrations
                 {
                     CampusId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CampusName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CampusName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +77,8 @@ namespace DataAccess.Migrations
                 {
                     ClassroomFeatureId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClassroomFeatureName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                    ClassroomFeatureName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +91,8 @@ namespace DataAccess.Migrations
                 {
                     CourseTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseTypeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    CourseTypeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,7 +105,8 @@ namespace DataAccess.Migrations
                 {
                     DaysBlockId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DayName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    DayName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,7 +119,8 @@ namespace DataAccess.Migrations
                 {
                     MajorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MajorName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    MajorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,7 +133,8 @@ namespace DataAccess.Migrations
                 {
                     meetingTimeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    meetingTimeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    meetingTimeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,7 +148,8 @@ namespace DataAccess.Migrations
                     ModalityId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ModalityName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    ModalityDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                    ModalityDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,7 +162,8 @@ namespace DataAccess.Migrations
                 {
                     PartOfTermID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PartOfTermName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    PartOfTermName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -222,7 +230,8 @@ namespace DataAccess.Migrations
                     SectionStatusId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StatusName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    StatusDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                    StatusDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,7 +245,8 @@ namespace DataAccess.Migrations
                     SemesterStatusID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SemesterStatusName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    SemesterStatusDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                    SemesterStatusDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,7 +272,8 @@ namespace DataAccess.Migrations
                 {
                     TimeBlockId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TimeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    TimeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,7 +286,8 @@ namespace DataAccess.Migrations
                 {
                     UniProgramId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProgramName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    ProgramName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -424,7 +436,8 @@ namespace DataAccess.Migrations
                     BuildingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BuildingName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CampusId = table.Column<int>(type: "int", nullable: false)
+                    CampusId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -479,7 +492,8 @@ namespace DataAccess.Migrations
                     CourseDesc = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CreditHours = table.Column<int>(type: "int", nullable: false),
                     UniProgramId = table.Column<int>(type: "int", nullable: false),
-                    CourseTypeId = table.Column<int>(type: "int", nullable: false)
+                    CourseTypeId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -577,7 +591,8 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    BuildingId = table.Column<int>(type: "int", nullable: false)
+                    BuildingId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -777,7 +792,8 @@ namespace DataAccess.Migrations
                     FeaturePossessionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FeatureId = table.Column<int>(type: "int", nullable: false),
-                    ClassroomId = table.Column<int>(type: "int", nullable: false)
+                    ClassroomId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
