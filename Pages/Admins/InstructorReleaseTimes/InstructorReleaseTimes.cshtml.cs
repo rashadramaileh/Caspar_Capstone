@@ -28,58 +28,58 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
 
         public void OnGet()
         {
-            //GetReleaseData(UserId, null);
-            SemesterList = _unitOfWork.Semester.GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.SemesterName,
-                    Value = x.SemesterId.ToString(),
-                });
-            objReleaseList = _unitOfWork.InstructorRelease.GetAll();
+            GetReleaseData(null);
+            //SemesterList = _unitOfWork.Semester.GetAll()
+            //    .Select(x => new SelectListItem
+            //    {
+            //        Text = x.SemesterName,
+            //        Value = x.SemesterId.ToString(),
+            //    });
+            //objReleaseList = _unitOfWork.InstructorRelease.GetAll();
 
         }
 
         public void OnPost()
         {
-            GetReleaseData(UserId, SemesterId);
+            GetReleaseData(SemesterId);
         }
 
-        private void GetReleaseData(int instructorId, int? semesterId)
+        private void GetReleaseData(int? semesterId)
         {
             SemesterList = _unitOfWork.Semester.GetAll()
                 .Select(x => new SelectListItem
                 {
                     Text = x.SemesterName,
                     Value = x.SemesterId.ToString(),
-                });
+                });     
 
             if (semesterId != null && semesterId != 0)
             {
-                objRelease = _unitOfWork.InstructorRelease.Get(x => x.ApplicationUserId == instructorId && x.SemesterId == semesterId);
+                objReleaseList = _unitOfWork.InstructorRelease.GetAll(c => c.SemesterId == semesterId);
             }
             else
             {
-                objRelease = _unitOfWork.InstructorRelease.Get(x => x.ApplicationUserId == instructorId);
+                objReleaseList = _unitOfWork.InstructorRelease.GetAll(c => c.SemesterId == _unitOfWork.Semester.GetById(1).SemesterId);
 
             }
 
-            if (objRelease == null)
-            {
-                objRelease = new InstructorRelease
-                {
-                    UserId = instructorId,
-                    SemesterId = semesterId ?? 1,
-                };
-                _unitOfWork.InstructorRelease.Add(objRelease);
-            }
+            //if (objRelease == null)
+            //{
+            //    objRelease = new InstructorRelease
+            //    {
+            //        UserId = instructorId,
+            //        SemesterId = semesterId ?? 1,
+            //    };
+            //    _unitOfWork.InstructorRelease.Add(objRelease);
+            //}
 
-            var instrucorReleaseTimeDetails = _unitOfWork.InstructorRelease.GetAll(x => x.InstructorReleaseId == objRelease.InstructorReleaseId, null, null);
+            //var instrucorReleaseTimeDetails = _unitOfWork.InstructorRelease.GetAll(x => x.InstructorReleaseId == objRelease.InstructorReleaseId, null, null);
 
-            foreach (var item in instrucorReleaseTimeDetails)
-            {
-                InstructorRelease toAdd = objRelease;
-                _unitOfWork.InstructorRelease.Add(toAdd);
-            }
+            //foreach (var item in instrucorReleaseTimeDetails)
+            //{
+            //    InstructorRelease toAdd = objRelease;
+            //    _unitOfWork.InstructorRelease.Add(toAdd);
+            //}
 
             TempData["success"] = "Semester Filtered Successfully";
         }
