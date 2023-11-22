@@ -48,8 +48,9 @@ namespace CASPAR.Pages.Instructors
             var claimsIdentity = User.Identity as ClaimsIdentity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             GetInstructorWishlistData(claim.Value, SemesterId);
-			
-		}
+            TempData["Success"] = "Wishlist Filtered Successfully";
+
+        }
 
 		private void GetInstructorWishlistData(string applicationUser, int? semesterId)
 		{
@@ -109,7 +110,7 @@ namespace CASPAR.Pages.Instructors
 				}
 				objInstructorWishlistVMs.Add(objInstructorWishlistVM);
 			}
-            TempData["Success"] = "Wishlist Filtered Successfully";
+            //TempData["Success"] = "Wishlist Filtered Successfully";
         }
 	}
 }

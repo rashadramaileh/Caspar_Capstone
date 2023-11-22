@@ -203,6 +203,7 @@ namespace CASPAR.Pages.Students
                         }
                     }
 				}
+                TempData["Success"] = "Wishlist Added Successfully";
             }
 
             //Updating an existing wishlist (edit)
@@ -303,6 +304,7 @@ namespace CASPAR.Pages.Students
                         }
                     }   
                 }
+                TempData["success"] = "Wishlist Successfully Updated";
             }
             //Save changes to Database
             _unitOfWork.Commit();
