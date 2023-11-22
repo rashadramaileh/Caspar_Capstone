@@ -13,6 +13,7 @@ namespace CASPAR.Pages.Students
         public bool Disabled { get; set; }
         public string Text { get; set; } = string.Empty;
         public int Value { get; set; }
+        public bool AdditionalInfo { get; set; }
     }
 
     public class WishlistVM
@@ -75,7 +76,7 @@ namespace CASPAR.Pages.Students
 
             foreach (var item in _unitOfWork.Modality.GetAll())
             {
-                CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId };
+                CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId, AdditionalInfo = item.AdditionalWishlistInfo };
                 modalityCheck.Add(toAdd);
 
                 if(item.ModalityName != "Online")
