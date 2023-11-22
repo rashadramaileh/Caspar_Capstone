@@ -29,6 +29,11 @@ namespace CASPAR.Infrastructure.Models
         [DisplayName("Postal Code")]
         public string? PostalCode { get; set; }
 
+        [DisplayName("Graduation Year")]
+        public string? GraduationYear { get; set; }
+        [DisplayName("Major")]
+        public string? Major { get; set; }
+
         [NotMapped]
         public string FullName { get { return FirstName + " " + LastName; } }
 
