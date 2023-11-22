@@ -14,7 +14,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="objinstructorRelease.ReleaseTimeName"></label>
-                    <select id="ddlReleaseTimeName" asp-for="objinstructorRelease.ReleaseTimeName" asp-items="null" class="form-select">
+                    <select id="ddlReleaseTimeName" asp-for="InstructorReleaseId" asp-items="@Model.InstructorNameList" class="form-select">
                         <option disabled selected>---Select Release Time Semester</option>
                     </select>
                     

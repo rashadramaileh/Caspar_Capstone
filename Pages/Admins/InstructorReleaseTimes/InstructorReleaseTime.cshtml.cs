@@ -60,6 +60,7 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
             else
             {
                 objRelease = _unitOfWork.InstructorRelease.Get(x => x.UserId == instructorId);
+
             }
 
             if (objRelease == null)
