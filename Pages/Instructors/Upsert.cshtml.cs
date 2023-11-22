@@ -88,12 +88,6 @@ namespace CASPAR.Pages.Instructors
                 }
             }
 
-            InstructorList = _unitOfWork.Instructor.GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.User.ToString(),
-                    Value = x.InstructorId.ToString(),
-                });
             CourseList = _unitOfWork.Course.GetAll()
                 .Select(x => new SelectListItem
                 {

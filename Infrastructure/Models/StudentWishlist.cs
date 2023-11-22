@@ -14,12 +14,12 @@ namespace CASPAR.Infrastructure.Models
         public int SemesterId { get; set; }
 
         [Range(0, 65535)]
-        public int StudentId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         [ForeignKey("SemesterId")]
         public Semester? Semester { get; set; }
 
-        [ForeignKey("StudentId")]
-        public Student? Student { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

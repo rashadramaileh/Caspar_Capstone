@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace CASPAR.Pages.Instructors
 {
@@ -23,9 +24,6 @@ namespace CASPAR.Pages.Instructors
 		public IEnumerable<SelectListItem> SemesterList { get; set; }
 		public IEnumerable<InstructorWishlist> ListInstructorWishlist { get; set; }
 		[BindProperty]
-		public int InstructorWishlistId { get; set; } = 36;
-		public int InstructorId { get; set; } = 1;
-		[BindProperty]
 		public int SemesterId { get; set; }
 
 		public InstructorWishlistHomeModel(UnitOfWork unitOfWork)
@@ -40,15 +38,19 @@ namespace CASPAR.Pages.Instructors
 
 		public void OnGet()
 		{
-			GetInstructorWishlistData(InstructorId, null);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            GetInstructorWishlistData(claim.Value, null);
 		}
 
 		public void OnPost()
 		{
-			GetInstructorWishlistData(InstructorId, SemesterId);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            GetInstructorWishlistData(claim.Value, SemesterId);
 		}
 
-		private void GetInstructorWishlistData(int instructorId, int? semesterId)
+		private void GetInstructorWishlistData(string applicationUser, int? semesterId)
 		{
 			SemesterList = _unitOfWork.Semester.GetAll()
 			   .Select(x => new SelectListItem
@@ -59,19 +61,22 @@ namespace CASPAR.Pages.Instructors
 
 			if (semesterId != null && semesterId != 0)
 			{
-				objInstructorWishlist = _unitOfWork.InstructorWishlist.Get(x => x.InstructorId == instructorId && x.SemesterId == semesterId);
+				objInstructorWishlist = _unitOfWork.InstructorWishlist.Get(x => x.ApplicationUserId == applicationUser && x.SemesterId == semesterId);
 			}
 			else
 			{
-				objInstructorWishlist = _unitOfWork.InstructorWishlist.Get(x => x.InstructorId == instructorId);
+				objInstructorWishlist = _unitOfWork.InstructorWishlist.Get(x => x.ApplicationUserId == applicationUser);
 			}
 
 			if (objInstructorWishlist == null)
 			{
-				objInstructorWishlist = new InstructorWishlist
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+                objInstructorWishlist = new InstructorWishlist
 				{
-					InstructorId = InstructorId,
-					SemesterId = semesterId ?? 1,
+					ApplicationUserId = claim.Value,
+					SemesterId = semesterId ?? _unitOfWork.Semester.Get(c => c.SemesterStatusId == 1).SemesterId,
 				};
 				_unitOfWork.InstructorWishlist.Add(objInstructorWishlist);
 			}

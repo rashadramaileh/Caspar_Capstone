@@ -5,6 +5,8 @@ using DataAccess;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client;
 using System.Linq;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 
 namespace CASPAR.Pages.Students
 {
@@ -25,9 +27,6 @@ namespace CASPAR.Pages.Students
         public List<StudentWishlistVM> objStudentWishlistVMs { get; set; }
         public IEnumerable<SelectListItem> SemesterList { get; set; }
         public IEnumerable<StudentWishlist> ListStudentWishlist { get; set; }
-        [BindProperty]
-        public int StudentWishlistId { get; set; } = 8;
-        public int StudentId { get; set; } = 2;
         [BindProperty] 
         public int SemesterId { get; set; }
 
@@ -44,15 +43,19 @@ namespace CASPAR.Pages.Students
 
         public void OnGet()
         {
-            GetStudentWishlistData(StudentId, null);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            GetStudentWishlistData(claim.Value, null);
         }
 
         public void OnPost()
         {
-            GetStudentWishlistData(StudentId, SemesterId);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            GetStudentWishlistData(claim.Value, SemesterId);
         }
 
-        private void GetStudentWishlistData(int studentId, int? semesterId)
+        private void GetStudentWishlistData(string applicationUser, int? semesterId)
         {
             SemesterList = _unitOfWork.Semester.GetAll()
                 .Select(x => new SelectListItem
@@ -63,18 +66,21 @@ namespace CASPAR.Pages.Students
 
             if (semesterId != null && semesterId !=0)
             {
-                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId && x.SemesterId == semesterId);
+                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.ApplicationUserId == applicationUser && x.SemesterId == semesterId);
             }
             else
             {
-                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.StudentId == studentId);
+                objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.ApplicationUserId == applicationUser);
             }
 
             if(objStudentWishlist == null) 
             {
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
                 objStudentWishlist = new StudentWishlist
                 {
-                    StudentId = studentId,
+                    ApplicationUserId = claim.Value,
                     SemesterId  = semesterId??1,
                 };
                 _unitOfWork.StudentWishlist.Add(objStudentWishlist);

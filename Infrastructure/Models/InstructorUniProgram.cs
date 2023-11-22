@@ -9,13 +9,13 @@ namespace CASPAR.Infrastructure.Models
         public int InstructorProgramId { get; set; }
 
         [Range(0, 65535)]
-        public int InstructorId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         [Range(0, 65535)]
         public int UniProgramId { get; set; }
 
         [ForeignKey("InstructorId")]
-        public Instructor? Instructor { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
 
         [ForeignKey("UniProgramId")]
         public UniProgram? UniProgram { get; set; }
