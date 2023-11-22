@@ -52,7 +52,7 @@ namespace CASPAR.Pages.Instructors.Landing
 
             if (objInstructorWishlist.InstructorWishlistId == 0)
             {
-                objInstructorWishlist.InstructorId = 1;
+                //objInstructorWishlist.ApplicationUserId = 1;
                 _unitOfWork.InstructorWishlist.Add(objInstructorWishlist);
                 TempData["success"] = "Semester Added Successfully";
             }

@@ -30,7 +30,7 @@ namespace CASPAR.Infrastructure.Models
         public int CourseId { get; set; }
 
         [Range(0, 65535), Display(Name = "Instructor")]
-        public int? InstructorId { get; set; }
+        public string? ApplicationUserId { get; set; }
 
         [Range(0, 65535), Display(Name = "Section Status")]
         public int? SectionStatusId { get; set; }
@@ -62,8 +62,8 @@ namespace CASPAR.Infrastructure.Models
         [ForeignKey("CourseId")]
         public Course? Course { get; set; }
 
-        [ForeignKey("InstructorId")]
-        public Instructor? Instructor { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public ApplicationUser? ApplicationUser { get; set; }
 
         [ForeignKey("SectionStatusId")]
         public SectionStatus? SectionStatus { get; set; }
