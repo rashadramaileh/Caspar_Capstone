@@ -29,7 +29,7 @@ namespace CASPAR.Pages.Admins.ManageClassrooms
         }
         public IActionResult OnGet(int? id)
         {
-            BuildingList = _unitOfWork.Building.GetAll()
+            BuildingList = _unitOfWork.Building.GetAll().Where(c => c.IsActive == 1)
                 .Select(c => new SelectListItem
                 {
                     Text = c.BuildingName,

@@ -40,7 +40,7 @@ namespace CASPAR.Pages.Admins.ManageBuilding
             isActiveList.Add(inActive);
             isActiveList.Add(active);
 
-            CampusList = _unitOfWork.Campus.GetAll()
+            CampusList = _unitOfWork.Campus.GetAll().Where(c => c.IsActive == 1)
                 .Select(c => new SelectListItem
                 {
                     Text = c.CampusName,
