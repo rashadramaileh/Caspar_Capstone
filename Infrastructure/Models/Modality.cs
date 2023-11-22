@@ -13,5 +13,7 @@ namespace CASPAR.Infrastructure.Models
 
         [StringLength(200), Display(Name = "Description")]
         public string? ModalityDescription{get; set;}
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

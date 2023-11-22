@@ -10,5 +10,8 @@ namespace CASPAR.Infrastructure.Models
 
         [StringLength(20), Display(Name = "Day"), DisplayName("Day")]
         public string? DayName { get; set; }
+
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

@@ -9,5 +9,7 @@ namespace CASPAR.Infrastructure.Models
 
         [StringLength(20), Required, Display(Name = "Course Type")]
         public String? CourseTypeName { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

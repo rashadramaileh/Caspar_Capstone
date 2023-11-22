@@ -17,5 +17,7 @@ namespace Infrastructure.Models
         public ClassroomFeature? ClassroomFeature { get; set; }
         [ForeignKey("ClassroomId")]
         public Classroom? Classroom { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

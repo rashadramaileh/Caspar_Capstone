@@ -12,7 +12,7 @@ function loadList() {
         },
         "columns": [
             //should be lowercase for first letter, camelcase
-            { "data": "classroomFeatureName", "width": "25%" },
+            { "data": "classroomFeatureName", "width": "70%" },
             //{ "data": "listPrice", render: $.fn.dataTable.render.number(',', '.', 2, '$'), "width": "15%" }, //see rendered documentation in datatables docs
             //{ "data": "category.name", "width": "15%" },
             //{ "data": "manufacturer.name", "width": "15%" },
@@ -21,13 +21,32 @@ function loadList() {
                 "render": function (data) {
                     return `<div class="text-center">
                                 <a href="/Admins/ClassroomFeatures/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;"> 
-                                <i class="far fa-edit"></i> Edit </a>
-
-                                <a href="/Admins/ClassroomFeatures/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width:100px;"> 
-                                <i class="far fa-trash-alt"></i> Delete </a></div>`;
+                                <i class="far fa-edit"></i> Edit </a></div>`;
 
                 },
-                "width": "30%"
+                "width": "15%"
+            },
+            {
+                "data": "isActive",
+                "render": function (data) {
+
+                    if (data == 1) {
+                        return `<div class="text-center"> 
+                            
+                            <button type="button" class="btn btn-success text-white" style="cursor:pointer; width: 100px;" disabled>
+                               Active </button>
+                        </div>`
+                    } else {
+                        return `<div class="text-center"> 
+                            
+                           <button type="button" class="btn btn-warning text-white" style="cursor:pointer; width: 100px;" disabled>
+                               Inactive </button>
+                        </div>`
+
+                    }
+
+                }, "width": "15%"
+
             }
         ],
         "language": {

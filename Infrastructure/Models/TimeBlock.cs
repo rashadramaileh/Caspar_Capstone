@@ -9,6 +9,9 @@ namespace CASPAR.Infrastructure.Models
 
         [StringLength(20), Required, Display(Name = "Time")]
         public String? TimeName { get; set; }
- 
+
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
+
     }
 }

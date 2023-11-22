@@ -18,6 +18,12 @@
                     <label asp-for="objPartTerm.PartOfTermName" class="ms-2">Part Of Term Name</label>
                     <span asp-validation-for="objPartTerm.PartOfTermName" class="text-danger"></span>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objPartTerm.IsActive"></label>
+                        <select asp-for="objPartTerm.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objPartTerm.PartOfTermID != 0)
                     {

@@ -9,6 +9,8 @@ namespace CASPAR.Infrastructure.Models
         
         [Required, Display(Name = "Semester")]
         public String? SemesterName { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
 
     }
 }

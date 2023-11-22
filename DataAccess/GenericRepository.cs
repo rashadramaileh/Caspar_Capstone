@@ -1,4 +1,5 @@
-﻿using Infrastructure.Interfaces;
+﻿using CASPAR.Infrastructure.Models;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -18,12 +19,18 @@ namespace DataAccess
         }
         public void Add(T entity)
         {
+            //string entityName = entity.GetType().Name.ToString();
+            //Type entityType = typeof(T);
+            //string namespaceName = "CASPAR.Infrastructure.Models";
+            //var myObj = Activator.CreateInstance(namespaceName, entityName);
+
+           
             _dbcontext.Set<T>().Add(entity);
             _dbcontext.SaveChanges();
         }
 
         public void Delete(T entity)
-        {
+        {   
             _dbcontext.Set<T>().Remove(entity);
             _dbcontext.SaveChanges();
         }

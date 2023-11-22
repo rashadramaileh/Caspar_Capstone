@@ -2,6 +2,7 @@ using DataAccess;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Admins.ClassroomFeatures
 {
@@ -11,16 +12,33 @@ namespace CASPAR.Pages.Admins.ClassroomFeatures
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public ClassroomFeature objClassroomFeature { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
+
         public UpsertModel(UnitOfWork unit, IWebHostEnvironment env)
         {
             _webHostEnvironment = env;
             _unitOfWork = unit;
             objClassroomFeature = new ClassroomFeature();
+            isActiveList = new List<SelectListItem>();
+
 
         }
 
         public IActionResult OnGet(int? id)
         {
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
+
             // Are we in Create
             if (id == null || id == 0)
             {

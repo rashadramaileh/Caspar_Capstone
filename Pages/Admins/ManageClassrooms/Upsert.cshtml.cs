@@ -15,6 +15,8 @@ namespace CASPAR.Pages.Admins.ManageClassrooms
         public Classroom objClassroom { get; set; }
         //public IEnumerable<SelectListItem> RoomConfigList { get; set; }
         public IEnumerable<SelectListItem> BuildingList { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
+
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -22,15 +24,31 @@ namespace CASPAR.Pages.Admins.ManageClassrooms
             _webHostEnvironment = webHostEnvironment;
             //RoomConfigList = new List<SelectListItem>();
             BuildingList = new List<SelectListItem>();
+            isActiveList = new List<SelectListItem>();
+
         }
         public IActionResult OnGet(int? id)
         {
-            BuildingList = _unitOfWork.Building.GetAll()
+            BuildingList = _unitOfWork.Building.GetAll().Where(c => c.IsActive == 1)
                 .Select(c => new SelectListItem
                 {
                     Text = c.BuildingName,
                     Value = c.BuildingId.ToString()
                 });
+
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
+
             //assuming am i in edit mode:
             if (id != 0)
             {

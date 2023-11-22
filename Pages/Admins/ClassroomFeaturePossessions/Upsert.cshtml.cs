@@ -14,6 +14,7 @@ namespace CASPAR.Pages.Admins.ClassroomFeaturePossessions
         private readonly UnitOfWork _unitOfWork;
         public IEnumerable<SelectListItem> ClassroomList { get; set; }
         public IEnumerable<SelectListItem> FeatureList { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
         [BindProperty]
         public ClassroomFeaturePossession objClassroomFeaturePossession { get; set; }
         public UpsertModel(UnitOfWork unit, IWebHostEnvironment env)
@@ -23,6 +24,7 @@ namespace CASPAR.Pages.Admins.ClassroomFeaturePossessions
             _webHostEnvironment = env;
             _unitOfWork = unit;
             objClassroomFeaturePossession = new ClassroomFeaturePossession();
+            isActiveList = new List<SelectListItem>();
 
         }
 
@@ -40,6 +42,20 @@ namespace CASPAR.Pages.Admins.ClassroomFeaturePossessions
                     Text = c.ClassroomFeatureName,
                     Value = c.ClassroomFeatureId.ToString()
                 });
+
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
+
             // Are we in Create
             if (id == null || id == 0)
             {

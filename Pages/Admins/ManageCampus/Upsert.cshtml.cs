@@ -2,6 +2,8 @@ using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 
 namespace CASPAR.Pages.Admins.ManageCampus
 {
@@ -11,13 +13,30 @@ namespace CASPAR.Pages.Admins.ManageCampus
 
         [BindProperty]
         public Campus objCampus { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
         public UpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objCampus = new Campus();
+            isActiveList = new List<SelectListItem>();
         }
         public IActionResult OnGet(int? id)
         {
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
+            
+            
+            
             //assuming am i in edit mode:
             if (id != 0)
             {
@@ -43,6 +62,7 @@ namespace CASPAR.Pages.Admins.ManageCampus
             //if this is a new category
             if (objCampus.CampusId == 0)
             {
+                //objCampus.IsActive = 1;
                 _unitOfWork.Campus.Add(objCampus);    //not saved to database yet.
                 TempData["success"] = "Campus added successfully.";
             }
