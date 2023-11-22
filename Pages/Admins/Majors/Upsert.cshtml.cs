@@ -10,6 +10,7 @@ namespace CASPAR.Pages.Admins.Majors
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UnitOfWork _unitOfWork;
+        public List<SelectListItem> isActiveList { get; set; }
         [BindProperty]
         public Major objMajor { get; set; }
         public UpsertModel(UnitOfWork unit, IWebHostEnvironment env)
@@ -17,11 +18,26 @@ namespace CASPAR.Pages.Admins.Majors
             _webHostEnvironment = env;
             _unitOfWork = unit;
             objMajor = new Major();
+            isActiveList = new List<SelectListItem>();
 
         }
 
         public IActionResult OnGet(int? id)
         {
+
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
+
             // Are we in Create
             if (id == null || id == 0)
             {

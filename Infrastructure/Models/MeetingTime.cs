@@ -9,5 +9,7 @@ namespace CASPAR.Infrastructure.Models
         
         [Required, StringLength(20), Display(Name = "Time")]
         public string? meetingTimeName { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

@@ -13,6 +13,8 @@ namespace CASPAR.Infrastructure.Models
 
         [Required, Range (0,255)]
         public int CampusId { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
 
         [ForeignKey("CampusId")]
         public Campus? Campus { get; set; }

@@ -17,6 +17,12 @@
                     <label asp-for="objDayBlock.DayName" class="ms-2">Day Block Name</label>
                     <span asp-validation-for="objDayBlock.DayName" class="text-danger"></span>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objDayBlock.IsActive"></label>
+                        <select asp-for="objDayBlock.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objDayBlock.DaysBlockId != 0)
                     {

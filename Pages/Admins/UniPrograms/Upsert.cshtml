@@ -17,6 +17,12 @@
                     <label asp-for="objUniProgram.ProgramName" class="ms-2">Uni Program Name</label>
                     <span asp-validation-for="objUniProgram.ProgramName" class="text-danger"></span>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objUniProgram.IsActive"></label>
+                        <select asp-for="objUniProgram.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objUniProgram.UniProgramId != 0)
                     {

@@ -25,5 +25,7 @@ namespace CASPAR.Infrastructure.Models
 
         [ForeignKey("BuildingId")]
         public Building? Building { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

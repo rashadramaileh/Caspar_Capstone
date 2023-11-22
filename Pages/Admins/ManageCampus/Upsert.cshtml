@@ -18,6 +18,12 @@
                     <label asp-for="objCampus.CampusName" class="ms-2">Campus Name</label>
                     <span asp-validation-for="objCampus.CampusName" class="text-danger"></span>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objCampus.IsActive"></label>
+                        <select asp-for="objCampus.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objCampus.CampusId != 0)
                     {

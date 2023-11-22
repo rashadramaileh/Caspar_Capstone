@@ -23,6 +23,12 @@
                     <label asp-for="objSemesterStatus.SemesterStatusDescription" class="ms-2">Semester Status Description</label>
                     <span asp-validation-for="objSemesterStatus.SemesterStatusDescription" class="text-danger"></span>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objSemesterStatus.IsActive"></label>
+                        <select asp-for="objSemesterStatus.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objSemesterStatus.SemesterStatusID != 0)
                     {

@@ -16,5 +16,7 @@ namespace CASPAR.Infrastructure.Models
 
         [DefaultValue(false)]
         public bool AdditionalWishlistInfo { get; set;}
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

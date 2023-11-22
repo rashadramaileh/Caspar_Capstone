@@ -10,13 +10,19 @@
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objTimeBlock.TimeBlockId != 0 ? "Update " : "Create ")Major</h2>
+                    <h2 class="text-primary">@(Model.objTimeBlock.TimeBlockId != 0 ? "Update " : "Create ")Time Block</h2>
                     <hr />
                 </div>
-                <div class="mb-3">
+                    <div class="form-floating py-2 col-7">
                     <label asp-for="objTimeBlock.TimeName"></label>
                     <input id="txtName" asp-for="objTimeBlock.TimeName" class="form-control" />
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objTimeBlock.IsActive"></label>
+                        <select asp-for="objTimeBlock.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     <!--IF Product being edited -->
                     @if (Model.objTimeBlock.TimeBlockId != 0)

@@ -33,5 +33,7 @@ namespace CASPAR.Infrastructure.Models
 
         [ForeignKey("CourseTypeId")]
         public CourseType? CourseType { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

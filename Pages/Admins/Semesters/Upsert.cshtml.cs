@@ -23,13 +23,14 @@ namespace CASPAR.Pages.Admins.Semesters
 
         public IActionResult OnGet(int? id)
         {
-            SemesterStatusList = _unitOfWork.SemesterStatus.GetAll().Select(c => new SelectListItem
-            {
+            SemesterStatusList = _unitOfWork.SemesterStatus.GetAll().Where(c => c.IsActive == 1)
+                .Select(c => new SelectListItem
+                {
                 Text = c.SemesterStatusName,
                 Value = c.SemesterStatusID.ToString()
             });
 
-            SemesterTypeList = _unitOfWork.SemesterType.GetAll().Select(c => new SelectListItem
+            SemesterTypeList = _unitOfWork.SemesterType.GetAll().Where(c => c.IsActive == 1).Select(c => new SelectListItem
             {
                 Text = c.SemesterName,
                 Value = c.SemesterTypeId.ToString()

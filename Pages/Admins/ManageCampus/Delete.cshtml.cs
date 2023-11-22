@@ -40,8 +40,9 @@ namespace CASPAR.Pages.Admins.ManageCampus
             }
             else
             {
+                //objCampus.IsActive = 0;
                 _unitOfWork.Campus.Delete(objCampus);
-                TempData["success"] = "Campus Deleted Successfully";
+                TempData["success"] = "Campus Updated Successfully";
             }
 
             _unitOfWork.Commit();

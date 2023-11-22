@@ -9,5 +9,7 @@ namespace CASPAR.Infrastructure.Models
 
         [Required]
         public string? MajorName { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

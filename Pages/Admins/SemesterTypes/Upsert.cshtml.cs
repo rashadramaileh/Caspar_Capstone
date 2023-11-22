@@ -2,6 +2,7 @@ using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Admins.SemesterTypes
 {
@@ -10,15 +11,28 @@ namespace CASPAR.Pages.Admins.SemesterTypes
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public SemesterType objSemesterType { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
         public UpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objSemesterType = new SemesterType();
+            isActiveList = new List<SelectListItem>();
         }
 
         public IActionResult OnGet(int? id)
         {
-
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
             if (id != 0)
             {
                 objSemesterType = _unitOfWork.SemesterType.GetById(id);
