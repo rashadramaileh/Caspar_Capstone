@@ -26,16 +26,27 @@
                     <input asp-for="objInstructorWishlistDetails.InstructorRanking" />
                     
                 </div>
-
-                <div class="mb-3 col-6">
-                    <div>
+                <hr />
+                <div class="mb-3 col-md-12">
+                    <div class="container">
                         @for (var i = 0; i < Model.modalityCheck.Count; i++)
                         {
-                            <input type="checkbox" asp-for="@Model.modalityCheck[i].Checked" onclick="testing(@Model.modalityCheck[i].Value, '@Model.modalityCheck[i].Text')" id="@Model.modalityCheck[i].Value" />
-                            <label asp-for="@Model.modalityCheck[i].Checked">@Model.modalityCheck[i].Text</label>
-                            <input type="hidden" asp-for="@Model.modalityCheck[i].Value" />
-                            <input type="hidden" asp-for="@Model.modalityCheck[i].Text" />
-                            <input type="hidden" asp-for="@Model.modalityCheck[i].Disabled" />
+                            <div class="row">
+                                @for(var k = 0; k < 4; k++)
+                                {       
+                                    @if(i < Model.modalityCheck.Count)
+                                    {
+                                        <div class="col-md-3">
+                                            <input type="checkbox" asp-for="@Model.modalityCheck[i].Checked" onclick="testing(@Model.modalityCheck[i].Value, '@Model.modalityCheck[i].Text')" id="@Model.modalityCheck[i].Value" />
+                                            <label asp-for="@Model.modalityCheck[i].Checked">@Model.modalityCheck[i].Text</label>
+                                            <input type="hidden" asp-for="@Model.modalityCheck[i].Value" />
+                                            <input type="hidden" asp-for="@Model.modalityCheck[i].Text" />
+                                            <input type="hidden" asp-for="@Model.modalityCheck[i].Disabled" />
+                                        </div>
+                                    }
+                                    i++;
+                                }
+                            </div>
                         }
                     </div>
                 </div>
