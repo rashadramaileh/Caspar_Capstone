@@ -43,12 +43,6 @@
                         <option disabled selected>--Select Program--</option>
                     </select>
                 </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objCourse.CourseTypeId"></label>
-                    <select id="ddlCourseType" asp-for="objCourse.CourseTypeId" asp-items="@Model.CourseTypeList" class="form-select">
-                        <option disabled selected>--Select Course Type--</option>
-                    </select>
-                </div>
                     <div class="mb-3 col-6">
                         <label asp-for="objCourse.IsActive"></label>
                         <select asp-for="objCourse.IsActive" asp-items="@Model.isActiveList" class="form-select">
@@ -89,11 +83,6 @@
         function ValidateInput() {
             if ($('#ddlProgram option:selected').val() == "--Select Program--") {
                 swal.fire('Error', 'Please Select a Program', 'error')
-                return false
-            }
-
-            if ($('#ddlCourseType option:selected').val() == "--Select Course Type--") {
-                swal.fire('Error', 'Please Select a Course Type', 'error')
                 return false
             }
 

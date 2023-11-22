@@ -25,14 +25,9 @@ namespace CASPAR.Infrastructure.Models
         [Range(0, 65535), Required, Display(Name = "Program")]
         public int UniProgramId { get; set; }
 
-        [Range(0, 65535), Required, Display(Name = "Type")]
-        public int CourseTypeId { get; set; }
-
         [ForeignKey("UniProgramId")]
         public UniProgram? UniProgram { get; set; }
 
-        [ForeignKey("CourseTypeId")]
-        public CourseType? CourseType { get; set; }
         [Display(Name = "Active")]
         public int IsActive { get; set; } = 1;
     }

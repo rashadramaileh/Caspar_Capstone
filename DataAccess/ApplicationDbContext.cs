@@ -38,7 +38,6 @@ namespace DataAccess
         public DbSet<DayBlock> DayBlock { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<PreReq> PreReq { get; set; }
-        public DbSet<CourseType> CourseType { get; set; }
         public DbSet<CourseSemester> CourseSemester { get; set; }
         public DbSet<TimeBlock> TimeBlock { get; set; }
         public DbSet<Semester> Semester { get; set; }
