@@ -41,8 +41,6 @@ namespace Infrastructure.Interfaces
         public IGenericRepository<StudentTime> StudentTime { get; }
         public IGenericRepository<InstructorRelease> InstructorRelease{ get; }
         public IGenericRepository<InstructorLoad> InstructorLoad { get; }
-        public IGenericRepository<User> User{ get; }
-        public IGenericRepository<UserRole> UserRole { get; }
         public IGenericRepository<Role> Role { get; }
         public IGenericRepository<SemesterStatus> SemesterStatus{ get; }
         public IGenericRepository<SemesterType> SemesterType { get; }

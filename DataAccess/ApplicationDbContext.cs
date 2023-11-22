@@ -50,8 +50,6 @@ namespace DataAccess
         public DbSet<StudentTime> StudentTime { get; set; }
         public DbSet<InstructorRelease> InstructorRelease { get; set; }
         public DbSet<InstructorLoad> InstructorLoad { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<UserRole> UserRole { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<SemesterStatus> SemesterStatus { get; set; }
         public DbSet<SemesterType> SemesterType { get; set; }
