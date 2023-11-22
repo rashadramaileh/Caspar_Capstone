@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="IRTUpsert" asp-route-id="0" asp-route-wishlist="@Model.objRelease.InstructorReleaseId" class="btn btn-primary" style="float:right">
+            <a asp-page="IRTUpsert" asp-route-id="0" asp-route-wishlist="@Model.UserId" class="btn btn-primary" style="float:right">
                 <i class="bi bi-plus-circle"></i> New Instructor Release Time
             </a>
         </div>
@@ -35,7 +35,17 @@
                 <th>&nbsp;</th>
             </tr>
         </thead>
-
+        <tbody>
+            @foreach (var release in Model.objReleaseList)
+            {
+                <tr>
+                    <td>@release.ApplicationUser.UserName</td>
+                    <td>@release.ReleaseTimeName</td>
+                    <td>@release.ReleaseTimeAmount</td>
+                    <td>&nbsp;</td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 
