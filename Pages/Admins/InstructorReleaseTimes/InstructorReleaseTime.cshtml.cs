@@ -62,7 +62,7 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
                 _unitOfWork.InstructorRelease.Add(objReleaseList);
             }
 
-            var instrucorReleaseTimeDetails = _unitOfWork.InstructorRelease.GetAll(x => x.InstructorReleaseId == objReleaseList.InstructorReleaseId, null, null);
+            var instrucorReleaseTimeDetails = _unitOfWork.InstructorRelease.GetAll(x => x.InstructorReleaseId == objReleaseList.InstructorReleaseId, null, "InstructorName");
 
             foreach (var item in instrucorReleaseTimeDetails)
             {
