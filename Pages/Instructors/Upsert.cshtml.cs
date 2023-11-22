@@ -321,6 +321,8 @@ namespace CASPAR.Pages.Instructors
 						}  
                     }
                 }
+
+                TempData["success"] = "Wishlist Successfully Added";
             }
             //Save changes to Database
             _unitOfWork.Commit();
