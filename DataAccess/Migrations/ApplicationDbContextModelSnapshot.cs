@@ -468,6 +468,9 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ModalityId"));
 
+                    b.Property<bool>("AdditionalWishlistInfo")
+                        .HasColumnType("bit");
+
                     b.Property<int>("IsActive")
                         .HasColumnType("int");
 

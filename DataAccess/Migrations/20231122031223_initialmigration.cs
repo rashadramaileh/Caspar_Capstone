@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -149,6 +149,7 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ModalityName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ModalityDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AdditionalWishlistInfo = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -176,7 +177,8 @@ namespace DataAccess.Migrations
                 {
                     PayModelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PayType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    PayType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -259,7 +261,8 @@ namespace DataAccess.Migrations
                 {
                     SemesterTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SemesterName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SemesterName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -316,7 +319,8 @@ namespace DataAccess.Migrations
                 {
                     WhoPaysId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WhoPaysName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    WhoPaysName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsActive = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231122013913_initial")]
-    partial class initial
+    [Migration("20231122031223_initialmigration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -471,6 +471,9 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ModalityId"));
 
+                    b.Property<bool>("AdditionalWishlistInfo")
+                        .HasColumnType("bit");
+
                     b.Property<int>("IsActive")
                         .HasColumnType("int");
 
@@ -516,6 +519,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PayModelId"));
+
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
 
                     b.Property<string>("PayType")
                         .IsRequired()
@@ -778,6 +784,9 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SemesterTypeId"));
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.Property<string>("SemesterName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1011,6 +1020,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WhoPaysId"));
+
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
 
                     b.Property<string>("WhoPaysName")
                         .IsRequired()
