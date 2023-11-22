@@ -13,6 +13,8 @@ namespace CASPAR.Pages.Admins.Courses
         public Course objCourse { get; set; }
         public IEnumerable<SelectListItem> UniProgramList { get; set; }
         public List<SelectListItem> isActiveList { get; set; }
+        public int? savedId;
+
         public UpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -41,8 +43,14 @@ namespace CASPAR.Pages.Admins.Courses
             };
             isActiveList.Add(inActive);
             isActiveList.Add(active);
+            
+            if(id == null)
+            {
+                id = 0;
+            }
+            savedId = id;
 
-            if (id != 0)
+            if (id > 0)
             {
                 objCourse = _unitOfWork.Course.GetById(id);
             }
@@ -57,10 +65,11 @@ namespace CASPAR.Pages.Admins.Courses
 
         public IActionResult OnPost()
         {
+
             if (!ModelState.IsValid)
             {
                 TempData["error"] = "Data Incomplete";
-                return Page();
+                return RedirectToPage(new { id = savedId.ToString() });
             }
 
             if(objCourse.CourseId == 0)
