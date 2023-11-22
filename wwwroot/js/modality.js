@@ -14,8 +14,9 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "modalityName", "width": "35%" },
-            { "data": "modalityDescription", "width": "35%" },
+            { "data": "modalityName", "width": "30%" },
+            { "data": "modalityDescription", "width": "30%" },
+            { "data": "additionalWishlistInfo", "width": "10%" },
             {
                 "data": "modalityId",
                 "render": function (data) {

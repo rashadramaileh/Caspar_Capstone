@@ -45,7 +45,7 @@
                 }
                 @for (var i = 0; i < Model.modalityCheck.Count; i++)
                 {
-                    if (!Model.modalityCheck[i].Text.Contains("Online") && !Model.modalityCheck[i].Text.Contains("Flex"))
+                    if (Model.modalityCheck[i].AdditionalInfo == true)
                     {
 
                         <div id="@Model.modalityCheck[i].Text" style="display: @(Model.modalityCheck[i].Checked == true ? "inline " : "none ");" class="mb-3 col-12">

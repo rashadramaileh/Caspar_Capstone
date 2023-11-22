@@ -13,5 +13,8 @@ namespace CASPAR.Infrastructure.Models
 
         [StringLength(200), Display(Name = "Description")]
         public string? ModalityDescription{get; set;}
+
+        [DefaultValue(false)]
+        public bool AdditionalWishlistInfo { get; set;}
     }
 }

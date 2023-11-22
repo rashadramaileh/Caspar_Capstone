@@ -20,6 +20,12 @@
                     <label asp-for="objModality.ModalityDescription" class="ms-2">Modality Description</label>
                     <span asp-validation-for="objModality.ModalityDescription" class="text-danger"></span>
                 </div>
+                    <div class="form-floating py-2 col-12">
+                        <input asp-for="objModality.AdditionalWishlistInfo" class="border-0 shadow" />
+                        <label asp-for="objModality.AdditionalWishlistInfo" class="ms-2">Needs Additional Data</label>
+                        <span asp-validation-for="objModality.AdditionalWishlistInfo" class="text-danger"></span>
+                        <p>(On a wishlist or on a section, this modality needs a time, campus, day, etc.)</p>
+                    </div>
                 <div class="col-12">
                     @if (Model.objModality.ModalityId != 0)
                     {
