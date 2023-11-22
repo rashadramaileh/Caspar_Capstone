@@ -15,29 +15,51 @@
         </div><!-- End 1st Column-->
         <div class="col-7 text-end">
             <!--50% row right justified-->
-            <a asp-page="Upsert" asp-route-id="0" asp-route-sid="Model.objSemesterType" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Create New Course To Template
-            </a>
+
+
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12">
+                            <a asp-page="Upsert" asp-route-id="0" asp-route-sid="@Model.objSemesterType.SemesterTypeId" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Create New Course To Template
+                            </a>
+                            @if (Model.savedId != null && Model.savedId != 0)
+                            {
+                                <form method="post" asp-page="TermCourse" asp-route-id="@Model.savedId" enctype="multipart/form-data">
+
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="bi bi-plus-circle"></i> Populate the template with each existing course.
+                                    </button>
+                                    <a asp-page="Index" class="btn btn-secondary">
+                                        Back to List
+                                    </a>
+
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div> <!--End 2nd Column-->
     </div> <!--End Row-->
     <table class="table table-bordered table-striped" id="DT_CourseSemester" style="width:100%">
         <thead>
             <tr>
-
                 <th>
                     Course Name
                 </th>
                 <th>
                     Quantity Taught
                 </th>
-
                 <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
-        @foreach (var obj in Model.objCourseList)
-        {
-             <tr>
+            @foreach (var obj in Model.objCourseList)
+            {
+                <tr>
                     <td style="width:30%">
                         @obj.Course.CourseName
                     </td>
@@ -54,8 +76,7 @@
                         </div>
                     </td>
                 </tr>
-
-        }
+            }
         </tbody>
 
     </table>
