@@ -27,12 +27,12 @@ namespace CASPAR.Pages.Admins.TimeBlocks
         }
         public IActionResult OnPost(int? id)
         {
-            var objType = _unitOfWork.CourseType.GetById(id);
+            var objType = _unitOfWork.TimeBlock.GetById(id);
             if (objType == null)
             {
                 return NotFound();
             }
-            _unitOfWork.CourseType.Delete(objType);
+            _unitOfWork.TimeBlock.Delete(objType);
             TempData["success"] = "Time Block Deleted Successfully";
             _unitOfWork.Commit();
 

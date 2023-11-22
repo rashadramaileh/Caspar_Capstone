@@ -21,7 +21,6 @@ namespace DataAccess
         public IGenericRepository<ClassroomFeaturePossession> _ClassroomFeaturePossession;
         public IGenericRepository<Course> _Course;
         public IGenericRepository<CourseSemester> _CourseSemester;
-        public IGenericRepository<CourseType> _CourseType;
         public IGenericRepository<DayBlock> _DayBlock;
         public IGenericRepository<Instructor> _Instructor;
         public IGenericRepository<InstructorLoad> _InstructorLoad;
@@ -150,17 +149,6 @@ namespace DataAccess
             }
         }
 
-        public IGenericRepository<CourseType> CourseType
-        {
-            get
-            {
-                if (_CourseType == null)
-                {
-                    _CourseType = new GenericRepository<CourseType>(_dbcontext);
-                }
-                return _CourseType;
-            }
-        }
         public IGenericRepository<DayBlock> DayBlock
         {
             get

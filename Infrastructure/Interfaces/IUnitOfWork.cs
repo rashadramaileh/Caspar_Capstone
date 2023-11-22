@@ -30,7 +30,6 @@ namespace Infrastructure.Interfaces
         public IGenericRepository<DayBlock> DayBlock { get; }
         public IGenericRepository<Course> Course { get; }
         public IGenericRepository<PreReq> PreReq { get; }
-        public IGenericRepository<CourseType> CourseType { get; }
         public IGenericRepository<CourseSemester> CourseSemester { get; }
         public IGenericRepository<TimeBlock> TimeBlock { get; }
         public IGenericRepository<Semester> Semester { get; }

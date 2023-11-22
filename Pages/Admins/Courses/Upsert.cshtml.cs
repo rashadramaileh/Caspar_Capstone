@@ -12,14 +12,12 @@ namespace CASPAR.Pages.Admins.Courses
         [BindProperty]
         public Course objCourse { get; set; }
         public IEnumerable<SelectListItem> UniProgramList { get; set; }
-        public IEnumerable<SelectListItem> CourseTypeList { get; set; }
         public List<SelectListItem> isActiveList { get; set; }
         public UpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objCourse = new Course();
             UniProgramList = new List<SelectListItem>();
-            CourseTypeList = new List<SelectListItem>();
             isActiveList = new List<SelectListItem>();
         }
 
@@ -29,12 +27,6 @@ namespace CASPAR.Pages.Admins.Courses
             {
                 Text = c.ProgramName,
                 Value = c.UniProgramId.ToString()
-            });
-
-            CourseTypeList = _unitOfWork.CourseType.GetAll().Where(c => c.IsActive == 1).Select(c => new SelectListItem
-            {
-                Text = c.CourseTypeName,
-                Value = c.CourseTypeId.ToString()
             });
 
             var active = new SelectListItem

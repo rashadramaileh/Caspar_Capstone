@@ -14,13 +14,12 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "coursePrefix", "width": "10%" },
-            { "data": "courseNumber", "width": "10%" },
+            { "data": "coursePrefix", "width": "15%" },
+            { "data": "courseNumber", "width": "15%" },
             { "data": "courseName", "width": "10%" },
             { "data": "courseDesc", "width": "10%" },
             { "data": "creditHours", "width": "10%" },
             { "data": "uniProgram.programName", "width": "10%" },
-            { "data": "courseType.courseTypeName", "width": "10%" },
             {
                 "data": "courseId",
                 "render": function (data) {
