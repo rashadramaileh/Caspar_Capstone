@@ -21,6 +21,12 @@
                         <option disabled selected>--Select Campus--</option>
                     </select>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objBuilding.IsActive"></label>
+                        <select asp-for="objBuilding.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objBuilding.BuildingId != 0)
                     {

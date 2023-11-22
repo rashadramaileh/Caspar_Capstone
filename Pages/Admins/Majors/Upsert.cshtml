@@ -17,6 +17,12 @@
                     <label asp-for="objMajor.MajorName"></label>
                     <input id="txtName" asp-for="objMajor.MajorName" class="form-control" />
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objMajor.IsActive"></label>
+                        <select asp-for="objMajor.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     <!--IF Product being edited -->
                     @if (Model.objMajor.MajorID != 0)

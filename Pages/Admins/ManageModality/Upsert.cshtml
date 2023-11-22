@@ -20,6 +20,12 @@
                     <label asp-for="objModality.ModalityDescription" class="ms-2">Modality Description</label>
                     <span asp-validation-for="objModality.ModalityDescription" class="text-danger"></span>
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objModality.IsActive"></label>
+                        <select asp-for="objModality.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     @if (Model.objModality.ModalityId != 0)
                     {

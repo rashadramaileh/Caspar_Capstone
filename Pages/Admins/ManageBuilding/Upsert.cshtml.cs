@@ -10,6 +10,7 @@ namespace CASPAR.Pages.Admins.ManageBuilding
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UnitOfWork _unitOfWork;
+        public List<SelectListItem> isActiveList { get; set; }
 
         [BindProperty]
         public Building objBuilding { get; set; }
@@ -21,9 +22,24 @@ namespace CASPAR.Pages.Admins.ManageBuilding
             objBuilding = new Building();
             _webHostEnvironment = webHostEnvironment;
             CampusList = new List<SelectListItem>();
+            isActiveList = new List<SelectListItem>();
+
         }
         public IActionResult OnGet(int? id)
         {
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
+
             CampusList = _unitOfWork.Campus.GetAll()
                 .Select(c => new SelectListItem
                 {

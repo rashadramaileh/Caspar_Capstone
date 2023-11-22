@@ -9,5 +9,7 @@ namespace Infrastructure.Models
 
         [Required, StringLength(30), Display(Name ="Feature Name")]
         public string? ClassroomFeatureName { get; set; }
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
     }
 }

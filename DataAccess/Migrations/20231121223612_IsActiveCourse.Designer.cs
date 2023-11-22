@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231113225849_identity")]
-    partial class identity
+    [Migration("20231121223612_IsActiveCourse")]
+    partial class IsActiveCourse
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("CampusId")
                         .HasColumnType("int");
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.HasKey("BuildingId");
 
                     b.HasIndex("CampusId");
@@ -60,6 +63,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.HasKey("CampusId");
 
                     b.ToTable("Campus");
@@ -77,6 +83,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IsActive")
                         .HasColumnType("int");
 
                     b.Property<string>("RoomNumber")
@@ -121,6 +130,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CreditHours")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IsActive")
                         .HasColumnType("int");
 
                     b.Property<int>("UniProgramId")
@@ -174,6 +186,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.HasKey("CourseTypeId");
 
                     b.ToTable("CourseType");
@@ -190,6 +205,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("DayName")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
 
                     b.HasKey("DaysBlockId");
 
@@ -662,6 +680,9 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionStatusId"));
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.Property<string>("StatusDescription")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -719,6 +740,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SemesterStatusID"));
+
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
 
                     b.Property<string>("SemesterStatusDescription")
                         .HasMaxLength(200)
@@ -882,6 +906,9 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimeBlockId"));
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.Property<string>("TimeName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -899,6 +926,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UniProgramId"));
+
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProgramName")
                         .IsRequired()
@@ -993,6 +1023,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int>("IsActive")
+                        .HasColumnType("int");
+
                     b.HasKey("ClassroomFeatureId");
 
                     b.ToTable("ClassroomFeature");
@@ -1010,6 +1043,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("FeatureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IsActive")
                         .HasColumnType("int");
 
                     b.HasKey("FeaturePossessionId");
@@ -1227,7 +1263,7 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.ApplicationUser", b =>
+            modelBuilder.Entity("CASPAR.Infrastructure.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 

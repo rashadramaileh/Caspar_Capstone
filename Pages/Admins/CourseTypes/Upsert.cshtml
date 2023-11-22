@@ -12,10 +12,16 @@
                     <h2 class="text-primary">@(Model.objCourseType.CourseTypeId != 0 ? "Update " : "Create ")Course Type</h2>
                     <hr />
                 </div>
-                <div class="mb-3">
+                    <div class="form-floating py-2 col-7">
                     <label asp-for="objCourseType.CourseTypeName"></label>
                     <input id="txtName" asp-for="objCourseType.CourseTypeName" class="form-control" />
                 </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objCourseType.IsActive"></label>
+                        <select asp-for="objCourseType.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                 <div class="col-12">
                     <!--IF Product being edited -->
                     @if (Model.objCourseType.CourseTypeId != 0)

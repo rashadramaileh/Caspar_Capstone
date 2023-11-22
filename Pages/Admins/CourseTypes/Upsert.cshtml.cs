@@ -2,6 +2,7 @@ using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Admins.CourseTypes
 {
@@ -11,16 +12,32 @@ namespace CASPAR.Pages.Admins.CourseTypes
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public CourseType objCourseType { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
+
         public UpsertModel(UnitOfWork unit, IWebHostEnvironment env)
         {
             _webHostEnvironment = env;
             _unitOfWork = unit;
             objCourseType = new CourseType();
+            isActiveList = new List<SelectListItem>();
+
 
         }
 
         public IActionResult OnGet(int? id)
         {
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
             // Are we in Create
             if (id == null || id == 0)
             {

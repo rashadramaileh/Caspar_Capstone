@@ -27,6 +27,12 @@
                             <option disabled selected>--Select Feature--</option>
                         </select>
                     </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objClassroomFeaturePossession.IsActive"></label>
+                        <select asp-for="objClassroomFeaturePossession.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                            <option disabled selected>--Select--</option>
+                        </select>
+                    </div>
                     <div class="col-12">
                         <!--IF Product being edited -->
                         @if (Model.objClassroomFeaturePossession.FeaturePossessionId != 0)

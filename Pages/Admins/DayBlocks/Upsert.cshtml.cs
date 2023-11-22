@@ -11,14 +11,30 @@ namespace CASPAR.Pages.Admins.DayBlocks
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public DayBlock objDayBlock { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
+
         public UpsertModel(UnitOfWork unitOfWork)
         {
+            isActiveList = new List<SelectListItem>();
+
             _unitOfWork = unitOfWork;
             objDayBlock = new DayBlock();
         }
 
         public IActionResult OnGet(int? id)
         {
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
 
             if (id != 0)
             {

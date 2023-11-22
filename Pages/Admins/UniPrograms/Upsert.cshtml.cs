@@ -2,6 +2,7 @@ using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Pages.Admins.UniPrograms
 {
@@ -10,14 +11,30 @@ namespace CASPAR.Pages.Admins.UniPrograms
         private readonly UnitOfWork _unitOfWork;
         [BindProperty]
         public UniProgram objUniProgram { get; set; }
+        public List<SelectListItem> isActiveList { get; set; }
+
         public UpsertModel(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             objUniProgram = new UniProgram();
+            isActiveList = new List<SelectListItem>();
+
         }
 
         public IActionResult OnGet(int? id)
         {
+            var active = new SelectListItem
+            {
+                Text = "Active",
+                Value = 1.ToString()
+            };
+            var inActive = new SelectListItem
+            {
+                Text = "Inactive",
+                Value = 0.ToString()
+            };
+            isActiveList.Add(inActive);
+            isActiveList.Add(active);
 
             if (id != 0)
             {
