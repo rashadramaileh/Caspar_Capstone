@@ -58,7 +58,7 @@ namespace CASPAR.Pages.Students
 
         private void GetStudentWishlistData(string applicationUser, int? semesterId)
         {
-            SemesterList = _unitOfWork.Semester.GetAll()
+            SemesterList = _unitOfWork.Semester.GetAll().OrderBy(x => x.EndDate)
                 .Select(x => new SelectListItem
                 {
                     Text = x.SemesterName,
