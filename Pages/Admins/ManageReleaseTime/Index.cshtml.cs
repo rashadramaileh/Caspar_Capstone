@@ -37,6 +37,8 @@ namespace CASPAR.Pages.Admins.ManageReleaseTime
                 objInstructorList.Add(instructor);
             }
 
+            objInstructorList = objInstructorList.OrderBy(x => x.FirstName).ToList();
+
             foreach (var semesterType in _unitOfWork.SemesterType.GetAll())
             {
                 foreach (var instructor in objInstructorList)
