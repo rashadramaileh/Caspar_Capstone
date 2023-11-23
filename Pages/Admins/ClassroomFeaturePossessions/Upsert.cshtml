@@ -4,7 +4,7 @@
 }
 @if (User.IsInRole("Admin"))
 {
-    <div class="container" style="max-width:1400px">
+    <div class="container" style="max-width:1100px">
         <form method="post" asp-page="Upsert" enctype="multipart/form-data">
             <input asp-for="objClassroomFeaturePossession.FeaturePossessionId" hidden />
             <div class="row">
