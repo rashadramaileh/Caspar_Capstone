@@ -4,45 +4,48 @@
 }
 @if (User.IsInRole("Admin"))
 {
-
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objWhoPays.WhoPaysId" hidden />
-    <div class="row">
-        <div class="col-10">
-            <div class="border p-3 mt-4 row">
-                <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objWhoPays.WhoPaysId != 0 ? "Update " : "Create ")Who Pays</h2>
-                    <hr />
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objWhoPays.WhoPaysName" class="form-control border-0 shadow" />
-                    <label asp-for="objWhoPays.WhoPaysName" class="ms-2">Who Pays Name</label>
-                    <span asp-validation-for="objWhoPays.WhoPaysName" class="text-danger"></span>
-                </div>
-                    <div class="mb-3 col-6">
-                    <label asp-for="objWhoPays.IsActive"></label>
-                        <select asp-for="objWhoPays.IsActive" asp-items="@Model.isActiveList" class="form-select">
-                        <option disabled selected>--Select--</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    @if (Model.objWhoPays.WhoPaysId != 0)
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
-                    }
-                    else
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
-                    }
-                    <!--END ELSE -->
-                        <a asp-page="Index" class="btn btn-secondary" style="width:150px">
-                            Back to List
-                        </a>
+    <div class="container" style="max-width:1100px">
+        <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+            <input asp-for="objWhoPays.WhoPaysId" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 pb-2">
+                            <h2 class="text-primary">@(Model.objWhoPays.WhoPaysId != 0 ? "Update " : "Create ")Who Pays</h2>
+                            <hr />
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objWhoPays.WhoPaysName" class="form-control border-0 shadow" />
+                            <label asp-for="objWhoPays.WhoPaysName" class="ms-2">Who Pays Name</label>
+                            <span asp-validation-for="objWhoPays.WhoPaysName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objWhoPays.IsActive"></label>
+                            <select asp-for="objWhoPays.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                                <option disabled selected>--Select--</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            @if (Model.objWhoPays.WhoPaysId != 0)
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                            }
+                            <!--END ELSE -->
+                            <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
-} else {
+}
+else
+{
     Response.Redirect("../../../..");
 }

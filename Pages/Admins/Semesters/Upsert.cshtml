@@ -2,73 +2,78 @@
 @model CASPAR.Pages.Admins.Semesters.UpsertModel
 @{
 }
-@if (User.IsInRole("Admin")){
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objSemester.SemesterId" hidden />
-    <div class="row">
-        <div class="col-10">
-            <div class="border p-3 mt-4 row">
-                <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objSemester.SemesterId != 0 ? "Update " : "Create ")Semester</h2>
-                    <hr />
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objSemester.SemesterName" class="form-control border-0 shadow" />
-                    <label asp-for="objSemester.SemesterName" class="ms-2">Semester Name</label>
-                    <span asp-validation-for="objSemester.SemesterName" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objSemester.BeginDate" class="form-control border-0 shadow" />
-                    <label asp-for="objSemester.BeginDate" class="ms-2">Begin Date</label>
-                    <span asp-validation-for="objSemester.BeginDate" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objSemester.EndDate" class="form-control border-0 shadow" />
-                    <label asp-for="objSemester.EndDate" class="ms-2">End Date</label>
-                    <span asp-validation-for="objSemester.EndDate" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objSemester.RegisterDate" class="form-control border-0 shadow" />
-                    <label asp-for="objSemester.RegisterDate" class="ms-2">Registration Date</label>
-                    <span asp-validation-for="objSemester.RegisterDate" class="text-danger"></span>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objSemester.SemesterTypeId"></label>
-                    <select id="ddlSemesterType" asp-for="objSemester.SemesterTypeId" asp-items="@Model.SemesterTypeList" class="form-select">
-                        <option disabled selected>--Select Type--</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objSemester.SemesterStatusId"></label>
-                    <select id="ddlSemesterStatus" asp-for="objSemester.SemesterStatusId" asp-items="@Model.SemesterStatusList" class="form-select">
-                        <option disabled selected>--Select Status--</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    @if (Model.objSemester.SemesterId != 0)
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
-                    }
-                    else
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
-                    }
-                    <!--END ELSE -->
-                    <a asp-page="/Admins/Semesters/Index" class="btn btn-secondary" style="width:150px">
-                        Back to List
-                    </a>
+@if (User.IsInRole("Admin"))
+{
+    <div class="container" style="max-width:1100px">
+
+        <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+            <input asp-for="objSemester.SemesterId" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 pb-2">
+                            <h2 class="text-primary">@(Model.objSemester.SemesterId != 0 ? "Update " : "Create ")Semester</h2>
+                            <hr />
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objSemester.SemesterName" class="form-control border-0 shadow" />
+                            <label asp-for="objSemester.SemesterName" class="ms-2">Semester Name</label>
+                            <span asp-validation-for="objSemester.SemesterName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objSemester.BeginDate" class="form-control border-0 shadow" />
+                            <label asp-for="objSemester.BeginDate" class="ms-2">Begin Date</label>
+                            <span asp-validation-for="objSemester.BeginDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objSemester.EndDate" class="form-control border-0 shadow" />
+                            <label asp-for="objSemester.EndDate" class="ms-2">End Date</label>
+                            <span asp-validation-for="objSemester.EndDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objSemester.RegisterDate" class="form-control border-0 shadow" />
+                            <label asp-for="objSemester.RegisterDate" class="ms-2">Registration Date</label>
+                            <span asp-validation-for="objSemester.RegisterDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objSemester.SemesterTypeId"></label>
+                            <select id="ddlSemesterType" asp-for="objSemester.SemesterTypeId" asp-items="@Model.SemesterTypeList" class="form-select">
+                                <option disabled selected>--Select Type--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objSemester.SemesterStatusId"></label>
+                            <select id="ddlSemesterStatus" asp-for="objSemester.SemesterStatusId" asp-items="@Model.SemesterStatusList" class="form-select">
+                                <option disabled selected>--Select Status--</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            @if (Model.objSemester.SemesterId != 0)
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                            }
+                            <!--END ELSE -->
+                            <a asp-page="/Admins/Semesters/Index" class="btn btn-secondary" style="width:150px">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        </form>
     </div>
-</form>
 }
 else
 {
     Response.Redirect("../../../..");
 }
 @section Scripts
-{
+    {
     <script>
 
         tinymce.init({
@@ -77,8 +82,7 @@ else
             menubar: "file edit format"
         });
 
-        function ValidateInput() 
-        {
+        function ValidateInput() {
             if ($('#ddlSemesterType option:selected').val() == "--Select Type--") {
                 swal.fire('Error', 'Please Select a Type', 'error')
                 return false

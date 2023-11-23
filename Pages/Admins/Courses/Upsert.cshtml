@@ -2,76 +2,81 @@
 @model CASPAR.Pages.Admins.Courses.UpsertModel
 @{
 }
-@if (User.IsInRole("Admin")) {
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objCourse.CourseId" hidden />
-    <div class="row">
-        <div class="col-10">
-            <div class="border p-3 mt-4 row">
-                <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objCourse.CourseId != 0 ? "Update " : "Create ")Course</h2>
-                    <hr />
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objCourse.CoursePrefix" class="form-control border-0 shadow" />
-                    <label asp-for="objCourse.CoursePrefix" class="ms-2">Course Prefix</label>
-                    <span asp-validation-for="objCourse.CoursePrefix" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objCourse.CourseNumber" class="form-control border-0 shadow" />
-                    <label asp-for="objCourse.CourseNumber" class="ms-2">Course Number</label>
-                    <span asp-validation-for="objCourse.CourseNumber" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objCourse.CourseName" class="form-control border-0 shadow" />
-                    <label asp-for="objCourse.CourseName" class="ms-2">Course Name</label>
-                    <span asp-validation-for="objCourse.CourseName" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objCourse.CourseDesc" class="form-control border-0 shadow" />
-                    <label asp-for="objCourse.CourseDesc" class="ms-2">Course Description</label>
-                    <span asp-validation-for="objCourse.CourseDesc" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objCourse.CreditHours" class="form-control border-0 shadow" />
-                    <label asp-for="objCourse.CreditHours" class="ms-2">Credit Hours</label>
-                    <span asp-validation-for="objCourse.CreditHours" class="text-danger"></span>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objCourse.UniProgramId"></label>
-                    <select id="ddlProgram" asp-for="objCourse.UniProgramId" asp-items="@Model.UniProgramList" class="form-select">
-                        <option disabled selected>--Select Program--</option>
-                    </select>
-                </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="objCourse.IsActive"></label>
-                        <select asp-for="objCourse.IsActive" asp-items="@Model.isActiveList" class="form-select">
-                            <option disabled selected>--Select--</option>
-                        </select>
+@if (User.IsInRole("Admin"))
+{
+    <div class="container" style="max-width:1100px">
+        <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+            <input asp-for="objCourse.CourseId" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 pb-2">
+                            <h2 class="text-primary">@(Model.objCourse.CourseId != 0 ? "Update " : "Create ")Course</h2>
+                            <hr />
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objCourse.CoursePrefix" class="form-control border-0 shadow" />
+                            <label asp-for="objCourse.CoursePrefix" class="ms-2">Course Prefix</label>
+                            <span asp-validation-for="objCourse.CoursePrefix" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objCourse.CourseNumber" class="form-control border-0 shadow" />
+                            <label asp-for="objCourse.CourseNumber" class="ms-2">Course Number</label>
+                            <span asp-validation-for="objCourse.CourseNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objCourse.CourseName" class="form-control border-0 shadow" />
+                            <label asp-for="objCourse.CourseName" class="ms-2">Course Name</label>
+                            <span asp-validation-for="objCourse.CourseName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objCourse.CourseDesc" class="form-control border-0 shadow" />
+                            <label asp-for="objCourse.CourseDesc" class="ms-2">Course Description</label>
+                            <span asp-validation-for="objCourse.CourseDesc" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objCourse.CreditHours" class="form-control border-0 shadow" />
+                            <label asp-for="objCourse.CreditHours" class="ms-2">Credit Hours</label>
+                            <span asp-validation-for="objCourse.CreditHours" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objCourse.UniProgramId"></label>
+                            <select id="ddlProgram" asp-for="objCourse.UniProgramId" asp-items="@Model.UniProgramList" class="form-select">
+                                <option disabled selected>--Select Program--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objCourse.IsActive"></label>
+                            <select asp-for="objCourse.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                                <option disabled selected>--Select--</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            @if (Model.objCourse.CourseId != 0)
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                            }
+                            <!--END ELSE -->
+                            <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                                Back to List
+                            </a>
+                        </div>
                     </div>
-                <div class="col-12">
-                    @if (Model.objCourse.CourseId != 0)
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
-                    }
-                    else
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
-                    }
-                    <!--END ELSE -->
-                        <a asp-page="Index" class="btn btn-secondary" style="width:150px">
-                            Back to List
-                        </a>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
-} else {
+}
+else
+{
     Response.Redirect("../../../..");
 }
 @section Scripts
-{
+    {
     <script>
 
         tinymce.init({

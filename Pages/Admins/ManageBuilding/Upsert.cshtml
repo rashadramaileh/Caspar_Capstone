@@ -1,50 +1,53 @@
 ﻿@page
 @model CASPAR.Pages.Admins.ManageBuilding.UpsertModel
-@if (User.IsInRole("Admin")){
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objBuilding.BuildingId" hidden />
-    <div class="row">
-        <div class="col-10">
-            <div class="border p-3 mt-4 row">
-                <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objBuilding.BuildingId != 0 ? "Update " : "Create ")Building</h2>
-                    <hr />
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objBuilding.BuildingName" class="form-control border-0 shadow" />
-                    <label asp-for="objBuilding.BuildingName" class="ms-2">Building Name</label>
-                    <span asp-validation-for="objBuilding.BuildingName" class="text-danger"></span>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objBuilding.CampusId">Campus</label>
-                    <select id="ddlCategory" asp-for="objBuilding.CampusId" asp-items="@Model.CampusList" class="form-select">
-                        <option disabled selected>--Select Campus--</option>
-                    </select>
-                </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="objBuilding.IsActive"></label>
-                        <select asp-for="objBuilding.IsActive" asp-items="@Model.isActiveList" class="form-select">
-                            <option disabled selected>--Select--</option>
-                        </select>
+@if (User.IsInRole("Admin"))
+{
+    <div class="container" style="max-width:1100px">
+        <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+            <input asp-for="objBuilding.BuildingId" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 pb-2">
+                            <h2 class="text-primary">@(Model.objBuilding.BuildingId != 0 ? "Update " : "Create ")Building</h2>
+                            <hr />
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objBuilding.BuildingName" class="form-control border-0 shadow" />
+                            <label asp-for="objBuilding.BuildingName" class="ms-2">Building Name</label>
+                            <span asp-validation-for="objBuilding.BuildingName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objBuilding.CampusId">Campus</label>
+                            <select id="ddlCategory" asp-for="objBuilding.CampusId" asp-items="@Model.CampusList" class="form-select">
+                                <option disabled selected>--Select Campus--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objBuilding.IsActive"></label>
+                            <select asp-for="objBuilding.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                                <option disabled selected>--Select--</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            @if (Model.objBuilding.BuildingId != 0)
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                            }
+                            <!--END ELSE -->
+                            <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                                Back to List
+                            </a>
+                        </div>
                     </div>
-                <div class="col-12">
-                    @if (Model.objBuilding.BuildingId != 0)
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
-                    }
-                    else
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
-                    }
-                    <!--END ELSE -->
-                        <a asp-page="Index" class="btn btn-secondary" style="width:150px">
-                            Back to List
-                        </a>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
 }
 else
 {

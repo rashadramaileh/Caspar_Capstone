@@ -2,45 +2,47 @@
 @model CASPAR.Pages.Admins.CourseSemesters.UpsertModel
 @{
 }
-<form method="post" asp-page="Upsert" enctype="multipart/form-data">
-    <input asp-for="objCourseSemester.SemesterTypeId" hidden />
-    <input asp-for="objCourseSemester.CourseSemesterId" hidden />
-    <div class="row">
-        <div class="col-10">
-            <div class="border p-3 mt-4 row">
-                <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objCourseSemester.CourseSemesterId != 0 ? "Update " : "Create ")Semester Type for @(Model.objCourseSemester.SemesterType.SemesterName)</h2>
-                    <hr />
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objCourseSemester.Course"></label>
-                    <select id="course" asp-for="objCourseSemester.CourseId" asp-items="@Model.objCourseList" class="form-select">
-                        <option disabled selected>--Select Course--</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-6">
-                    <label asp-for="objCourseSemester.QuantityTaught"></label>
-                    <input asp-for="objCourseSemester.QuantityTaught" id="quantity" type="number" />
-                </div>
-                <div class="col-12">
-                    <!--IF Product being edited -->
-                    @if (Model.objCourseSemester.CourseSemesterId != 0)
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
-                    }
-                    else
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
-                    }<!--END ELSE -->
+<div class="container" style="max-width:1100px">
+    <form method="post" asp-page="Upsert" enctype="multipart/form-data">
+        <input asp-for="objCourseSemester.SemesterTypeId" hidden />
+        <input asp-for="objCourseSemester.CourseSemesterId" hidden />
+        <div class="row">
+            <div class="col-10">
+                <div class="border p-3 mt-4 row">
+                    <div class="col-12 pb-2">
+                        <h2 class="text-primary">@(Model.objCourseSemester.CourseSemesterId != 0 ? "Update " : "Create ")Semester Type for @(Model.objCourseSemester.SemesterType.SemesterName)</h2>
+                        <hr />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objCourseSemester.Course"></label>
+                        <select id="course" asp-for="objCourseSemester.CourseId" asp-items="@Model.objCourseList" class="form-select">
+                            <option disabled selected>--Select Course--</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="objCourseSemester.QuantityTaught"></label>
+                        <input asp-for="objCourseSemester.QuantityTaught" id="quantity" type="number" />
+                    </div>
+                    <div class="col-12">
+                        <!--IF Product being edited -->
+                        @if (Model.objCourseSemester.CourseSemesterId != 0)
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                        }<!--END ELSE -->
 
-                    <a asp-page="TermCourse" asp-route-id="@(Model.objCourseSemester.SemesterType.SemesterTypeId)" class="btn btn-secondary" style="width:150px">
-                        Back to List
-                    </a>
+                        <a asp-page="TermCourse" asp-route-id="@(Model.objCourseSemester.SemesterType.SemesterTypeId)" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 @section Scripts{
     <script>
 

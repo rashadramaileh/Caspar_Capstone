@@ -2,50 +2,54 @@
 @model CASPAR.Pages.Admins.ManageSectionStatus.UpsertModel
 @{
 }
-@if (User.IsInRole("Admin")){
-<form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
-    <input asp-for="objSectionStatus.SectionStatusId" hidden />
-    <div class="row">
-        <div class="col-10">
-            <div class="border p-3 mt-4 row">
-                <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.objSectionStatus.SectionStatusId != 0 ? "Update " : "Create ")Section Status</h2>
-                    <hr />
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objSectionStatus.StatusName" class="form-control border-0 shadow" />
-                    <label asp-for="objSectionStatus.StatusName" class="ms-2">Section Status Name</label>
-                    <span asp-validation-for="objSectionStatus.StatusName" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="objSectionStatus.StatusDescription" class="form-control border-0 shadow" />
-                    <label asp-for="objSectionStatus.StatusDescription" class="ms-2">Section Status Description</label>
-                    <span asp-validation-for="objSectionStatus.StatusDescription" class="text-danger"></span>
-                </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="objSectionStatus.IsActive"></label>
-                        <select asp-for="objSectionStatus.IsActive" asp-items="@Model.isActiveList" class="form-select">
-                            <option disabled selected>--Select--</option>
-                        </select>
+@if (User.IsInRole("Admin"))
+{
+    <div class="container" style="max-width:1100px">
+
+        <form method="post" asp-page="Upsert" onsubmit="return ValidateInput()" enctype="multipart/form-data">
+            <input asp-for="objSectionStatus.SectionStatusId" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 pb-2">
+                            <h2 class="text-primary">@(Model.objSectionStatus.SectionStatusId != 0 ? "Update " : "Create ")Section Status</h2>
+                            <hr />
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objSectionStatus.StatusName" class="form-control border-0 shadow" />
+                            <label asp-for="objSectionStatus.StatusName" class="ms-2">Section Status Name</label>
+                            <span asp-validation-for="objSectionStatus.StatusName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="objSectionStatus.StatusDescription" class="form-control border-0 shadow" />
+                            <label asp-for="objSectionStatus.StatusDescription" class="ms-2">Section Status Description</label>
+                            <span asp-validation-for="objSectionStatus.StatusDescription" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label asp-for="objSectionStatus.IsActive"></label>
+                            <select asp-for="objSectionStatus.IsActive" asp-items="@Model.isActiveList" class="form-select">
+                                <option disabled selected>--Select--</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            @if (Model.objSectionStatus.SectionStatusId != 0)
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                            }
+                            <!--END ELSE -->
+                            <a asp-page="Index" class="btn btn-secondary" style="width:150px">
+                                Back to List
+                            </a>
+                        </div>
                     </div>
-                <div class="col-12">
-                    @if (Model.objSectionStatus.SectionStatusId != 0)
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
-                    }
-                    else
-                    {
-                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
-                    }
-                    <!--END ELSE -->
-                        <a asp-page="Index" class="btn btn-secondary" style="width:150px">
-                            Back to List
-                        </a>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
 }
 else
 {

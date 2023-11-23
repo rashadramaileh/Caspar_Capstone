@@ -24,13 +24,13 @@ function loadList() {
                 "data": "semesterId",
                 "render": function (data) {
                     return `<div class="text-center"> 
-                                <a href="/Admins/Semesters/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/Semesters/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 75px;">
                                     <i class="far fa-edit"></i> Edit </a>
 
-                                    <a href="/Admins/Semesters/Fill?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                    <a href="/Admins/Semesters/Fill?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 75px;">
                                     <i class="far fa-edit"></i> Fill Sections </a>
                                     
-                                <a href="/Admins/Semesters/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 100px;">
+                                <a href="/Admins/Semesters/Delete?id=${data}" class="btn btn-danger text-white" style="cursor:pointer; width: 75px;">
                                     <i class="far fa-trash-alt"></i> Delete </a>
                         </div>`;
                 }, "width": "30%"
