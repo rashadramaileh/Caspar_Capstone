@@ -86,12 +86,13 @@ namespace CASPAR.Pages.Students
                 }
             }
 
-            CourseList = _unitOfWork.Course.GetAll()
+            CourseList = _unitOfWork.Course.GetAll().OrderBy(x => x.CoursePrefix).ThenBy(x => x.CourseNumber).ThenBy(x => x.CourseName)
                 .Select(x => new SelectListItem
                 {
                     Text = x.CoursePrefix + x.CourseNumber + " " + x.CourseName,
                     Value = x.CourseId.ToString(),
                 });
+
            
             TimeList = _unitOfWork.TimeBlock.GetAll()
                .Select(x => new SelectListItem
@@ -121,7 +122,7 @@ namespace CASPAR.Pages.Students
             // Edit mode
             if (id != 0)
             {
-                int count = 0;
+                int count = 1;
                 List<int> modalityIds = new List<int>();
                 objStudentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetById(id);
                 foreach (var item in modalityCheck)

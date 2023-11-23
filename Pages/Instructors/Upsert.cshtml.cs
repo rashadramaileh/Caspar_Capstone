@@ -76,7 +76,7 @@ namespace CASPAR.Pages.Instructors
             //       Value = x.ModalityId,
             //    });
 
-            foreach (var item in _unitOfWork.Modality.GetAll())
+            foreach (var item in _unitOfWork.Modality.GetAll().OrderBy(x => x.ModalityName))
             {
                 CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId, AdditionalInfo = item.AdditionalWishlistInfo };
                 modalityCheck.Add(toAdd);
@@ -88,7 +88,7 @@ namespace CASPAR.Pages.Instructors
                 }
             }
 
-            CourseList = _unitOfWork.Course.GetAll()
+            CourseList = _unitOfWork.Course.GetAll().OrderBy(x => x.CoursePrefix).ThenBy(x => x.CourseNumber).ThenBy(x => x.CourseName)
                 .Select(x => new SelectListItem
                 {
                     Text = x.CoursePrefix + x.CourseNumber + " " + x.CourseName,
@@ -130,7 +130,7 @@ namespace CASPAR.Pages.Instructors
             // Edit mode
             if (id != 0)
             {
-                int count = 0;
+                int count = 1;
                 List<int> modalityIds = new List<int>();
                 objInstructorWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetById(id);
                 foreach (var item in modalityCheck)
