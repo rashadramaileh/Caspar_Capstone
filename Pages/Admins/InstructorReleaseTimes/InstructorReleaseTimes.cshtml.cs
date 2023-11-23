@@ -14,7 +14,7 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
         private readonly UserManager<ApplicationUser> _userManager;
 
         public IEnumerable<Instructor> objInstructorList { get; set; }
-        public IEnumerable<InstructorRelease> objReleaseList { get; set; }
+        public IEnumerable<InstructorLoad> objReleaseList { get; set; }
         public int UserId { get; set; } = 1;
 
         public int SemesterId { get; set; }
@@ -61,11 +61,11 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
 
             if (semesterId != null && semesterId != 0)
             {
-                objReleaseList = _unitOfWork.InstructorRelease.GetAll(c => c.SemesterId == semesterId);
+                //objReleaseList = _unitOfWork.InstructorRelease.GetAll(c => c.SemesterId == semesterId);
             }
             else
             {
-                objReleaseList = _unitOfWork.InstructorRelease.GetAll(c => c.SemesterId == _unitOfWork.Semester.GetById(1).SemesterId);
+                //objReleaseList = _unitOfWork.InstructorRelease.GetAll(c => c.SemesterId == _unitOfWork.Semester.GetById(1).SemesterId);
             }
 
             TempData["success"] = "Semester Filtered Successfully";

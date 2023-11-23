@@ -1,0 +1,43 @@
+﻿@page
+@model CASPAR.Pages.Admins.ManageReleaseTime.UpsertModel
+@{
+}
+@if (User.IsInRole("Admin"))
+{
+<form method="post" asp-page="Upsert" enctype="multipart/form-data">
+    <input hidden asp-for="objInstructor" />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">Update Instructor Release</h2>
+                    <hr />
+                </div>
+                @for(int i = 0; i < Model.objRelease.Count; i++)
+                {
+                    <input hidden asp-for="objRelease[i].SemesterTypeId" />
+                    <input hidden asp-for="objRelease[i].ApplicationUserId" />
+                    <input hidden asp-for="objRelease[i].InstructorReleaseId" />
+                    <h2>@Model.objsemesterTypes.FirstOrDefault(c => c.SemesterTypeId == Model.objRelease[i].SemesterTypeId).SemesterName</h2>
+                    <div class="form-floating py-2 col-12">
+                        <input asp-for="objRelease[i].ReleaseTimeAmount" class="form-control border-0 shadow" />
+                        <label asp-for="objRelease[i].ReleaseTimeAmount" class="ms-2">Release Amount</label>
+                        <span asp-validation-for="objRelease[i].ReleaseTimeAmount" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <input asp-for="objRelease[i].ReleaseTimeName" class="form-control border-0 shadow" />
+                        <label asp-for="objRelease[i].ReleaseTimeName" class="ms-2">Release Notes</label>
+                        <span asp-validation-for="objRelease[i].ReleaseTimeName" class="text-danger"></span>
+                    </div>
+                }
+                <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                <a asp-page="/Admins/ManageReleaseTime/Index" class="btn btn-secondary" style="width:150px">
+                     Back to List
+                </a>
+                </div>
+            </div>
+        </div>
+</form>
+} else {
+    Response.Redirect("../../../..");
+}
