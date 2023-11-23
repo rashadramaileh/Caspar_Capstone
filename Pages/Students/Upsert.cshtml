@@ -23,23 +23,28 @@
                     </select>
                 </div>
 
-                <div class="mb-3 col-6">
-                    <div>
-                    @for (var i = 0; i < Model.modalityCheck.Count; i++)
-                    {
-                        @*<label>@modality.Text
-                        <input type="checkbox" name="modalityCheck" value="@modality.Value" checked="@modality.Checked" onclick="ShowDiv(this)" id="@modality.Text" asp-items="@Model.modalityCheck" />
-                        </label>*@
-                        @*<input asp-for="@modality.Checked" id="@modality.Value" type="checkbox" name="Modality" value="@modality.Checked"/>
-                        <label asp-for="@modality.Value">@modality.Text</label>
-                        <input asp-for="@modality.Value" hidden />
-                        <input asp-for="@modality.Disabled" hidden />*@
-                        <input type="checkbox" asp-for="@Model.modalityCheck[i].Checked" onclick="testing(@Model.modalityCheck[i].Value, '@Model.modalityCheck[i].Text')" id="@Model.modalityCheck[i].Value" />
-                        <label asp-for="@Model.modalityCheck[i].Checked">@Model.modalityCheck[i].Text</label>
-                        <input type="hidden" asp-for="@Model.modalityCheck[i].Value" />
-                        <input type="hidden" asp-for="@Model.modalityCheck[i].Text" />
-                        <input type="hidden" asp-for="@Model.modalityCheck[i].Disabled" />
-                    }
+                <hr />
+                <div class="mb-3 col-md-12">
+                    <div class="container">
+                        @for (var i = 0; i < Model.modalityCheck.Count; i++)
+                        {
+                            <div class="row">
+                                @for (var k = 0; k < 4; k++)
+                                {
+                                    @if (i < Model.modalityCheck.Count)
+                                    {
+                                        <div class="col-md-3">
+                                            <input type="checkbox" asp-for="@Model.modalityCheck[i].Checked" onclick="testing(@Model.modalityCheck[i].Value, '@Model.modalityCheck[i].Text')" id="@Model.modalityCheck[i].Value" />
+                                            <label asp-for="@Model.modalityCheck[i].Checked">@Model.modalityCheck[i].Text</label>
+                                            <input type="hidden" asp-for="@Model.modalityCheck[i].Value" />
+                                            <input type="hidden" asp-for="@Model.modalityCheck[i].Text" />
+                                            <input type="hidden" asp-for="@Model.modalityCheck[i].Disabled" />
+                                        </div>
+                                    }
+                                    i++;
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
                  

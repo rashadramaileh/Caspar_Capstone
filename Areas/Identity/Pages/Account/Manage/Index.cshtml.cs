@@ -11,6 +11,7 @@ using Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASPAR.Areas.Identity.Pages.Account.Manage
 {
@@ -18,13 +19,16 @@ namespace CASPAR.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        public List<SelectListItem> GraduationList { get; set; }
+        public List<SelectListItem> MajorList { get; set; }
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            GraduationList = new List<SelectListItem>();
+            MajorList = new List<SelectListItem>();
         }
 
         /// <summary>
@@ -60,18 +64,26 @@ namespace CASPAR.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Graduation Year")]
+            public string GraduationYear { get; set; }
+
+            public string Major { get; set; }   
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var graduationyear = user.GraduationYear; 
+            var major = user.Major; 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                GraduationYear = graduationyear,
+                Major = major
             };
         }
 
@@ -82,6 +94,64 @@ namespace CASPAR.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
+            var Spring2024 = new SelectListItem
+            {
+                Text = "Spring 2024",
+                Value = "Spring 2024"
+            };
+            var Summer2024 = new SelectListItem
+            {
+                Text = "Summer 2024",
+                Value = "Summer 2024"
+            };
+            var Fall2024 = new SelectListItem
+            {
+                Text = "Fall 2024",
+                Value = "Fall 2024"
+            };
+            var Spring2025 = new SelectListItem
+            {
+                Text = "Spring 2025",
+                Value = "Spring 2025"
+            };
+            var Summer2025 = new SelectListItem
+            {
+                Text = "Summer 2025",
+                Value = "Summer 2025"
+            };
+            var Fall2025 = new SelectListItem
+            {
+                Text = "Fall 2025",
+                Value = "Fall 2025"
+            };
+            GraduationList.Add(Spring2025);
+            GraduationList.Add(Spring2024);
+            GraduationList.Add(Fall2025);
+            GraduationList.Add(Fall2024);
+            GraduationList.Add(Summer2025);
+            GraduationList.Add(Summer2024);
+
+
+            var ComputerScience = new SelectListItem
+            {
+                Text = "Computer Science",
+                Value = "Computer Science"
+            };
+            var WebUX = new SelectListItem
+            {
+                Text = "WebUX",
+                Value = "WebUX"
+            };
+            var InformationTechnology = new SelectListItem
+            {
+                Text = "Information Technology",
+                Value = "Information Technology"
+            };
+
+            MajorList.Add(ComputerScience);
+            MajorList.Add(WebUX);
+            MajorList.Add(InformationTechnology);
 
             await LoadAsync(user);
             return Page();
@@ -112,6 +182,21 @@ namespace CASPAR.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+
+            var graduationYear = user.GraduationYear;
+            if (Input.GraduationYear != graduationYear)
+            {
+
+                user.GraduationYear = Input.GraduationYear; await LoadAsync(user);
+            }
+
+            var major = user.Major;
+            if (Input.Major != major)
+            {
+                user.Major = Input.Major; await LoadAsync(user);
+
+            }
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
