@@ -21,22 +21,26 @@
                 <div class="col-10">
                     <div class="border p-3 mt-4 row">
                         <div class="col-12">
-                            <a asp-page="Upsert" asp-route-id="0" asp-route-sid="@Model.objSemesterType.SemesterTypeId" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Create New Course To Template
-                            </a>
+                            <div class="mt-1">
+                                <a asp-page="Upsert" asp-route-id="0" asp-route-sid="@Model.objSemesterType.SemesterTypeId" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle"></i> Create New Course To Template
+                                </a>
+                            </div>
                             @if (Model.savedId != null && Model.savedId != 0)
                             {
-                                <form method="post" asp-page="TermCourse" asp-route-id="@Model.savedId" enctype="multipart/form-data">
-
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="bi bi-plus-circle"></i> Populate the template with each existing course.
-                                    </button>
-                                    <a asp-page="Index" class="btn btn-secondary">
-                                        Back to List
-                                    </a>
-
-                                </form>
+                                <div class="mt-1">
+                                    <form method="post" asp-page="TermCourse" asp-route-id="@Model.savedId" enctype="multipart/form-data">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="bi bi-plus-circle"></i> Populate the template with each existing course.
+                                        </button>
+                                    </form>
+                                </div>
                             }
+                            <div class="mt-1">
+                                <a asp-page="Index" class="btn btn-secondary">
+                                    Back to List
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
