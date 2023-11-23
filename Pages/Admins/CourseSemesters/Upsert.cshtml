@@ -13,6 +13,7 @@
                         <h2 class="text-primary">@(Model.objCourseSemester.CourseSemesterId != 0 ? "Update " : "Create ")Semester Type for @(Model.objCourseSemester.SemesterType.SemesterName)</h2>
                         <hr />
                     </div>
+                    <div class="container">
                     <div class="mb-3 col-6">
                         <label asp-for="objCourseSemester.Course"></label>
                         <select id="course" asp-for="objCourseSemester.CourseId" asp-items="@Model.objCourseList" class="form-select">
@@ -22,6 +23,7 @@
                     <div class="mb-3 col-6">
                         <label asp-for="objCourseSemester.QuantityTaught"></label>
                         <input asp-for="objCourseSemester.QuantityTaught" id="quantity" type="number" />
+                    </div>
                     </div>
                     <div class="col-12">
                         <!--IF Product being edited -->
