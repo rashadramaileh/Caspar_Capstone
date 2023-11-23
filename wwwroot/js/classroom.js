@@ -14,9 +14,10 @@ function loadList() {
         "columns": [
             // Should not be capital
             //This needs to be changed VVVV
-            { "data": "roomNumber", "width": "23%" },
-            { "data": "capacity", "width": "23%" },
-            { "data": "building.buildingName", "width": "23" },
+            { "data": "roomNumber", "width": "15%" },
+            { "data": "capacity", "width": "15%" },
+            { "data": "building.buildingName", "width": "20%" },
+            { "data": "building.campus.campusName", "width": "20%" },
             {
                 "data": "classroomId",
                 "render": function (data) {

@@ -1,4 +1,6 @@
-﻿using DataAccess;
+﻿using CASPAR.Infrastructure.Models;
+using DataAccess;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -18,7 +20,14 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.Classroom.GetAll(null, null, "Building") });
+            IEnumerable<Classroom> classrooms = _unitOfWork.Classroom.GetAll(null, null, "Building");
+            IEnumerable<Campus> campuses = _unitOfWork.Campus.GetAll();
+
+            foreach (var classroom in classrooms)
+            {
+                classroom.Building.Campus = campuses.FirstOrDefault(x => x.CampusId == classroom.Building.CampusId);
+            }
+            return Json(new { data = classrooms });
         }
     }
 }
