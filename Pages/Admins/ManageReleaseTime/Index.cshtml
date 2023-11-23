@@ -1,0 +1,70 @@
+﻿@page
+@model CASPAR.Pages.Admins.ManageReleaseTime.IndexModel
+@{
+}
+
+
+
+<table class="table table-bordered table-striped compact">
+    <thead>
+        <tr>
+            <th>
+                Instructor
+            </th>
+            @foreach (var semesterType in Model.objSemesterType)
+            {
+                <th style="width:5%">@semesterType.SemesterName</th>
+                <th>&nbsp;</th>
+            }
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            @foreach (var semesterType in Model.objSemesterType)
+            {
+                <td style ="width:5%">
+                    Amt.
+                </td>
+                <td style="width:20%">
+                    Notes
+                </td>
+            }
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+
+        @foreach (var instructor in Model.objInstructorList)
+        {
+            <tr>
+                <td style="width:15%">
+                    @instructor.FirstName @instructor.LastName
+                </td>
+                @foreach (var semesterType in Model.objSemesterType)
+                {
+                    @foreach (var release in Model.objInstructorRelease.Where(c => (c.ApplicationUserId == instructor.Id && c.SemesterTypeId == semesterType.SemesterTypeId)))
+                    {
+                        <td style="width:5%">
+                            @release.ReleaseTimeAmount
+                        </td>
+                        <td style="width:20%">
+                            @release.ReleaseTimeName
+                        </td>
+                    }
+                }
+                <td style="width:10%">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-page="Upsert" asp-route-id="@instructor.Id" class="btn btn-primary mx-1">
+                            Edit
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

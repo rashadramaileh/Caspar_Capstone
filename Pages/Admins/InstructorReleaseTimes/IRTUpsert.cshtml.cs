@@ -33,14 +33,15 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
 
         public void OnGet()
         {
-            InstructorNameList = _unitOfWork.InstructorRelease.GetAll()
+            /*InstructorNameList = _unitOfWork.InstructorRelease.GetAll()
                 .Select(x => new SelectListItem
                 {
                     Text = x.ReleaseTimeName,
                     Value = x.SemesterId.ToString(),
                 });
 
-            releaseList = _unitOfWork.InstructorRelease.GetAll();
+            releaseList = _unitOfWork.InstructorRelease.GetAll();*/
+            
 
         }
     }

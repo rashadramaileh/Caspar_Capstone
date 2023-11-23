@@ -14,16 +14,15 @@ namespace CASPAR.Infrastructure.Models
         [Range(0, 12)]
         public int ReleaseTimeAmount { get; set; }
 
-        [Range(1, 65535)]
         public string ApplicationUserId { get; set; }
 
         [Range(1, 65535)]
-        public int SemesterId { get; set; }
+        public int SemesterTypeId { get; set; }
 
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser? ApplicationUser { get; set; }
 
-        [ForeignKey("SemesterId")]
-        public Semester? Semester { get; set; }
+        [ForeignKey("SemesterTypeId")]
+        public SemesterType? SemesterType { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace CASPAR.Pages.Users
                 var userRole = await _userManager.GetRolesAsync(user);
                 UserRoles.Add(user.Id, userRole.ToList());
             }
+
         }
 
         public async Task<IActionResult> OnPostLockUnlock(string id)
