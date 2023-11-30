@@ -7,10 +7,10 @@ namespace CASPAR.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ProgramController : Controller
+    public class ProgramCoordinatorController : Controller
     {
         private readonly UnitOfWork _unitOfWork;
-        public ProgramController(UnitOfWork unitOfWork)
+        public ProgramCoordinatorController(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
