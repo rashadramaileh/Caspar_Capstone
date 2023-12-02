@@ -9,8 +9,8 @@ namespace CASPAR.Infrastructure.Models
         [Key, Display(Name = "Section")]
         public int SectionId { get; set; }
 
-        [Range(0, 65535)]
-        public int? CRN { get; set; }
+        [StringLength(20), Display(Name = "CRN")]
+        public string? Crn { get; set; }
 
         [Range(0, 65535), Display(Name = "Max Enrollment")]
         public int? MaxEnrollment { get; set; }

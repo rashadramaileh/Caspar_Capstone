@@ -15,7 +15,7 @@ function loadList() {
             // Should not be capital
             { "data": "applicationUser.fullName", "width": "5%" },
             { "data": "course.courseName", "width": "5%" },
-            { "data": "cRN", "width": "5%" },
+            { "data": "crn", "width": "5%" },
             { "data": "modality.modalityName", "width": "5%" },
             { "data": "meetingTime.meetingTimeName", "width": "5%" },
             { "data": "dayBlock.dayName", "width": "5%" },
