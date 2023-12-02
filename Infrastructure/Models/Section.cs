@@ -10,7 +10,7 @@ namespace CASPAR.Infrastructure.Models
         public int SectionId { get; set; }
 
         [Range(0, 65535)]
-        public int? CRN;
+        public int? CRN { get; set; }
 
         [Range(0, 65535), Display(Name = "Max Enrollment")]
         public int? MaxEnrollment { get; set; }
@@ -26,7 +26,16 @@ namespace CASPAR.Infrastructure.Models
 
 
 
-        //Relations
+        //Required Relations
+        [Required, Range(0, 65535), Display(Name = "Semester")]
+        public int SemesterId { get; set; }
+        [ForeignKey("SemesterId")]
+        public Semester? Semester { get; set; }
+        
+        
+        //Optional Relations
+
+
 
         [Range(0, 65535), Display(Name = "Classroom")]
         public int? ClassroomId { get; set; }
@@ -64,8 +73,9 @@ namespace CASPAR.Infrastructure.Models
         public PayModel? PayModel { get; set; }
 
 
-        [Range(0, 255), Display(Name = "Part of Term")]
-        public int? PartofTermId { get; set; } = null;
+        // having this column and the relation to PartOfTerm causes an error. 
+        //[Range(0, 255), Display(Name = "Part of Term")]
+        //public int? PartofTermId { get; set; } = null;
         [ForeignKey("PartOfTermId")]
         public PartOfTerm? PartOfTerm { get; set; }
 
@@ -86,15 +96,10 @@ namespace CASPAR.Infrastructure.Models
         public int? DayBlockId { get; set; }
         [ForeignKey("DayBlockId")]
         public DayBlock? DayBlock { get; set; }
+                
 
-
-        [Required, Range(0, 65535), Display(Name = "Semester")]
-        public int SemesterId { get; set; }
-        [ForeignKey("SemesterId")]
-        public Semester? Semester { get; set; }
-
-
-        public int CampusId { get; set; }
+        [Range(0, 65535), Display(Name = "Campus")]
+        public int? CampusId { get; set; }
         [ForeignKey("CampusId")]
         public Campus? Campus { get; set; }
 

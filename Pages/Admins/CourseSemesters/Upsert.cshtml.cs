@@ -72,9 +72,7 @@ namespace CASPAR.Pages.Admins.CourseSemesters
 
             //redirect to another page. 
 
-            return RedirectToPage($"/TermCourse?id={objCourseSemester.SemesterTypeId}");
-
-
+            return Redirect($"./TermCourse?id={objCourseSemester.SemesterTypeId}");
 
         }
     }

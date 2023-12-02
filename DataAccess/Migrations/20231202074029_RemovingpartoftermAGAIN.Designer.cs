@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202074029_RemovingpartoftermAGAIN")]
+    partial class RemovingpartoftermAGAIN
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -579,10 +582,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CRN")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CampusId")
+                    b.Property<int>("CampusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ClassroomId")
@@ -612,9 +612,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("Notes")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int?>("PartOfTermId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("PayModelId")
                         .HasColumnType("int");
@@ -646,8 +643,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("MeetingTimeId");
 
                     b.HasIndex("ModalityId");
-
-                    b.HasIndex("PartOfTermId");
 
                     b.HasIndex("PayModelId");
 
@@ -1448,7 +1443,9 @@ namespace DataAccess.Migrations
 
                     b.HasOne("CASPAR.Infrastructure.Models.Campus", "Campus")
                         .WithMany()
-                        .HasForeignKey("CampusId");
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CASPAR.Infrastructure.Models.Classroom", "Classroom")
                         .WithMany()
@@ -1471,10 +1468,6 @@ namespace DataAccess.Migrations
                     b.HasOne("CASPAR.Infrastructure.Models.Modality", "Modality")
                         .WithMany()
                         .HasForeignKey("ModalityId");
-
-                    b.HasOne("CASPAR.Infrastructure.Models.PartOfTerm", "PartOfTerm")
-                        .WithMany()
-                        .HasForeignKey("PartOfTermId");
 
                     b.HasOne("CASPAR.Infrastructure.Models.PayModel", "PayModel")
                         .WithMany()
@@ -1507,8 +1500,6 @@ namespace DataAccess.Migrations
                     b.Navigation("MeetingTime");
 
                     b.Navigation("Modality");
-
-                    b.Navigation("PartOfTerm");
 
                     b.Navigation("PayModel");
 

@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202074303_addingOnlyTheRelationPOT")]
+    partial class addingOnlyTheRelationPOT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -579,10 +582,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CRN")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CampusId")
+                    b.Property<int>("CampusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ClassroomId")
@@ -1448,7 +1448,9 @@ namespace DataAccess.Migrations
 
                     b.HasOne("CASPAR.Infrastructure.Models.Campus", "Campus")
                         .WithMany()
-                        .HasForeignKey("CampusId");
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CASPAR.Infrastructure.Models.Classroom", "Classroom")
                         .WithMany()
