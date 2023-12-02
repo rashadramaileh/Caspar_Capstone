@@ -1,0 +1,63 @@
+﻿@page
+@model CASPAR.Pages.ProgramCoordinator.UpsertModel
+@{
+}
+<div class="container" style="max-width:1100px">
+    <form method="post" asp-page="Upsert" enctype="multipart/form-data">
+        <input asp-for="objSection.SectionId" hidden />
+        <input asp-for="objSection.SemesterId" hidden />
+        <input asp-for="objSection.CourseId" hidden />
+        <div class="row">
+            <div class="col-10">
+                <div class="border p-3 mt-4 row">
+
+                    <div class="container">
+                        <div class="mb-3 col-6">
+                            <label asp-for="objSection.ApplicationUser"></label>
+                            <input asp-for="objSection.ApplicationUser" id="ApplicationUserId" type="number" />
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="mb-3 col-6">
+                            <label asp-for="objSection.Crn"></label>
+                            <input asp-for="objSection.Crn" id="Crn" type="number" />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!--IF Section being edited -->
+                        @if (Model.objSection.SectionId != 0)
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                        }<!--END ELSE -->
+
+                        <a asp-page="index" asp-route-id="@(Model.objSection.SemesterId)" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() {
+            if (document.getElementById('txtName').value == "") {
+                swal.fire('Error', 'Please Enter a Course Type', 'error');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

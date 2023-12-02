@@ -1,7 +1,12 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
+
     loadList();
+
+    dataTable.on('click', 'tbody td:not(:first-child)', function (e) {
+        editor.inline(this);
+    });
 });
 
 function loadList() {
@@ -32,6 +37,15 @@ function loadList() {
             { "data": "firstWeekEnroll", "width": "5%" },
             { "data": "thirdWeekEnroll", "width": "5%" },
             {
+                "data": "SectionId",
+                "render": function (data) {
+                    return `<div class="text-center"> 
+                                <a href="/ProgramCoordinator/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                    <i class="far fa-edit"></i> Edit </a>
+                        </div>`;
+                }, "width": "15%"
+            },
+            {
                 "data": "isActive",
                 "render": function (data) {
                     if (data == 1) {
@@ -54,7 +68,6 @@ function loadList() {
         "width": "100%",
     });
 
-    dataTable.on('click', 'tbody td:not(:first-child)', function (e) {
-        editor.inline(this);
-    });
 }
+
+
