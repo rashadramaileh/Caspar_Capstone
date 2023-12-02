@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202065850_RemovingPoTerm")]
+    partial class RemovingPoTerm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -594,9 +597,6 @@ namespace DataAccess.Migrations
                     b.Property<int?>("FirstWeekEnroll")
                         .HasColumnType("int");
 
-                    b.Property<int>("IsActive")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MaxEnrollment")
                         .HasColumnType("int");
 
@@ -609,12 +609,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("Notes")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int?>("PartOfTermId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PartofTermId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("PayModelId")
                         .HasColumnType("int");
@@ -646,8 +640,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("MeetingTimeId");
 
                     b.HasIndex("ModalityId");
-
-                    b.HasIndex("PartOfTermId");
 
                     b.HasIndex("PayModelId");
 
@@ -1474,10 +1466,6 @@ namespace DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("ModalityId");
 
-                    b.HasOne("CASPAR.Infrastructure.Models.PartOfTerm", "PartOfTerm")
-                        .WithMany()
-                        .HasForeignKey("PartOfTermId");
-
                     b.HasOne("CASPAR.Infrastructure.Models.PayModel", "PayModel")
                         .WithMany()
                         .HasForeignKey("PayModelId");
@@ -1509,8 +1497,6 @@ namespace DataAccess.Migrations
                     b.Navigation("MeetingTime");
 
                     b.Navigation("Modality");
-
-                    b.Navigation("PartOfTerm");
 
                     b.Navigation("PayModel");
 

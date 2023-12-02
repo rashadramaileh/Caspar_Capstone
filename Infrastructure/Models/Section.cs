@@ -65,7 +65,7 @@ namespace CASPAR.Infrastructure.Models
 
 
         [Range(0, 255), Display(Name = "Part of Term")]
-        public int? PartofTermId { get; set; }
+        public int? PartofTermId { get; set; } = null;
         [ForeignKey("PartOfTermId")]
         public PartOfTerm? PartOfTerm { get; set; }
 
@@ -94,30 +94,15 @@ namespace CASPAR.Infrastructure.Models
         public Semester? Semester { get; set; }
 
 
-        //public int CampusId { get; set; }
+        public int CampusId { get; set; }
         [ForeignKey("CampusId")]
         public Campus? Campus { get; set; }
 
 
+        [Display(Name = "Active")]
+        public int IsActive { get; set; } = 1;
 
 
 
-
-
-
-
-
-
-
-
-
-        
-
-        
-
-        
-
-        
-        
     }
 }

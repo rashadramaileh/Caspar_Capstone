@@ -20,9 +20,9 @@ namespace CASPAR.Controllers
         [HttpGet]
         public IActionResult OnGet(int? id)
         {
-            IEnumerable<Section> sections = _unitOfWork.Section.GetAll(null, null,
-"Semester,Classroom,Campus,Modality,ApplicationUser,MeetingTime,DayBlock,PartOfTerm,PayModel,WhoPays,SectionStatus")
+            IEnumerable<Section> sections = _unitOfWork.Section.GetAll(null, null,"PartOfTerm")
                 .Where(x => x.SemesterId == id);
+
             Semester semester = _unitOfWork.Semester.GetById(id);
             IEnumerable<Campus> campuses = _unitOfWork.Campus.GetAll();
             IEnumerable<Building> buildings = _unitOfWork.Building.GetAll();
@@ -49,19 +49,14 @@ namespace CASPAR.Controllers
                 s.ApplicationUser = applicationUsers.FirstOrDefault(a => a.Id == s.ApplicationUserId);
                 s.MeetingTime = meetingTimes.FirstOrDefault(m => m.meetingTimeId == s.MeetingTimeId);
                 s.DayBlock = dayBlocks.FirstOrDefault(d => d.DaysBlockId == s.DayBlockId);
-                s.PartOfTerm = partOfTerms.FirstOrDefault(p => p.PartOfTermID == s.PartOfTermId);
+                //s.PartOfTerm = partOfTerms.FirstOrDefault(p => p.PartOfTermID == s.PartOfTermID);
                 s.PayModel = payModels.FirstOrDefault(p => p.PayModelId == s.PayModelId);
                 s.WhoPays = whoPayss.FirstOrDefault(w => w.WhoPaysId == s.WhoPaysId);
-                s.SectionStatus = sectionStatuses.FirstOrDefault(t=> t.SectionStatusId == s.SectionStatusId);
+                s.SectionStatus = sectionStatuses.FirstOrDefault(t => t.SectionStatusId == s.SectionStatusId);
 
             }
 
-
-            return Json(new
-            {
-
-                data = sections
-            }); ;
+            return Json(new { data = sections });
         }
     }
 }
