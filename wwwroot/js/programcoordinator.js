@@ -1,12 +1,7 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
-
     loadList();
-
-    dataTable.on('click', 'tbody td:not(:first-child)', function (e) {
-        editor.inline(this);
-    });
 });
 
 function loadList() {
@@ -37,12 +32,11 @@ function loadList() {
             { "data": "firstWeekEnroll", "width": "5%" },
             { "data": "thirdWeekEnroll", "width": "5%" },
             {
-                "data": "SectionId",
+                "data": "sectionId",
                 "render": function (data) {
-                    return `<div class="text-center"> 
-                                <a href="/ProgramCoordinator/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
-                                    <i class="far fa-edit"></i> Edit </a>
-                        </div>`;
+                    return `<div class="text-center">
+                    <a href="/ProgramCoordinator/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                    <i class="far fa-edit"></i> Edit </a></div>`;
                 }, "width": "15%"
             },
             {
@@ -52,12 +46,12 @@ function loadList() {
                         return `<div class="text-center"> 
                             <button type="button" class="btn btn-success text-white" style="cursor:pointer; width: 100px;" disabled>
                                Active </button>
-                        </div>`
+                        </div>`;
                     } else {
                         return `<div class="text-center"> 
                            <button type="button" class="btn btn-warning text-white" style="cursor:pointer; width: 100px;" disabled>
                                Inactive </button>
-                        </div>`
+                        </div>`;
                     }
                 }, "width": "15%"
             }
@@ -67,7 +61,4 @@ function loadList() {
         },
         "width": "100%",
     });
-
 }
-
-

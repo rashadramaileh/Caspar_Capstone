@@ -9,14 +9,34 @@ namespace CASPAR.Pages.ProgramCoordinator
     {
         private readonly UnitOfWork _unitOfWork;
         public Section objSection { get; set; }
-        //TODO add lists for all section objects. 
-        IEnumerable<SelectListItem> listUsers { get; set; }
+        public IEnumerable<SelectListItem> listUsers { get; set; }
+        public IEnumerable<SelectListItem> listClassrooms { get; set; }
+        public IEnumerable<SelectListItem> listCourses { get; set; }
+        public IEnumerable<SelectListItem> listSectionStatuses { get; set; }
+        public IEnumerable<SelectListItem> listWhoPayss { get; set; }
+        public IEnumerable<SelectListItem> listPayModels { get; set; }
+        public IEnumerable<SelectListItem> listPartOfTerms { get; set; }
+        public IEnumerable<SelectListItem> listModalities { get; set; }
+        public IEnumerable<SelectListItem> listMeetingTimes { get; set; }
+        public IEnumerable<SelectListItem> listDayBlocks { get; set; }
+        public IEnumerable<SelectListItem> listCampuss { get; set; }
 
         public UpsertModel(UnitOfWork unit)
         {
             _unitOfWork = unit;
             objSection = new Section();
             listUsers = new List<SelectListItem>();
+            listClassrooms = new List<SelectListItem>();
+            listCourses = new List<SelectListItem>();
+            listSectionStatuses = new List<SelectListItem>();
+            listWhoPayss = new List<SelectListItem>();
+            listPayModels = new List<SelectListItem>();
+            listPartOfTerms = new List<SelectListItem>();
+            listModalities = new List<SelectListItem>();
+            listDayBlocks = new List<SelectListItem>();
+            listMeetingTimes = new List<SelectListItem>();
+            listCampuss = new List<SelectListItem>();
+
         }
 
         /// <summary>
@@ -32,8 +52,66 @@ namespace CASPAR.Pages.ProgramCoordinator
                     Text = c.FullName,
                     Value = c.Id
                 }); //TODO filter by role
-
-
+            listClassrooms = _unitOfWork.Classroom.GetAll(null, null, "Building")
+                .Select(c => new SelectListItem
+                {
+                    Text = c.RoomNumber + " " + c.Building.BuildingName,
+                    Value = c.ClassroomId.ToString()
+                });
+            listCourses = _unitOfWork.Course.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CourseName,
+                    Value = c.CourseId.ToString()
+                });
+            listSectionStatuses = _unitOfWork.SectionStatus.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.StatusName,
+                    Value = c.SectionStatusId.ToString()
+                });
+            listWhoPayss = _unitOfWork.WhoPays.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.WhoPaysName,
+                    Value = c.WhoPaysId.ToString()
+                });
+            listPayModels = _unitOfWork.PayModel.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.PayType,
+                    Value = c.PayModelId.ToString()
+                });
+            listPartOfTerms = _unitOfWork.PartOfTerm.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.PartOfTermName,
+                    Value = c.PartOfTermID.ToString()
+                });
+            listModalities = _unitOfWork.Modality.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.ModalityName,
+                    Value = c.ModalityId.ToString()
+                });
+            listMeetingTimes = _unitOfWork.MeetingTime.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.meetingTimeName,
+                    Value = c.meetingTimeId.ToString()
+                });
+            listDayBlocks = _unitOfWork.DayBlock.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.DayName,
+                    Value = c.DaysBlockId.ToString()
+                });
+            listCampuss = _unitOfWork.Campus.GetAll()
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CampusName,
+                    Value = c.CampusId.ToString()
+                });
         }
 
     }
