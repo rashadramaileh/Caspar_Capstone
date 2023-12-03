@@ -72,6 +72,13 @@
                             </li>
                           
                         } 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Program Coordinator</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item text-dark" asp-page="/ProgramCoordinator/SemesterPicker">Home Page</a>
+                            </div>
+                        </li>
+
                         @if (User.IsInRole(SD.InstructorRole))
                         {
 

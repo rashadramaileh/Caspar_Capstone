@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202083408_reAddingCRN")]
+    partial class reAddingCRN
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,31 +188,31 @@ namespace DataAccess.Migrations
                     b.ToTable("DayBlock");
                 });
 
-            modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorCurrentLoad", b =>
+            modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorLoad", b =>
                 {
-                    b.Property<int>("InstructorCurrentLoadId")
+                    b.Property<int>("InstructorLoadId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstructorCurrentLoadId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstructorLoadId"));
 
                     b.Property<string>("ApplicationUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CurrentLoad")
+                    b.Property<int>("LoadHours")
                         .HasColumnType("int");
 
                     b.Property<int>("SemesterId")
                         .HasColumnType("int");
 
-                    b.HasKey("InstructorCurrentLoadId");
+                    b.HasKey("InstructorLoadId");
 
                     b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("InstructorCurrentLoad");
+                    b.ToTable("InstructorLoad");
                 });
 
             modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorRelease", b =>
@@ -579,6 +582,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("CRN")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CampusId")
                         .HasColumnType("int");
 
@@ -587,10 +593,6 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Crn")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("DayBlockId")
                         .HasColumnType("int");
@@ -978,33 +980,6 @@ namespace DataAccess.Migrations
                     b.ToTable("ClassroomFeaturePossession");
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.InstructorLoad", b =>
-                {
-                    b.Property<int>("InstructorLoadId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstructorLoadId"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("LoadAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SemesterTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InstructorLoadId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("SemesterTypeId");
-
-                    b.ToTable("InstructorLoad");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1316,7 +1291,7 @@ namespace DataAccess.Migrations
                     b.Navigation("SemesterType");
                 });
 
-            modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorCurrentLoad", b =>
+            modelBuilder.Entity("CASPAR.Infrastructure.Models.InstructorLoad", b =>
                 {
                     b.HasOne("CASPAR.Infrastructure.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
@@ -1661,25 +1636,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Classroom");
 
                     b.Navigation("ClassroomFeature");
-                });
-
-            modelBuilder.Entity("Infrastructure.Models.InstructorLoad", b =>
-                {
-                    b.HasOne("CASPAR.Infrastructure.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CASPAR.Infrastructure.Models.SemesterType", "SemesterType")
-                        .WithMany()
-                        .HasForeignKey("SemesterTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("SemesterType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

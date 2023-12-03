@@ -1,0 +1,158 @@
+﻿@page
+@model CASPAR.Pages.ProgramCoordinator.UpsertModel
+@{
+}
+<div class="container" style="max-width:1100px">
+    <form method="post" asp-page="Upsert" enctype="multipart/form-data">
+        <input asp-for="objSection.SectionId" hidden />
+        <input asp-for="objSection.SemesterId" hidden />
+        <input asp-for="objSection.CourseId" hidden />
+        <div class="row">
+            <div class="col-10">
+                <div class="border p-3 mt-4 row">
+
+                    <div class="container">
+                        <!--USER-->
+                        <div class="mb-3 col-6">
+                            <label asp-for="objSection.ApplicationUser"></label>
+                            <select id="user" asp-for="objSection.ApplicationUserId" asp-items="@Model.listUsers" class="form-select">
+                                <option disabled selected>--Select User--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--COURSE-->
+                            <label asp-for="objSection.Course"></label>
+                            <select id="course" asp-for="objSection.CourseId" asp-items="@Model.listCourses" class="form-select">
+                                <option disabled selected>--Select Course--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--CRN-->
+                            <label asp-for="objSection.Crn"></label>
+                            <input asp-for="objSection.Crn" id="crn" type="text" />
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--MODALITY-->
+                            <label asp-for="objSection.Modality"></label>
+                            <select id="modality" asp-for="objSection.ModalityId" asp-items="@Model.listModalities" class="form-select">
+                                <option disabled selected>--Select Modality--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--MEETINGTIME-->
+                            <label asp-for="objSection.MeetingTime"></label>
+                            <select id="meetingtime" asp-for="objSection.MeetingTimeId" asp-items="@Model.listMeetingTimes" class="form-select">
+                                <option disabled selected>--Select Meeting Time--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--DAYBLOCK-->
+                            <label asp-for="objSection.DayBlock"></label>
+                            <select id="dayblock" asp-for="objSection.DayBlockId" asp-items="@Model.listDayBlocks" class="form-select">
+                                <option disabled selected>--Select Days--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--MAXENROLLMENT-->
+                            <label asp-for="objSection.MaxEnrollment"></label>
+                            <input asp-for="objSection.MaxEnrollment" id="Crn" type="number" />
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--PARTOFTERM-->
+                            <label asp-for="objSection.PartOfTerm"></label>
+                            <select id="partofterm" asp-for="objSection.PartOfTerm" asp-items="@Model.listPartOfTerms" class="form-select">
+                                <option disabled selected>--Select Part Of Term--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--CLASSROOM-->
+                            <label asp-for="objSection.Classroom"></label>
+                            <select id="classroom" asp-for="objSection.ClassroomId" asp-items="@Model.listClassrooms" class="form-select">
+                                <option disabled selected>--Select Classroom--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--CAMPUS-->
+                            <label asp-for="objSection.Campus"></label>
+                            <select id="campus" asp-for="objSection.CampusId" asp-items="@Model.listCampuss" class="form-select">
+                                <option disabled selected>--Select Campus--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--PAYMODEL-->
+                            <label asp-for="objSection.PayModel"></label>
+                            <select id="paymodel" asp-for="objSection.PayModelId" asp-items="@Model.listPayModels" class="form-select">
+                                <option disabled selected>--Select Pay Model--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--WHO PAYS-->
+                            <label asp-for="objSection.WhoPays"></label>
+                            <select id="whopays" asp-for="objSection.WhoPaysId" asp-items="@Model.listWhoPayss" class="form-select">
+                                <option disabled selected>--Select Who Pays--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--SECTIONSTATUS-->
+                            <label asp-for="objSection.SectionStatus"></label>
+                            <select id="sectionstatus" asp-for="objSection.SectionStatusId" asp-items="@Model.listSectionStatuses" class="form-select">
+                                <option disabled selected>--Select Status--</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--NOTES-->
+                            <label asp-for="objSection.Notes"></label>
+                            <input asp-for="objSection.Notes" id="notes" type="text" />
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--FIRSTWEEKENROLLMENT-->
+                            <label asp-for="objSection.FirstWeekEnroll"></label>
+                            <input asp-for="objSection.FirstWeekEnroll" id="firstweekenroll" type="number" />
+                        </div>
+                        <div class="mb-3 col-6">
+                            <!--THIRDWEEKENROLLMENT-->
+                            <label asp-for="objSection.ThirdWeekEnroll"></label>
+                            <input asp-for="objSection.ThirdWeekEnroll" id="thirdweekenroll" type="number" />
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-12">
+                        <!--IF Section being edited -->
+                        @if (Model.objSection.SectionId != 0)
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                        }<!--END ELSE -->
+
+                        <a asp-page="index" asp-route-id="@(Model.objSection.SemesterId)" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: "file edit format"
+        });
+
+        function ValidateInput() {
+            if (document.getElementById('txtName').value == "") {
+                swal.fire('Error', 'Please Enter a Course Type', 'error');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
