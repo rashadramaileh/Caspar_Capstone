@@ -1,5 +1,6 @@
 using CASPAR.Infrastructure.Models;
 using DataAccess;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,6 +9,7 @@ namespace CASPAR.Pages.ProgramCoordinator
     public class UpsertModel : PageModel
     {
         private readonly UnitOfWork _unitOfWork;
+        [BindProperty]
         public Section objSection { get; set; }
         public IEnumerable<SelectListItem> listUsers { get; set; }
         public IEnumerable<SelectListItem> listClassrooms { get; set; }
@@ -38,6 +40,30 @@ namespace CASPAR.Pages.ProgramCoordinator
             listCampuss = new List<SelectListItem>();
 
         }
+        public IActionResult OnPost(int? id)
+        {
+            // if the product is new (create)
+            if (objSection.SectionId == 0)
+            {
+                // add locally 
+                _unitOfWork.Section.Add(objSection);
+            }
+            else //item exists already - EDIT MODE
+            {
+                //update the existing product. 
+                _unitOfWork.Section.Update(objSection);
+
+            }
+            // save changes to db. 
+            _unitOfWork.Commit();
+
+            //redirect to another page. 
+
+            return Redirect($"./Index?id={objSection.SemesterId}");
+
+
+
+        }
 
         /// <summary>
         /// Create a new section for the semster with SemesterId == id
@@ -45,6 +71,7 @@ namespace CASPAR.Pages.ProgramCoordinator
         /// <param name="id"></param>
         public void OnGet(int id)
         {
+            objSection = _unitOfWork.Section.GetById(id);
             //populate dropdown lists. 
             listUsers = _unitOfWork.ApplicationUser.GetAll()
                 .Select(c => new SelectListItem

@@ -1,6 +1,10 @@
 ﻿var dataTable;
+var id;
 
 $(document).ready(function () {
+    var url_string = window.location.href; // www.test.com?filename=test
+    var url = new URL(url_string);
+    id = url.searchParams.get("id");
     loadList();
 });
 
@@ -9,6 +13,7 @@ function loadList() {
         "ajax": {
             "url": "/api/programcoordinator",
             "type": "GET",
+            "data": {"id":id},
             "datatype": "json"
         },
         "columns": [

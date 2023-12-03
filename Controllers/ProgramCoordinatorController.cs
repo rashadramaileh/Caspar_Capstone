@@ -1,6 +1,7 @@
 ﻿using CASPAR.Infrastructure.Models;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Newtonsoft.Json.Linq;
 
 
@@ -11,6 +12,7 @@ namespace CASPAR.Controllers
 
     public class ProgramCoordinatorController : Controller
     {
+        public int savedId;
         private readonly UnitOfWork _unitOfWork;
         public ProgramCoordinatorController(UnitOfWork unitOfWork)
         {
@@ -18,14 +20,23 @@ namespace CASPAR.Controllers
         }
 
         [HttpGet]
-        public IActionResult OnGet(int id)
+        public IActionResult Get(int id)
         {
-            if (id == 0) { id = 2; }
+            savedId = id;
+            IEnumerable<Section> data = _unitOfWork.Section.GetAll(null, null, "Campus,Course,Modality,ApplicationUser,MeetingTime,DayBlock,Classroom,PartOfTerm,PayModel,WhoPays,SectionStatus,Semester")
+                .Where(x => x.SemesterId == savedId);
+
+            IEnumerable<PartOfTerm> pot = _unitOfWork.PartOfTerm.GetAll();
+            IEnumerable<PayModel> payModel = _unitOfWork.PayModel.GetAll();
+            foreach (Section s in data)
+            {
+                s.PayModel = payModel.FirstOrDefault(x => x.PayModelId ==s.PayModelId);
+                //s.PartOfTerm = pot.FirstOrDefault();
+            }
 
             return Json(new
             {
-                data = _unitOfWork.Section.GetAll(null, null, "Campus,Course,Modality,ApplicationUser,MeetingTime,DayBlock,Classroom,PartOfTerm,PayModel,WhoPays,SectionStatus,Semester")
-                .Where(x => x.SemesterId == id)
+                data
             });
 
         }
