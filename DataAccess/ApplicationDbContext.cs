@@ -49,6 +49,7 @@ namespace DataAccess
         public DbSet<StudentWishlistModality> StudentWishlistModality { get; set; }
         public DbSet<StudentTime> StudentTime { get; set; }
         public DbSet<InstructorRelease> InstructorRelease { get; set; }
+        public DbSet<InstructorCurrentLoad> InstructorCurrentLoad { get; set; }
         public DbSet<InstructorLoad> InstructorLoad { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<SemesterStatus> SemesterStatus { get; set; }

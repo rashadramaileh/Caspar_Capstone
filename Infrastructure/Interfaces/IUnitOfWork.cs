@@ -40,6 +40,7 @@ namespace Infrastructure.Interfaces
         public IGenericRepository<StudentWishlistModality> StudentWishlistModality { get; }
         public IGenericRepository<StudentTime> StudentTime { get; }
         public IGenericRepository<InstructorRelease> InstructorRelease{ get; }
+        public IGenericRepository<InstructorCurrentLoad> InstructorCurrentLoad { get; }
         public IGenericRepository<InstructorLoad> InstructorLoad { get; }
         public IGenericRepository<Role> Role { get; }
         public IGenericRepository<SemesterStatus> SemesterStatus{ get; }

@@ -1,0 +1,42 @@
+﻿@page
+@model CASPAR.Pages.Admins.ManageLoadTime.UpsertModel
+@{
+}
+@if (User.IsInRole("Admin"))
+{
+    <div class="container" style="max-width:1100px">
+        <form method="post" asp-page="Upsert" enctype="multipart/form-data">
+            <input hidden asp-for="objInstructor" />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 pb-2">
+                            <h2 class="text-primary">Update Instructor Load</h2>
+                            <hr />
+                        </div>
+                        @for (int i = 0; i < Model.objLoad.Count; i++)
+                        {
+                            <input hidden asp-for="objLoad[i].SemesterTypeId" />
+                            <input hidden asp-for="objLoad[i].ApplicationUserId" />
+                            <input hidden asp-for="objLoad[i].InstructorLoadId" />
+                            <h2>@Model.objsemesterTypes.FirstOrDefault(c => c.SemesterTypeId == Model.objLoad[i].SemesterTypeId).SemesterName</h2>
+                            <div class="form-floating py-2 col-12">
+                                <input asp-for="objLoad[i].LoadAmount" class="form-control border-0 shadow" />
+                                <label asp-for="objLoad[i].LoadAmount" class="ms-2">Load Amount</label>
+                                <span asp-validation-for="objLoad[i].LoadAmount" class="text-danger"></span>
+                            </div>
+                        }
+                        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                        <a asp-page="/Admins/ManageLoadTime/Index" class="btn btn-secondary" style="width:150px">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    Response.Redirect("../../../..");
+}
