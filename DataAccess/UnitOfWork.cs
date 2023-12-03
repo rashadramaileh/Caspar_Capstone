@@ -23,6 +23,7 @@ namespace DataAccess
         public IGenericRepository<CourseSemester> _CourseSemester;
         public IGenericRepository<DayBlock> _DayBlock;
         public IGenericRepository<Instructor> _Instructor;
+        public IGenericRepository<InstructorCurrentLoad> _InstructorCurrentLoad;
         public IGenericRepository<InstructorLoad> _InstructorLoad;
         public IGenericRepository<InstructorRelease> _InstructorRelease;
         public IGenericRepository<InstructorUniProgram> _InstructorUniProgram;
@@ -169,6 +170,17 @@ namespace DataAccess
                 return _Instructor;
             }
         }
+        public IGenericRepository<InstructorCurrentLoad> InstructorCurrentLoad
+        {
+            get
+            {
+                if (_InstructorCurrentLoad == null)
+                {
+                    _InstructorCurrentLoad = new GenericRepository<InstructorCurrentLoad>(_dbcontext);
+                }
+                return _InstructorCurrentLoad;
+            }
+        }
         public IGenericRepository<InstructorLoad> InstructorLoad
         {
             get
@@ -180,6 +192,7 @@ namespace DataAccess
                 return _InstructorLoad;
             }
         }
+
         public IGenericRepository<InstructorRelease> InstructorRelease
         {
             get

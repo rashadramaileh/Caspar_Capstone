@@ -14,7 +14,7 @@ namespace CASPAR.Pages.Admins.InstructorReleaseTimes
         private readonly UserManager<ApplicationUser> _userManager;
 
         public IEnumerable<Instructor> objInstructorList { get; set; }
-        public IEnumerable<InstructorLoad> objReleaseList { get; set; }
+        public IEnumerable<InstructorCurrentLoad> objReleaseList { get; set; }
         public int UserId { get; set; } = 1;
 
         public int SemesterId { get; set; }

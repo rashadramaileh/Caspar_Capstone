@@ -1,5 +1,5 @@
 ﻿@page
-@model CASPAR.Pages.Admins.ManageReleaseTime.IndexModel
+@model CASPAR.Pages.Admins.ManageLoadTime.IndexModel
 @{
 }
 
@@ -12,7 +12,6 @@
             @foreach (var semesterType in Model.objSemesterType)
             {
                 <th style="width:5%">@semesterType.SemesterName</th>
-                <th>&nbsp;</th>
             }
             <th>&nbsp;</th>
         </tr>
@@ -24,11 +23,8 @@
             </td>
             @foreach (var semesterType in Model.objSemesterType)
             {
-                <td style ="width:5%">
+                <td style="width:5%">
                     Amt.
-                </td>
-                <td style="width:20%">
-                    Notes
                 </td>
             }
             <td>
@@ -44,13 +40,10 @@
                 </td>
                 @foreach (var semesterType in Model.objSemesterType)
                 {
-                    @foreach (var release in Model.objInstructorRelease.Where(c => (c.ApplicationUserId == instructor.Id && c.SemesterTypeId == semesterType.SemesterTypeId)))
+                    @foreach (var release in Model.objInstructorLoad.Where(c => (c.ApplicationUserId == instructor.Id && c.SemesterTypeId == semesterType.SemesterTypeId)))
                     {
-                        <td style="width:5%">
-                            @release.ReleaseTimeAmount
-                        </td>
-                        <td style="width:20%">
-                            @release.ReleaseTimeName
+                        <td style="width:15%">
+                            @release.LoadAmount
                         </td>
                     }
                 }
