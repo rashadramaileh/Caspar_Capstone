@@ -55,9 +55,18 @@
                     </div>
                 </div>
 
-                @{
-                    var j = 0;
-                }
+                    @{
+                        var j = 0;
+                        var infoCount = 0;
+                        foreach (var item in Model.modalityCheck)
+                        {
+                            if (item.AdditionalInfo == true)
+                            {
+                                infoCount++;
+                            }
+                        }
+                        infoCount--;
+                    }
                 @for (var i = 0; i < Model.modalityCheck.Count; i++)
                 {
                     if (Model.modalityCheck[i].AdditionalInfo == true)
@@ -68,7 +77,7 @@
                             <button type="button" onclick="AddAnotherItem('@Model.modalityCheck[i].Text')">Add Another Time</button>
 
                             @if (Model.objInstructorTime[j].InstructorTimeId == 0)
-                            {
+                             {
                                 <div class="count">
                                      
                                     <br>
@@ -98,7 +107,7 @@
                                 {
                                     if (Model.objInstructorTime[k].InstructorWishlistModalityId == Model.modalityCheck[i].Value)
                                     {
-                                        <div class="count">
+                                        <div class="count" id="input @k">
 
                                             <br>
                                             <label asp-for="objInstructorTime[k].DaysBlockId">Time</label>
@@ -106,8 +115,8 @@
                                                 <option disabled selected>--Select Day--</option>
                                             </select>
 
-                                            <label asp-for="objInstructorTime[j].MeetingTime">Time</label>
-                                            <select id="ddlMeeting @j" asp-for="objInstructorTime[j].MeetingTimeId" asp-items="@Model.MeetingList" class="form-select">
+                                            <label asp-for="objInstructorTime[k].MeetingTime">Time</label>
+                                            <select id="ddlMeeting @k" asp-for="objInstructorTime[k].MeetingTimeId" asp-items="@Model.MeetingList" class="form-select">
                                                 <option disabled selected>--Select Time--</option>
                                             </select>
 
@@ -115,7 +124,7 @@
                                             <select id="ddlCampus @k" asp-for="objInstructorTime[k].CampusId" asp-items="@Model.CampusList" class="form-select">
                                                 <option disabled selected>--Select Campus--</option>
                                             </select>
-                                            @if (k > 1)
+                                            @if (k > infoCount)
                                             {
                                                 <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:inline"></i>
                                             }
@@ -173,11 +182,14 @@
         function testing(value, text) {
             var checkBox = document.getElementById(value)
             var text = document.getElementById(text)
-            if (checkBox.checked) {
-                text.style.display = "inline";
-            }
-            else {
-                text.style.display = "none";
+            if(text != null)
+            {
+                if (checkBox.checked) {
+                    text.style.display = "inline";
+                }
+                else {
+                    text.style.display = "none";
+                }
             }
         }
 
@@ -191,10 +203,10 @@
             //Cloning the node to use for future node
             const node = child.cloneNode(true)
             //Setting up the correct values for the new node
-            node.id = 'input' + count;
+            node.id = 'input ' + count;
             var childVal = child.innerHTML
             document.getElementById(text).appendChild(node)
-            var newParent = document.getElementById('input' + count)
+            var newParent = document.getElementById('input ' + count)
             var newChild = newParent.childNodes[3]
             newChild.setAttribute("for", "objInstructorTime_" + count + "__DayBlock")
             newChild = newParent.childNodes[5]
@@ -219,7 +231,7 @@
         }
 
         function removeDiv(value) {
-            var toRemove = document.getElementById(value.id).closest("div div")
+            var toRemove = document.getElementById("input "+value.id)
             toRemove.childNodes[17].setAttribute("value", "-1")
             toRemove.setAttribute("style", "display: none")
         }
