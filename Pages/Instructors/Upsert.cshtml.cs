@@ -81,7 +81,7 @@ namespace CASPAR.Pages.Instructors
                 CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId, AdditionalInfo = item.AdditionalWishlistInfo };
                 modalityCheck.Add(toAdd);
 
-                if (item.ModalityName != "Online")
+                if (item.AdditionalWishlistInfo == true)
                 {
                     InstructorTime toAddTime = new InstructorTime();
                     objInstructorTime.Add(toAddTime);
@@ -130,12 +130,13 @@ namespace CASPAR.Pages.Instructors
             // Edit mode
             if (id != 0)
             {
-                int count = 1;
+                int count = 0;
+                int previouscount = 0;
                 List<int> modalityIds = new List<int>();
                 objInstructorWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetById(id);
                 foreach (var item in modalityCheck)
                 {
-                    foreach (var modality in _unitOfWork.InstructorWishlistModality.GetAll(c => c.InstructorWishListDetailsId == id))
+                    foreach (var modality in   _unitOfWork.InstructorWishlistModality.GetAll(c => c.InstructorWishListDetailsId == id))
                     {
                         if (item.Value == modality.ModalityId)
                         {
@@ -146,10 +147,18 @@ namespace CASPAR.Pages.Instructors
                             {
                                 objInstructorTime[count] = _unitOfWork.InstructorTime.GetAll(c => c.InstructorWishlistModalityId == modality.InstructorWishlistModalityId).FirstOrDefault();
                                 objInstructorTime[count].InstructorWishlistModalityId = (int)modality.ModalityId;
-                            }
+                                count++;
+							}
+                        }
+                    }
+                    if(item.AdditionalInfo == true)
+                    {
+                        if(count == previouscount)
+                        {
                             count++;
                         }
                     }
+                    previouscount = count;
                 }
 
                 foreach (var item in modalityIds)

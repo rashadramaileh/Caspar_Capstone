@@ -79,7 +79,7 @@ namespace CASPAR.Pages.Students
                 CheckBoxItem toAdd = new CheckBoxItem { Text = item.ModalityName, Value = item.ModalityId, AdditionalInfo = item.AdditionalWishlistInfo };
                 modalityCheck.Add(toAdd);
 
-                if(item.ModalityName != "Online")
+                if(item.AdditionalWishlistInfo == true)
                 {
                     StudentTime toAddTime = new StudentTime();
                     objStudentTime.Add(toAddTime);
@@ -122,7 +122,8 @@ namespace CASPAR.Pages.Students
             // Edit mode
             if (id != 0)
             {
-                int count = 1;
+                int count = 0;
+                int previouscount = 0;
                 List<int> modalityIds = new List<int>();
                 objStudentWishlistDetails = _unitOfWork.StudentWishlistDetails.GetById(id);
                 foreach (var item in modalityCheck)
@@ -138,10 +139,18 @@ namespace CASPAR.Pages.Students
                             {
                                 objStudentTime[count] = _unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == modality.StudentWishlistModalityId).FirstOrDefault();
                                 objStudentTime[count].StudentWishlistModalityId = (int)modality.ModalityId;
+                                count++;
                             }
+                        }
+                    }
+                    if (item.AdditionalInfo == true)
+                    {
+                        if (count == previouscount)
+                        {
                             count++;
                         }
                     }
+                    previouscount = count;
                 }
 
                 foreach (var item in modalityIds)
@@ -229,6 +238,15 @@ namespace CASPAR.Pages.Students
                     foreach(var time in _unitOfWork.StudentTime.GetAll(c => c.StudentWishlistModalityId == item.StudentWishlistModalityId).ToList())
                     {
                         oldTimes.Add(time);
+                    }
+                }
+
+                foreach (var item in objStudentTime)
+                {
+                    if (item.StudentWishlistModalityId == -1)
+                    {
+                        item.StudentWishlistModalityId = 0;
+                        item.StudentTimeId = -1;
                     }
                 }
 

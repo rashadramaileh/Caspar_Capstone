@@ -52,7 +52,17 @@
                     </div>
                 </div>
                  
-                @{var j = 0;}
+                @{var j = 0;
+                        var infoCount = 0;
+                        foreach (var item in Model.modalityCheck)
+                        {
+                            if (item.AdditionalInfo == true)
+                            {
+                                infoCount++;
+                            }
+                        }
+                        infoCount--;
+                    }
                 @for (var i = 0; i < Model.modalityCheck.Count; i++)
                 { 
                     if (Model.modalityCheck[i].AdditionalInfo == true)
@@ -87,7 +97,7 @@
                                 {
                                     if(Model.objStudentTime[k].StudentWishlistModalityId == Model.modalityCheck[i].Value)
                                     {
-                                        <div class="count">
+                                        <div class="count" id="input @k">
 
                                             <br>
                                             <label asp-for="objStudentTime[k].TimeBlock">Time</label>
@@ -99,7 +109,7 @@
                                             <select id="ddlCampus @k" asp-for="objStudentTime[k].CampusId" asp-items="@Model.CampusList" class="form-select">
                                                 <option disabled selected>--Select Campus--</option>
                                             </select>
-                                            @if(k > 1)
+                                            @if (k > infoCount)
                                             {
                                                 <i class="bi bi-trash" id="@k" onclick="removeDiv(this)" style="display:inline"></i>
                                             }
@@ -156,11 +166,14 @@
         function testing(value, text){
             var checkBox = document.getElementById(value)
             var text = document.getElementById(text)
-            if (checkBox.checked) {
-                text.style.display = "inline";
-            }
-            else{
-                text.style.display = "none";
+            if (text != null) 
+            {
+                if (checkBox.checked) {
+                    text.style.display = "inline";
+                }
+                else {
+                    text.style.display = "none";
+                }
             }
         }
 
@@ -174,10 +187,10 @@
             //Cloning the node to use for future node
             const node = child.cloneNode(true)
             //Setting up the correct values for the new node
-            node.id = 'input' + count;
+            node.id = 'input ' + count;
             var childVal = child.innerHTML
             document.getElementById(text).appendChild(node)
-            var newParent = document.getElementById('input' + count)
+            var newParent = document.getElementById('input ' + count)
             var newChild = newParent.childNodes[3]
             newChild.setAttribute("for", "objStudentTime_" + count + "__TimeBlock")
             newChild = newParent.childNodes[5]
@@ -200,7 +213,7 @@
         }
 
         function removeDiv(value) {
-            var toRemove = document.getElementById(value.id).closest("div div")
+            var toRemove = document.getElementById("input " + value.id)
             toRemove.childNodes[13].setAttribute("value", "-1")
             toRemove.setAttribute("style", "display: none")
         }
