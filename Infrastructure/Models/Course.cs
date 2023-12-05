@@ -30,5 +30,7 @@ namespace CASPAR.Infrastructure.Models
 
         [Display(Name = "Active")]
         public int IsActive { get; set; } = 1;
+        [NotMapped]
+        public string FullName { get { return CoursePrefix + " " + CourseNumber; } }
     }
 }

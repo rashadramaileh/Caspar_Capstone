@@ -13,13 +13,13 @@ function loadList() {
         "ajax": {
             "url": "/api/programcoordinator",
             "type": "GET",
-            "data": {"id":id},
+            "data": { "id": id },
             "datatype": "json"
         },
         "columns": [
             // Should not be capital
             { "data": "applicationUser.fullName", "width": "5%" },
-            { "data": "course.courseName", "width": "5%" },
+            { "data": "course.fullName"},
             { "data": "crn", "width": "5%" },
             { "data": "modality.modalityName", "width": "5%" },
             { "data": "meetingTime.meetingTimeName", "width": "5%" },
