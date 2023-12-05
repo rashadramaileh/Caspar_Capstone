@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Manage Semesters";
 }
-@if (User.IsInRole("Admin") || true)// check other role.
+@if (User.IsInRole("Admin") || User.IsInRole("Secretary") || User.IsInRole("Program Coordinator"))
 {
     <div class="container">
         <div class="row pt=4">
