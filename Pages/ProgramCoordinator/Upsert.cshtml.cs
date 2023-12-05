@@ -1,5 +1,6 @@
 using CASPAR.Infrastructure.Models;
 using DataAccess;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ namespace CASPAR.Pages.ProgramCoordinator
     public class UpsertModel : PageModel
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
         [BindProperty]
         public Section objSection { get; set; }
         public IEnumerable<SelectListItem> listUsers { get; set; }
@@ -23,8 +25,9 @@ namespace CASPAR.Pages.ProgramCoordinator
         public IEnumerable<SelectListItem> listDayBlocks { get; set; }
         public IEnumerable<SelectListItem> listCampuss { get; set; }
 
-        public UpsertModel(UnitOfWork unit)
+        public UpsertModel(UnitOfWork unit, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _unitOfWork = unit;
             objSection = new Section();
             listUsers = new List<SelectListItem>();
@@ -72,13 +75,23 @@ namespace CASPAR.Pages.ProgramCoordinator
         public void OnGet(int id)
         {
             objSection = _unitOfWork.Section.GetById(id);
-            //populate dropdown lists. 
-            listUsers = _unitOfWork.ApplicationUser.GetAll()
+            //populate dropdown lists.
+            var instructorList = new List<ApplicationUser>();
+            var instructors = _userManager.GetUsersInRoleAsync("Instructor").Result;
+            foreach (var instructor in instructors)
+            {
+                instructorList.Add(instructor);
+            }
+
+            instructorList = instructorList.OrderBy(x => x.FullName).ToList();
+
+            listUsers = instructorList
                 .Select(c => new SelectListItem
                 {
                     Text = c.FullName,
                     Value = c.Id
-                }); //TODO filter by role
+                });
+            
             listClassrooms = _unitOfWork.Classroom.GetAll(null, null, "Building")
                 .Select(c => new SelectListItem
                 {
