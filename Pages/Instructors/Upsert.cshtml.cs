@@ -187,6 +187,14 @@ namespace CASPAR.Pages.Instructors
             //Retrieve the files [array]
             var files = HttpContext.Request.Form.Files;
 
+            // Validate against duplicates in the database
+            if (IsDuplicateRanking(objInstructorWishlistDetails.InstructorRanking, objInstructorWishlistDetails.InstructorWishlistDetailsId))
+            {
+                // Handle the duplicate case, e.g., return an error message or redirect to the form
+                TempData["error"] = "Duplicate value. Please enter a different value.";
+                return Page();
+            }
+
             //if the product is new (create)
             if (objInstructorWishlistDetails.InstructorWishlistDetailsId == 0)
             {
@@ -221,6 +229,7 @@ namespace CASPAR.Pages.Instructors
                         }
                     }
                 }
+
                 TempData["Success"] = "Wishlist Added Successfully";
             }
             
@@ -340,6 +349,15 @@ namespace CASPAR.Pages.Instructors
 
             //redirect to the products page
             return RedirectToPage("/Instructors/InstructorWishlistHome");
+        }
+
+        private bool IsDuplicateRanking(int ranking, int currentId)
+        {
+            // Check for duplicate ranking excluding the current record
+            var existingRecord = _unitOfWork.InstructorWishlistDetails.GetAll(w => w.InstructorRanking == ranking && w.InstructorWishlistDetailsId != currentId);
+
+            // If existingRecord is not null, it means a duplicate ranking exists
+            return existingRecord != null;
         }
     }
 }
