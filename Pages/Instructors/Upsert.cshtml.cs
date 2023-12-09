@@ -51,6 +51,8 @@ namespace CASPAR.Pages.Instructors
         [BindProperty]
         public List<CheckBoxItem> modalityCheck { get; set; }
 
+        public int? saveId;
+
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -120,6 +122,24 @@ namespace CASPAR.Pages.Instructors
             {
                 objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(wishlist);
             }
+
+            if (id == null)
+            {
+                id = 0;
+            }
+            saveId = id;
+
+            if (id > 0)
+            {
+                objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(wishlist);
+            }
+
+            if(objInstructorWishlist.InstructorWishlistId == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
 
             // Are we in Create mode?
             if (id == null || id == 0)
@@ -192,7 +212,7 @@ namespace CASPAR.Pages.Instructors
             {
                 // Handle the duplicate case, e.g., return an error message or redirect to the form
                 TempData["error"] = "Duplicate value. Please enter a different value.";
-                return Page();
+                return RedirectToPage(new { id = saveId.ToString() });
             }
 
             //if the product is new (create)
