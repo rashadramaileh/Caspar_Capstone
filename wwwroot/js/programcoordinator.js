@@ -59,7 +59,15 @@ function loadList() {
                         </div>`;
                     }
                 }, "width": "15%"
-            }
+            },
+            {
+                "data": "sectionId",
+                "render": function (data) {
+                    return `<div class="text-center">
+                    <a href="/ProgramCoordinator/CRN?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                    <i class="far fa-edit"></i> Update CRN </a></div>`;
+                }, "width": "15%"
+            },
         ],
         "language": {
             "emptyTable": "No data found."
