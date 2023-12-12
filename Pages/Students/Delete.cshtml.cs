@@ -91,11 +91,12 @@ namespace CASPAR.Pages.Students
                 _unitOfWork.StudentWishlistModality.Delete(modality);
             }
 
+            int semesterId = _unitOfWork.StudentWishlist.GetById(studentWishlistDetails.StudentWishlistId).SemesterId;
             _unitOfWork.StudentWishlistDetails.Delete(studentWishlistDetails);
 
             TempData["success"] = "Product Deleted Successfully";
             _unitOfWork.Commit();
-            return RedirectToPage("./StudentWishlistHome");
+            return RedirectToPage("./StudentWishlistHome", new { semesterId = semesterId });
         }
     }
 }

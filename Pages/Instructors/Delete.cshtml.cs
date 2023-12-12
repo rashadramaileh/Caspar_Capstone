@@ -92,11 +92,12 @@ namespace CASPAR.Pages.Instructors
                 _unitOfWork.InstructorWishlistModality.Delete(modality);
             }
 
-            _unitOfWork.InstructorWishlistDetails.Delete(InstructorWishlistDetails);
+			int semesterId = _unitOfWork.InstructorWishlist.GetById(InstructorWishlistDetails.InstructorWishlistId).SemesterId;
+			_unitOfWork.InstructorWishlistDetails.Delete(InstructorWishlistDetails);
 
             TempData["success"] = "Product Deleted Successfully";
             _unitOfWork.Commit();
-            return RedirectToPage("./InstructorWishlistHome");
+            return RedirectToPage("./InstructorWishlistHome", new { semesterId = semesterId });
         }
     }
 }
