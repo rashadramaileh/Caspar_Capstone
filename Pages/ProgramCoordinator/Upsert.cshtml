@@ -62,7 +62,7 @@
                         <div class="mb-3 col-6">
                             <!--PARTOFTERM-->
                             <label asp-for="objSection.PartOfTerm"></label>
-                            <select id="partofterm" asp-for="objSection.PartOfTerm" asp-items="@Model.listPartOfTerms" class="form-select">
+                            <select id="partofterm" asp-for="objSection" asp-items="@Model.listPartOfTerms" class="form-select">
                                 <option disabled selected>--Select Part Of Term--</option>
                             </select>
                         </div>
@@ -143,7 +143,63 @@
 }
 else
 {
-    Response.Redirect(@$"./Index?id={@Model.objSection.SemesterId}");
+    @*Response.Redirect(@$"./Index?id={@Model.objSection.SemesterId}");*@
+    <div class="container" style="max-width:1100px">
+        <form method="post" asp-page="Upsert" enctype="multipart/form-data">
+            <input asp-for="objSection.SectionId" hidden />
+            <input asp-for="objSection.SemesterId" hidden />
+            <input asp-for="objSection.CourseId" hidden />
+            <input asp-for="objSection.ClassroomId" hidden />
+            <input asp-for="objSection.DayBlockId" hidden />
+            <input asp-for="objSection.FirstWeekEnroll" hidden />
+            <input asp-for="objSection.MaxEnrollment" hidden />
+            <input asp-for="objSection.ModalityId" hidden />
+            <input asp-for="objSection.PartOfTerm" hidden />
+            <input asp-for="objSection.PayModelId" hidden />
+            <input asp-for="objSection.SectionStatusId" hidden />
+            <input asp-for="objSection.ThirdWeekEnroll" hidden />
+            <input asp-for="objSection.WhoPaysId" hidden />
+            <input asp-for="objSection.ApplicationUserId" hidden />
+            <input asp-for="objSection.MeetingTimeId" hidden />
+            <input asp-for="objSection.CampusId" hidden />
+            <input asp-for="objSection.Notes" hidden />
+            <div class="col-12 pb-2">
+                <h2 class="text-primary">@(Model.objSection.CourseId != 0 ? "Update " : "Create ")CRN</h2>
+                <hr />
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4 row">
+
+                        <div class="container">
+                            <div class="mb-3 col-6">
+                                <!--CRN-->
+                                <label asp-for="objSection.Crn"></label>
+                                <input asp-for="objSection.Crn" id="crn" type="text" />
+                            </div>
+
+
+                        </div>
+                        <div class="col-12">
+                            <!--IF Section being edited -->
+                            @if (Model.objSection.SectionId != 0)
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                            }<!--END ELSE -->
+
+                            <a asp-page="index" asp-route-id="@(Model.objSection.SemesterId)" class="btn btn-secondary" style="width:150px">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 }
 @section Scripts{
     <script>

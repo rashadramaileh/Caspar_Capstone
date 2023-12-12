@@ -27,9 +27,9 @@ function loadList() {
             { "data": "classroom.roomNumber", "width": "5%" },
             { "data": "maxEnrollment", "width": "5%" },
             { "data": "course.creditHours", "width": "5%" },
-            { "data": "partOfTerm.partOfTermName", "width": "5%" },
+            { "data": "partOfTerm.partOfTermID", "width": "5%" },
             { "data": "campus.campusName", "width": "5%" },
-            { "data": "payModel.payModelName", "width": "5%" },
+            { "data": "payModel.payType", "width": "5%" },
             { "data": "whoPays.whoPaysName", "width": "5%" },
             { "data": "sectionStatus.statusName", "width": "5%" },
             { "data": "notes", "width": "5%" },
@@ -58,14 +58,6 @@ function loadList() {
                                Inactive </button>
                         </div>`;
                     }
-                }, "width": "15%"
-            },
-            {
-                "data": "sectionId",
-                "render": function (data) {
-                    return `<div class="text-center">
-                    <a href="/ProgramCoordinator/CRN?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
-                    <i class="far fa-edit"></i> Update CRN </a></div>`;
                 }, "width": "15%"
             },
         ],
