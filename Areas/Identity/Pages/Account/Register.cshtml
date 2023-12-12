@@ -33,17 +33,35 @@
                 <div class="col-4">
                     <label asp-for="Input.Password"></label>
                 </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="Input.Password" maxlength="50" />
-                    <span class="text-danger" asp-validation-for="Input.Password"></span>
-                </div>
-                <div class="col-4">
-                    <label asp-for="Input.ConfirmPassword"></label>
-                </div>
-                <div class="col-8">
-                    <input type="password" asp-for="Input.ConfirmPassword" autocomplete="off" placeholder="Confirm Password" class="form-control" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>
+                @if (User.IsInRole(SD.AdminRole))
+                {
+                    <div class="col-8">
+                        <input class="form-control" value="WildCatPass123!" asp-for="Input.Password" maxlength="50" />
+                        <span class="text-danger" asp-validation-for="Input.Password"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Input.ConfirmPassword"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" value="WildCatPass123!" asp-for="Input.ConfirmPassword" autocomplete="off" placeholder="Confirm Password" class="form-control" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="col-8">
+                        <input class="form-control" asp-for="Input.Password" maxlength="50" />
+                        <span class="text-danger" asp-validation-for="Input.Password"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Input.ConfirmPassword"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" asp-for="Input.ConfirmPassword" autocomplete="off" placeholder="Confirm Password" class="form-control" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                }
             </div>
             <div class="form-group row pt-4">
                 <div class="col-4">
@@ -117,35 +135,35 @@
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">
-@*         <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
-                                article
-                                about setting up this ASP.NET application to support logging in via external services
-                            </a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
+        @*         <section>
+        <h3>Use another service to register.</h3>
+        <hr />
+        @{
+        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+        {
+        <div>
+        <p>
+        There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+        article
+        about setting up this ASP.NET application to support logging in via external services
+        </a>.
+        </p>
+        </div>
+        }
+        else
+        {
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        <div>
+        <p>
+        @foreach (var provider in Model.ExternalLogins)
+        {
+        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+        }
+        </p>
+        </div>
+        </form>
+        }
+        }
         </section> *@
     </div>
 </div>
