@@ -62,7 +62,7 @@
                         <div class="mb-3 col-6">
                             <!--PARTOFTERM-->
                             <label asp-for="objSection.PartOfTerm"></label>
-                            <select id="partofterm" asp-for="objSection" asp-items="@Model.listPartOfTerms" class="form-select">
+                            <select id="partofterm" asp-for="objSection.PartOfTermID" asp-items="@Model.listPartOfTerms" class="form-select">
                                 <option disabled selected>--Select Part Of Term--</option>
                             </select>
                         </div>
