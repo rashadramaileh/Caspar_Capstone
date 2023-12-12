@@ -208,6 +208,7 @@ namespace CASPAR.Pages.Instructors
             //if the product is new (create)
             if (objInstructorWishlistDetails.InstructorWishlistDetailsId == 0)
             {
+
                 foreach (var item in objInstructorTime)
                 {
                     if (item.InstructorWishlistModalityId == -1)
@@ -218,6 +219,13 @@ namespace CASPAR.Pages.Instructors
                 }
 
                 objInstructorWishlistDetails.InstructorWishlistId = objInstructorWishlist.InstructorWishlistId;
+                // Validate against duplicates in the database
+                if (IsDuplicateRanking(objInstructorWishlistDetails.InstructorRanking, objInstructorWishlistDetails.InstructorWishlistId))
+                {
+                    // Handle the duplicate case, e.g., return an error message or redirect to the form
+                    TempData["error"] = "Duplicate value. Please enter a different value.";
+                    return RedirectToPage(new { id = objInstructorWishlistDetails.InstructorWishlistDetailsId.ToString(), wishlist = objInstructorWishlistDetails.InstructorWishlistId.ToString() });
+                }
                 _unitOfWork.InstructorWishlistDetails.Add(objInstructorWishlistDetails);
                 foreach (var item in modalityCheck)
                 {
