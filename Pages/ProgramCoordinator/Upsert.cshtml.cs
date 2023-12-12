@@ -75,6 +75,7 @@ namespace CASPAR.Pages.ProgramCoordinator
         public void OnGet(int id)
         {
             objSection = _unitOfWork.Section.GetById(id);
+            objSection.Course = _unitOfWork.Course.GetById(objSection.CourseId);
             //populate dropdown lists.
             var instructorList = new List<ApplicationUser>();
             var instructors = _userManager.GetUsersInRoleAsync("Instructor").Result;
@@ -98,7 +99,7 @@ namespace CASPAR.Pages.ProgramCoordinator
                     Text = c.RoomNumber + " " + c.Building.BuildingName,
                     Value = c.ClassroomId.ToString()
                 });
-            listCourses = _unitOfWork.Course.GetAll()
+            listCourses = _unitOfWork.Course.GetAll(c => c.CourseId == objSection.CourseId)
                 .Select(c => new SelectListItem
                 {
                     Text = c.CourseName,
