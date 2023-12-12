@@ -24,12 +24,14 @@ namespace CASPAR.Pages.ProgramCoordinator
         public IEnumerable<SelectListItem> listMeetingTimes { get; set; }
         public IEnumerable<SelectListItem> listDayBlocks { get; set; }
         public IEnumerable<SelectListItem> listCampuss { get; set; }
+        public IEnumerable<Section> listSectionCourses { get; set; }
 
         public UpsertModel(UnitOfWork unit, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _unitOfWork = unit;
             objSection = new Section();
+            listSectionCourses = new List<Section>();
             listUsers = new List<SelectListItem>();
             listClassrooms = new List<SelectListItem>();
             listCourses = new List<SelectListItem>();
@@ -76,6 +78,7 @@ namespace CASPAR.Pages.ProgramCoordinator
         {
             objSection = _unitOfWork.Section.GetById(id);
             objSection.Course = _unitOfWork.Course.GetById(objSection.CourseId);
+            
             //populate dropdown lists.
             var instructorList = new List<ApplicationUser>();
             var instructors = _userManager.GetUsersInRoleAsync("Instructor").Result;
@@ -85,11 +88,29 @@ namespace CASPAR.Pages.ProgramCoordinator
             }
 
             instructorList = instructorList.OrderBy(x => x.FullName).ToList();
+            
+            //TODO map each of the courses that are assigned to an instructor. 
+            var dictInstructor = new Dictionary<string, string>();
+            listSectionCourses = _unitOfWork.Section.GetAll(x => x.SemesterId == id, null, "Course");
+            foreach (var instructor in instructorList)
+            {
+                dictInstructor.Add(instructor.Id, instructor.FullName);
+            }
 
+            foreach (var section in listSectionCourses)
+            {
+                if (dictInstructor.ContainsKey(section.ApplicationUserId))
+                {
+                    dictInstructor[section.ApplicationUserId] = (dictInstructor[section.ApplicationUserId] + ", " + section.Course.CoursePrefix + section.Course.CourseNumber);
+                }
+                
+            }
+
+            //TODO populate the list with instructor and the 
             listUsers = instructorList
                 .Select(c => new SelectListItem
                 {
-                    Text = c.FullName,
+                    Text = dictInstructor[c.Id],
                     Value = c.Id
                 });
             
