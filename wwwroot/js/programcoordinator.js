@@ -27,7 +27,7 @@ function loadList() {
             { "data": "classroom.roomNumber", "width": "5%" },
             { "data": "maxEnrollment", "width": "5%" },
             { "data": "course.creditHours", "width": "5%" },
-            { "data": "partOfTerm.partOfTermID", "width": "5%" },
+            { "data": "partOfTerm.partOfTermName", "width": "5%" },
             { "data": "campus.campusName", "width": "5%" },
             { "data": "payModel.payType", "width": "5%" },
             { "data": "whoPays.whoPaysName", "width": "5%" },
