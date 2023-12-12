@@ -139,8 +139,6 @@ namespace CASPAR.Pages.Instructors
                 return NotFound();
             }
 
-            return Page();
-
             // Are we in Create mode?
             if (id == null || id == 0)
             {
@@ -206,15 +204,7 @@ namespace CASPAR.Pages.Instructors
             string webRootPath = _webHostEnvironment.WebRootPath;
             //Retrieve the files [array]
             var files = HttpContext.Request.Form.Files;
-
-            // Validate against duplicates in the database
-            if (IsDuplicateRanking(objInstructorWishlistDetails.InstructorRanking, objInstructorWishlistDetails.InstructorWishlistDetailsId))
-            {
-                // Handle the duplicate case, e.g., return an error message or redirect to the form
-                TempData["error"] = "Duplicate value. Please enter a different value.";
-                return RedirectToPage(new { id = saveId.ToString() });
-            }
-
+            
             //if the product is new (create)
             if (objInstructorWishlistDetails.InstructorWishlistDetailsId == 0)
             {
@@ -257,6 +247,13 @@ namespace CASPAR.Pages.Instructors
             //Updating an existing wishlist (edit)
             else
             {
+                // Validate against duplicates in the database
+                if (IsDuplicateRanking(objInstructorWishlistDetails.InstructorRanking, objInstructorWishlistDetails.InstructorWishlistId))
+                {
+                    // Handle the duplicate case, e.g., return an error message or redirect to the form
+                    TempData["error"] = "Duplicate value. Please enter a different value.";
+                    return RedirectToPage(new { id = objInstructorWishlistDetails.InstructorWishlistDetailsId.ToString(), wishlist = objInstructorWishlistDetails.InstructorWishlistId.ToString() });
+                }
                 //Updates class change on details page
                 _unitOfWork.InstructorWishlistDetails.Update(objInstructorWishlistDetails);
 
@@ -364,6 +361,7 @@ namespace CASPAR.Pages.Instructors
 
                 TempData["success"] = "Wishlist Successfully Updated";
             }
+
             //Save changes to Database
             _unitOfWork.Commit();
 
@@ -371,13 +369,19 @@ namespace CASPAR.Pages.Instructors
             return RedirectToPage("/Instructors/InstructorWishlistHome");
         }
 
-        private bool IsDuplicateRanking(int ranking, int currentId)
+        private bool IsDuplicateRanking(int ranking, int? wishlistId)
         {
+            List<int> ranks = new List<int>();
+            ranks.Add(0);
+            IEnumerable<InstructorWishlistDetails> objWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetAll(x => x.InstructorWishlistId == wishlistId,null,"InstructorWishlist");
+            foreach(InstructorWishlistDetails i in objWishlistDetails)
+            {
+                ranks.Add(i.InstructorRanking);
+            }
             // Check for duplicate ranking excluding the current record
-            var existingRecord = _unitOfWork.InstructorWishlistDetails.GetAll(w => w.InstructorRanking == ranking && w.InstructorWishlistDetailsId != currentId);
 
-            // If existingRecord is not null, it means a duplicate ranking exists
-            return existingRecord != null;
+            // If list of ranks contains the ranking, return true
+            return ranks.Contains(ranking);
         }
     }
 }
