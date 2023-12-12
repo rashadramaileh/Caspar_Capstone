@@ -41,11 +41,11 @@ namespace CASPAR.Pages.Students
             ListStudentWishlist = new List<StudentWishlist>();
         }
 
-        public void OnGet()
+        public void OnGet(int? semesterId)
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            GetStudentWishlistData(claim.Value, null);
+            GetStudentWishlistData(claim.Value, semesterId);
         }
 
         public void OnPost()
@@ -71,6 +71,7 @@ namespace CASPAR.Pages.Students
             }
             else
             {
+                return;
                 objStudentWishlist = _unitOfWork.StudentWishlist.Get(x => x.ApplicationUserId == applicationUser);
             }
 

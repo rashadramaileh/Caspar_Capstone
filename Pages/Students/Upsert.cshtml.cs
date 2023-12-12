@@ -86,7 +86,7 @@ namespace CASPAR.Pages.Students
                 }
             }
 
-            CourseList = _unitOfWork.Course.GetAll().OrderBy(x => x.CoursePrefix).ThenBy(x => x.CourseNumber).ThenBy(x => x.CourseName)
+            CourseList = _unitOfWork.Course.GetAll().Where(x => x.IsActive == 1).OrderBy(x => x.CoursePrefix).ThenBy(x => x.CourseNumber).ThenBy(x => x.CourseName)
                 .Select(x => new SelectListItem
                 {
                     Text = x.CoursePrefix + x.CourseNumber + " " + x.CourseName,
@@ -328,8 +328,10 @@ namespace CASPAR.Pages.Students
             //Save changes to Database
             _unitOfWork.Commit();
 
+            int semesterIdValue = _unitOfWork.StudentWishlist.GetById(objStudentWishlistDetails.StudentWishlistId).SemesterId;
+
             //redirect to the products page
-            return RedirectToPage("/Students/StudentWishlistHome");
+            return RedirectToPage("/Students/StudentWishlistHome", new { semesterId = semesterIdValue });
         }
     }
 }

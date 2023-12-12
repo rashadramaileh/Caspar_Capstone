@@ -21,86 +21,92 @@
             </form>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="Upsert" asp-route-id="0" asp-route-wishlist="@Model.objInstructorWishlist.InstructorWishlistId" class="btn btn-primary" style="float:right">
-                <i class="bi bi-plus-circle"></i> Create New Wishlist
-            </a>
+            @if (Model.objInstructorWishlist.SemesterId != 0)
+            {
+                <a asp-page="Upsert" asp-route-id="0" asp-route-wishlist="@Model.objInstructorWishlist.InstructorWishlistId" class="btn btn-primary" style="float:right">
+                    <i class="bi bi-plus-circle"></i> Add Another Course
+                </a>
+            }
         </div>
     </div>
 
-    <table class="table table-borded table-hover" style="width: 100%">
-        <thead>
-            <tr>
-                <th>
-                    Ranking
-                </th>
-                <th>
-                    Course
-                </th>
-                <th>
-                    Modality
-                </th>
-                <th>
-                    Day Block
-                </th>
-                <th>
-                    Meeting Time
-                </th>
-                <th>
-                    Campus
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var wishlist in Model.objInstructorWishlistVMs)
-            {
+    @if (Model.objInstructorWishlistVMs.Count != 0)
+    {
+        <table class="table table-borded table-hover" style="width: 100%">
+            <thead>
                 <tr>
-                    <td style="width:15%">
-                        @wishlist.objInstructorWishlistDetails.InstructorRanking
-                    </td>
-
-                    <td style="width:20%">
-                        @wishlist.objInstructorWishlistDetails.Course.CoursePrefix @wishlist.objInstructorWishlistDetails.Course.CourseNumber
-                        @wishlist.objInstructorWishlistDetails.Course?.CourseName
-                    </td>
-                    <td style="width:20%">
-                        @foreach (var modality in wishlist.objInstructorWishlistModalities)
-                        {
-                            <p>@modality.Modality.ModalityName </p>
-                        }
-                    </td>
-                    <td style="width:15%">
-                        @foreach (var time in wishlist.objInstructorTimes)
-                        {
-                            <p> @time.DayBlock.DayName </p>
-                        }
-                    </td>
-                    <td style="width:15%">
-                        @foreach (var time in wishlist.objInstructorTimes)
-                        {
-                            <p> @time.MeetingTime.meetingTimeName </p>
-                        }
-                    </td>
-                    <td style="width:15%">
-                        @foreach (var time in wishlist.objInstructorTimes)
-                        {
-                            <p>@time.Campus?.CampusName</p>
-                        }
-                    </td>
-                    <td style="width:20%">
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-page="Upsert" asp-route-id="@wishlist.objInstructorWishlistDetails.InstructorWishlistDetailsId" asp-route-wishlist="@wishlist.objInstructorWishlistDetails.InstructorWishlistId" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <a asp-page="Delete" asp-route-id="@wishlist.objInstructorWishlistDetails.InstructorWishlistDetailsId" asp-route-wishlist="@wishlist.objInstructorWishlistDetails.InstructorWishlistId" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                    <th>
+                        Ranking
+                    </th>
+                    <th>
+                        Course
+                    </th>
+                    <th>
+                        Modality
+                    </th>
+                    <th>
+                        Day Block
+                    </th>
+                    <th>
+                        Meeting Time
+                    </th>
+                    <th>
+                        Campus
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var wishlist in Model.objInstructorWishlistVMs)
+                {
+                    <tr>
+                        <td style="width:15%">
+                            @wishlist.objInstructorWishlistDetails.InstructorRanking
+                        </td>
+
+                        <td style="width:20%">
+                            @wishlist.objInstructorWishlistDetails.Course.CoursePrefix @wishlist.objInstructorWishlistDetails.Course.CourseNumber
+                            @wishlist.objInstructorWishlistDetails.Course?.CourseName
+                        </td>
+                        <td style="width:20%">
+                            @foreach (var modality in wishlist.objInstructorWishlistModalities)
+                            {
+                                <p>@modality.Modality.ModalityName </p>
+                            }
+                        </td>
+                        <td style="width:15%">
+                            @foreach (var time in wishlist.objInstructorTimes)
+                            {
+                                <p> @time.DayBlock.DayName </p>
+                            }
+                        </td>
+                        <td style="width:15%">
+                            @foreach (var time in wishlist.objInstructorTimes)
+                            {
+                                <p> @time.MeetingTime.meetingTimeName </p>
+                            }
+                        </td>
+                        <td style="width:15%">
+                            @foreach (var time in wishlist.objInstructorTimes)
+                            {
+                                <p>@time.Campus?.CampusName</p>
+                            }
+                        </td>
+                        <td style="width:20%">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-page="Upsert" asp-route-id="@wishlist.objInstructorWishlistDetails.InstructorWishlistDetailsId" asp-route-wishlist="@wishlist.objInstructorWishlistDetails.InstructorWishlistId" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                <a asp-page="Delete" asp-route-id="@wishlist.objInstructorWishlistDetails.InstructorWishlistDetailsId" asp-route-wishlist="@wishlist.objInstructorWishlistDetails.InstructorWishlistId" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

@@ -144,7 +144,7 @@
                         <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
                     }
                     <!--END ELSE -->
-                    <a asp-page="/Students/StudentWishlistHome" class="btn btn-secondary" style="width:150px">
+                        <a asp-page="/Students/StudentWishlistHome" asp-route-semesterId="@Model.objStudentWishlist.SemesterId"  class="btn btn-secondary" style="width:150px">
                         Back to List
                     </a>
                 </div>

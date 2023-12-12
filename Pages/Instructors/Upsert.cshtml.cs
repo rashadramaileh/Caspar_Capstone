@@ -90,7 +90,7 @@ namespace CASPAR.Pages.Instructors
                 }
             }
 
-            CourseList = _unitOfWork.Course.GetAll().OrderBy(x => x.CoursePrefix).ThenBy(x => x.CourseNumber).ThenBy(x => x.CourseName)
+            CourseList = _unitOfWork.Course.GetAll().Where(x => x.IsActive == 1).OrderBy(x => x.CoursePrefix).ThenBy(x => x.CourseNumber).ThenBy(x => x.CourseName)
                 .Select(x => new SelectListItem
                 {
                     Text = x.CoursePrefix + x.CourseNumber + " " + x.CourseName,
@@ -373,8 +373,10 @@ namespace CASPAR.Pages.Instructors
             //Save changes to Database
             _unitOfWork.Commit();
 
+            int semesterIdValue = _unitOfWork.InstructorWishlist.GetById(objInstructorWishlistDetails.InstructorWishlistId).SemesterId;
+
             //redirect to the products page
-            return RedirectToPage("/Instructors/InstructorWishlistHome");
+            return RedirectToPage("/Instructors/InstructorWishlistHome", new { semesterId = semesterIdValue });
         }
 
         private bool IsDuplicateRanking(int ranking, int? wishlistId)

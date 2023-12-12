@@ -36,11 +36,11 @@ namespace CASPAR.Pages.Instructors
 			ListInstructorWishlist = new List<InstructorWishlist>();
 		}
 
-		public void OnGet()
+		public void OnGet(int? semesterId)
 		{
             var claimsIdentity = User.Identity as ClaimsIdentity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            GetInstructorWishlistData(claim.Value, null);
+            GetInstructorWishlistData(claim.Value, semesterId);
 		}
 
 		public void OnPost()
@@ -67,6 +67,7 @@ namespace CASPAR.Pages.Instructors
 			}
 			else
 			{
+				return;
 				objInstructorWishlist = _unitOfWork.InstructorWishlist.Get(x => x.ApplicationUserId == applicationUser);
 			}
 
