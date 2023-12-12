@@ -373,8 +373,8 @@ namespace CASPAR.Pages.Instructors
         {
             List<int> ranks = new List<int>();
             ranks.Add(0);
-            IEnumerable<InstructorWishlistDetails> objWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetAll(x => x.InstructorWishlistId == wishlistId,null,"InstructorWishlist");
-            foreach(InstructorWishlistDetails i in objWishlistDetails)
+            IEnumerable<InstructorWishlistDetails> objWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetAll(x => x.InstructorWishlistId == wishlistId && x.InstructorWishlistDetailsId != objInstructorWishlistDetails.InstructorWishlistDetailsId);
+            foreach (InstructorWishlistDetails i in objWishlistDetails)
             {
                 ranks.Add(i.InstructorRanking);
             }
