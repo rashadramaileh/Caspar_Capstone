@@ -51,6 +51,8 @@ namespace CASPAR.Pages.Instructors
         [BindProperty]
         public List<CheckBoxItem> modalityCheck { get; set; }
 
+        public int? saveId;
+
         public UpsertModel(UnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -121,6 +123,22 @@ namespace CASPAR.Pages.Instructors
                 objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(wishlist);
             }
 
+            if (id == null)
+            {
+                id = 0;
+            }
+            saveId = id;
+
+            if (id > 0)
+            {
+                objInstructorWishlist = _unitOfWork.InstructorWishlist.GetById(wishlist);
+            }
+
+            if(objInstructorWishlist.InstructorWishlistId == null)
+            {
+                return NotFound();
+            }
+
             // Are we in Create mode?
             if (id == null || id == 0)
             {
@@ -186,10 +204,11 @@ namespace CASPAR.Pages.Instructors
             string webRootPath = _webHostEnvironment.WebRootPath;
             //Retrieve the files [array]
             var files = HttpContext.Request.Form.Files;
-
+            
             //if the product is new (create)
             if (objInstructorWishlistDetails.InstructorWishlistDetailsId == 0)
             {
+
                 foreach (var item in objInstructorTime)
                 {
                     if (item.InstructorWishlistModalityId == -1)
@@ -200,6 +219,13 @@ namespace CASPAR.Pages.Instructors
                 }
 
                 objInstructorWishlistDetails.InstructorWishlistId = objInstructorWishlist.InstructorWishlistId;
+                // Validate against duplicates in the database
+                if (IsDuplicateRanking(objInstructorWishlistDetails.InstructorRanking, objInstructorWishlistDetails.InstructorWishlistId))
+                {
+                    // Handle the duplicate case, e.g., return an error message or redirect to the form
+                    TempData["error"] = "Duplicate value. Please enter a different value.";
+                    return RedirectToPage(new { id = objInstructorWishlistDetails.InstructorWishlistDetailsId.ToString(), wishlist = objInstructorWishlistDetails.InstructorWishlistId.ToString() });
+                }
                 _unitOfWork.InstructorWishlistDetails.Add(objInstructorWishlistDetails);
                 foreach (var item in modalityCheck)
                 {
@@ -221,6 +247,7 @@ namespace CASPAR.Pages.Instructors
                         }
                     }
                 }
+
                 TempData["Success"] = "Wishlist Added Successfully";
             }
             
@@ -228,6 +255,13 @@ namespace CASPAR.Pages.Instructors
             //Updating an existing wishlist (edit)
             else
             {
+                // Validate against duplicates in the database
+                if (IsDuplicateRanking(objInstructorWishlistDetails.InstructorRanking, objInstructorWishlistDetails.InstructorWishlistId))
+                {
+                    // Handle the duplicate case, e.g., return an error message or redirect to the form
+                    TempData["error"] = "Duplicate value. Please enter a different value.";
+                    return RedirectToPage(new { id = objInstructorWishlistDetails.InstructorWishlistDetailsId.ToString(), wishlist = objInstructorWishlistDetails.InstructorWishlistId.ToString() });
+                }
                 //Updates class change on details page
                 _unitOfWork.InstructorWishlistDetails.Update(objInstructorWishlistDetails);
 
@@ -335,11 +369,27 @@ namespace CASPAR.Pages.Instructors
 
                 TempData["success"] = "Wishlist Successfully Updated";
             }
+
             //Save changes to Database
             _unitOfWork.Commit();
 
             //redirect to the products page
             return RedirectToPage("/Instructors/InstructorWishlistHome");
+        }
+
+        private bool IsDuplicateRanking(int ranking, int? wishlistId)
+        {
+            List<int> ranks = new List<int>();
+            ranks.Add(0);
+            IEnumerable<InstructorWishlistDetails> objWishlistDetails = _unitOfWork.InstructorWishlistDetails.GetAll(x => x.InstructorWishlistId == wishlistId && x.InstructorWishlistDetailsId != objInstructorWishlistDetails.InstructorWishlistDetailsId);
+            foreach (InstructorWishlistDetails i in objWishlistDetails)
+            {
+                ranks.Add(i.InstructorRanking);
+            }
+            // Check for duplicate ranking excluding the current record
+
+            // If list of ranks contains the ranking, return true
+            return ranks.Contains(ranking);
         }
     }
 }

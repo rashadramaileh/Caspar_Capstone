@@ -22,10 +22,9 @@
                         <option disabled selected>--Select Course--</option>
                     </select>
                 </div>
-                <div class="mb-3 col-6">
+                <div class="mb-3 col-6">  
                     <label asp-for="objInstructorWishlistDetails.InstructorRanking"></label>
-                    <input asp-for="objInstructorWishlistDetails.InstructorRanking" />
-                    
+                    <input asp-for="objInstructorWishlistDetails.InstructorRanking" oninput="ValidateInput(this)" />
                 </div>
                 <hr />
                 <div class="mb-3 col-md-12">
@@ -236,7 +235,7 @@
             toRemove.setAttribute("style", "display: none")
         }
 
-        function ValidateInput() {
+        function ValidateInput(input) {
 
             if ($('#ddlCourse option:selected').val() == '--Select Course--') {
                 swal.fire('Error', 'Please Select a Course', 'error')
@@ -269,6 +268,27 @@
                     if (card.options[card.selectedIndex].value == '--Select Campus--') {
                         swal.fire('Error', 'Please Select a Campus', 'error')
                         return false
+                    }
+                }
+            }
+
+            // Parse the input value to a number
+            var inputValue = parseFloat(input.value);
+
+            // Check if the input is a valid number
+            if (isNaN(inputValue) || inputValue < 1) {
+                // If it's not a valid number or negative, set the value to an empty string
+                input.value = '';
+                swal.fire('Please enter a non-negative numeric value.');
+            } else {
+                // Check for duplicate values
+                var allInputs = document.querySelectorAll('input[asp-for="objInstructorWishlistDetails.InstructorRanking"]');
+                for (var i = 0; i < allInputs.length; i++) {
+                    if (allInputs[i] !== input && parseFloat(allInputs[i].value) === inputValue) {
+                        // If a duplicate value is found, clear the input and show an alert
+                        input.value = '';
+                        swal.fire('Duplicate value. Please enter a unique numeric value.');
+                        break;
                     }
                 }
             }
