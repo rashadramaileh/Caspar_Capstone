@@ -23,7 +23,6 @@
             <div class="row">
                 <div class="col-10">
                     <div class="border p-3 mt-4 row">
-
                         <div class="container">
                             <!--USER-->
                             <div class="mb-3 col-6">
@@ -72,7 +71,7 @@
                             <div class="mb-3 col-6">
                                 <!--PARTOFTERM-->
                                 <label asp-for="objSection.PartOfTerm"></label>
-                                <select id="partofterm" asp-for="objSection" asp-items="@Model.listPartOfTerms" class="form-select">
+                                <select id="partofterm" asp-for="objSection.PartOfTermID" asp-items="@Model.listPartOfTerms" class="form-select">
                                     <option disabled selected>--Select Part Of Term--</option>
                                 </select>
                             </div>
@@ -126,9 +125,6 @@
                                 <label asp-for="objSection.ThirdWeekEnroll"></label>
                                 <input asp-for="objSection.ThirdWeekEnroll" id="thirdweekenroll" type="number" />
                             </div>
-
-
-
                         </div>
                         <div class="col-12">
                             <!--IF Section being edited -->

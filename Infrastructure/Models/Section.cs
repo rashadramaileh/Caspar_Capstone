@@ -76,7 +76,8 @@ namespace CASPAR.Infrastructure.Models
         // having this column and the relation to PartOfTerm causes an error. 
         //[Range(0, 255), Display(Name = "Part of Term")]
         //public int? PartofTermId { get; set; } = null;
-        [ForeignKey("PartOfTermId")]
+        [ForeignKey("PartOfTermID")]
+        public int? PartOfTermID { get; set; }
         public PartOfTerm? PartOfTerm { get; set; }
 
 
